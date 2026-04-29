@@ -1,0 +1,28 @@
+import React from 'react'
+import type { Metadata } from 'next'
+import TempService from '../Components/TempService'
+import Navbar from '../Components/Navbar'
+import Footer from '../Components/Footer'
+import TempContent from '../Components/TemperatureContent'
+
+export const metadata: Metadata = {
+    title: 'Temperature Unit Converter – Celsius, Fahrenheit, Kelvin',
+    description: 'Convert temperature units instantly. Celsius to Fahrenheit, Kelvin to Celsius, and more. Free online temperature converter with bulk CSV support.',
+    alternates: { canonical: 'https://batchunits.com/temperature-unit-converter' },
+    openGraph: {
+        title: 'Temperature Unit Converter – Batch Units',
+        description: 'Free Celsius to Fahrenheit, Kelvin converter. Accurate and instant temperature conversion.',
+        url: 'https://batchunits.com/temperature-unit-converter',
+    },
+}
+
+export default function TemperatureConverterPage() {
+    return (
+        <>
+            <Navbar />
+            <TempService />
+            <TempContent />
+            <Footer />
+        </>
+    )
+}
