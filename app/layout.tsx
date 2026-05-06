@@ -14,12 +14,12 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "Batch Units – Unit Converter (Single & Bulk, Fast & Free)",
-    template: "%s | Batch Units",
+    default: "Standard Convert – Unit Converter (Single & Bulk, Fast & Free)",
+    template: "%s | Standard Convert",
   },
 
   description:
-    "Convert units instantly with Batch Units. Supports quick single conversions and powerful bulk conversion via CSV across length, mass, temperature, volume, energy and more.",
+    "Convert units instantly with Standard Convert. Supports quick single conversions and powerful bulk conversion via CSV across length, mass, temperature, volume, energy and more.",
 
   keywords: [
     "unit converter",
@@ -36,36 +36,36 @@ export const metadata: Metadata = {
     "online conversion tool",
   ],
 
-  authors: [{ name: "Batch Units Team" }],
+  authors: [{ name: "Standard Convert Team" }],
 
   alternates: {
-    canonical: "https://batchunits.com",
+    canonical: "https://standardconvert.com",
   },
 
   openGraph: {
-    title: "Batch Units – All-in-One Unit Converter",
+    title: "Standard Convert – All-in-One Unit Converter",
     description:
       "Fast single conversions or bulk CSV unit conversion in seconds. Accurate, free, and easy to use.",
-    url: "https://batchunits.com",
-    siteName: "Batch Units",
+    url: "https://standardconvert.com",
+    siteName: "Standard Convert",
     type: "website",
     locale: "en_US",
     images: [
       {
-        url: "https://batchunits.com/og.webp",
+        url: "https://standardconvert.com/og.webp",
         width: 1200,
         height: 630,
-        alt: "Batch Units – Free Bulk Unit Converter Tool",
+        alt: "Standard Convert – Free Bulk Unit Converter Tool",
       },
     ],
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "Batch Units – Free Multi-Unit Converter",
+    title: "Standard Convert – Free Multi-Unit Converter",
     description:
       "Instant unit conversions for mass, length, volume, temperature, energy & pressure. Bulk CSV support included.",
-    images: ["https://batchunits.com/og.webp"],
+    images: ["https://standardconvert.com/og.webp"],
   },
 
   robots: {
@@ -87,8 +87,8 @@ export const metadata: Metadata = {
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Batch Units",
-  url: "https://batchunits.com",
+  name: "Standard Convert",
+  url: "https://standardconvert.com",
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "All",
   offers: {

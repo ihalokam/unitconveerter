@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Link to the sitemap
-Sitemap: https://batchunits.com/sitemap.xml
+Sitemap: https://standardconvert.com/sitemap.xml

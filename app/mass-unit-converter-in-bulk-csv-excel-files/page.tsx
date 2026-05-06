@@ -8,11 +8,11 @@ import MassContent from '../Components/MassContent'
 export const metadata: Metadata = {
     title: 'Mass & Weight Unit Converter – kg, lbs, g, oz, ton',
     description: 'Convert mass and weight units online. Supports kilograms, pounds, grams, ounces, tonnes, stones, and more. Free bulk CSV mass conversion tool.',
-    alternates: { canonical: 'https://batchunits.com/mass-unit-converter' },
+    alternates: { canonical: 'https://standardconvert.com/mass-unit-converter-in-bulk-csv-excel-files' },
     openGraph: {
-        title: 'Mass & Weight Unit Converter – Batch Units',
+        title: 'Mass & Weight Unit Converter – Standard Convert',
         description: 'Free online mass converter. kg to lbs, grams to ounces, and more. Bulk CSV support.',
-        url: 'https://batchunits.com/mass-unit-converter',
+        url: 'https://standardconvert.com/mass-unit-converter-in-bulk-csv-excel-files',
     },
 }
 

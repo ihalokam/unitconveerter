@@ -45,7 +45,7 @@ function AboutPage() {
                             <span className="text-blue-500">Privacy by Design.</span>
                         </h1>
                         <p className="max-w-2xl text-xl text-slate-400 font-medium leading-relaxed">
-                            BatchUnits was engineered to bridge the gap between complex industrial data requirements and the uncompromising need for data privacy.
+                            Standard Convert was engineered to bridge the gap between complex industrial data requirements and the uncompromising need for data privacy.
                         </p>
                     </div>
                     {/* Background Graphic */}
@@ -85,7 +85,7 @@ function AboutPage() {
                 <section className="py-24 px-8 bg-slate-50/50">
                     <div className="mx-auto max-w-7xl">
                         <div className="mb-16">
-                            <h2 className="text-4xl font-black tracking-tighter text-slate-900">Why BatchUnits?</h2>
+                            <h2 className="text-4xl font-black tracking-tighter text-slate-900">Why Standard Convert?</h2>
                             <p className="text-slate-500 font-medium mt-2">Built for the modern industrial workflow.</p>
                         </div>
 
@@ -113,10 +113,10 @@ function AboutPage() {
                                 Our Commitment
                             </h2>
                             <p className="max-w-2xl mx-auto text-slate-400 text-lg leading-relaxed mb-10">
-                                As industrial standards evolve, BatchUnits evolves with them—continuously updating our conversion logic to meet the latest global benchmarks in engineering and manufacturing.
+                                As industrial standards evolve, Standard Convert evolves with them—continuously updating our conversion logic to meet the latest global benchmarks in engineering and manufacturing.
                             </p>
                             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                                <span className="text-blue-500 font-mono font-bold tracking-widest text-sm uppercase">BatchUnits Industrial v4.0</span>
+                                <span className="text-blue-500 font-mono font-bold tracking-widest text-sm uppercase">Standard Convert v4.0</span>
                                 <div className="h-px w-12 bg-slate-700 hidden md:block" />
                                 <p className="text-slate-500 text-sm italic font-medium">Engineered for the Modern Industrial Workflow.</p>
                             </div>

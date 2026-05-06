@@ -20,12 +20,12 @@ export default function Navbar() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const bulkLinks = [
-        { name: "Pressure", href: "/pressure-unit-converter", icon: <Gauge size={16} /> },
-        { name: "Length & Distance", href: "/length-unit-converter", icon: <Ruler size={16} /> },
-        { name: "Mass & Weight", href: "/mass-unit-converter", icon: <Weight size={16} /> },
-        { name: "Temperature", href: "/temperature-unit-converter", icon: <Thermometer size={16} /> },
-        { name: "Volume", href: "/volume-unit-converter", icon: <Droplets size={16} /> },
-        { name: "Energy & Power", href: "/energy-unit-converter", icon: <Zap size={16} /> },
+        { name: "Pressure", href: "/pressure-unit-converter-in-bulk-csv-excel-files", icon: <Gauge size={16} /> },
+        { name: "Length & Distance", href: "/length-unit-converter-in-bulk-csv-excel-files", icon: <Ruler size={16} /> },
+        { name: "Mass & Weight", href: "/mass-unit-converter-in-bulk-csv-excel-files", icon: <Weight size={16} /> },
+        { name: "Temperature", href: "/temperature-unit-converter-in-bulk-csv-excel-files", icon: <Thermometer size={16} /> },
+        { name: "Volume", href: "/volume-unit-converter-in-bulk-csv-excel-files", icon: <Droplets size={16} /> },
+        { name: "Energy & Power", href: "/energy-unit-converter-in-bulk-csv-excel-files", icon: <Zap size={16} /> },
     ];
 
     return (
@@ -37,14 +37,14 @@ export default function Navbar() {
                     <div className="relative w-9 h-9 overflow-hidden rounded-xl border border-slate-200 group-hover:border-blue-600 transition-colors">
                         <Image
                             src="/logo.webp"
-                            alt="BatchUnits Logo"
+                            alt="Standard Convert Logo"
                             fill
                             sizes="36px"
                             className="object-cover"
                         />
                     </div>
                     <span className="text-xl font-black tracking-tighter text-slate-900 font-mono">
-                        BATCH<span className="text-blue-600">UNITS</span>
+                        STANDARD<span className="text-blue-600">CONVERT</span>
                     </span>
                 </Link>
 

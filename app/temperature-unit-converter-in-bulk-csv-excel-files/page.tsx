@@ -8,11 +8,11 @@ import TempContent from '../Components/TemperatureContent'
 export const metadata: Metadata = {
     title: 'Temperature Unit Converter – Celsius, Fahrenheit, Kelvin',
     description: 'Convert temperature units instantly. Celsius to Fahrenheit, Kelvin to Celsius, and more. Free online temperature converter with bulk CSV support.',
-    alternates: { canonical: 'https://batchunits.com/temperature-unit-converter' },
+    alternates: { canonical: 'https://standardconvert.com/temperature-unit-converter-in-bulk-csv-excel-files' },
     openGraph: {
-        title: 'Temperature Unit Converter – Batch Units',
+        title: 'Temperature Unit Converter – Standard Convert',
         description: 'Free Celsius to Fahrenheit, Kelvin converter. Accurate and instant temperature conversion.',
-        url: 'https://batchunits.com/temperature-unit-converter',
+        url: 'https://standardconvert.com/temperature-unit-converter-in-bulk-csv-excel-files',
     },
 }
 

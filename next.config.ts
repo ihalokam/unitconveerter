@@ -8,6 +8,16 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
   },
 
+  async redirects() {
+    const bulkSuffix = "-in-bulk-csv-excel-files";
+    const routes = ["energy", "length", "mass", "pressure", "temperature", "volume"];
+    return routes.map((r) => ({
+      source: `/${r}-unit-converter`,
+      destination: `/${r}-unit-converter${bulkSuffix}`,
+      permanent: true,
+    }));
+  },
+
   async headers() {
     return [
       {

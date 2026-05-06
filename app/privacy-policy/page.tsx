@@ -40,7 +40,7 @@ function PrivacyPage() {
                             <span className="text-blue-500">Policy.</span>
                         </h1>
                         <p className="max-w-2xl text-xl text-slate-400 font-medium leading-relaxed">
-                            At BatchUnits, we prioritize your data privacy above all else. Our application is built so your sensitive industrial data remains on your device.
+                            At Standard Convert, we prioritize your data privacy above all else. Our application is built so your sensitive industrial data remains on your device.
                         </p>
                         <p className="mt-4 text-sm text-slate-500 font-bold uppercase tracking-widest">
                             Effective Date: {lastUpdated}
@@ -79,7 +79,7 @@ function PrivacyPage() {
                         <div>
                             <h2 className="text-3xl font-black tracking-tighter text-slate-900 mb-6">01. Data Collection and Processing</h2>
                             <p className="text-lg text-slate-500 leading-relaxed font-medium mb-8">
-                                The core principle of BatchUnits is <span className="text-slate-900 font-bold">Local-First Processing</span>. We do not upload, store, or transmit your file content to our servers or any third-party providers.
+                                The core principle of Standard Convert is <span className="text-slate-900 font-bold">Local-First Processing</span>. We do not upload, store, or transmit your file content to our servers or any third-party providers.
                             </p>
                             <div className="bg-slate-50 rounded-3xl p-10 border border-slate-100 shadow-inner">
                                 <div className="space-y-4">
@@ -137,8 +137,8 @@ function PrivacyPage() {
                                 If you have questions regarding our local-first architecture or security protocols, please reach out to our engineering team.
                             </p>
                             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                                <a href="mailto:support@batchunits.industrial" className="rounded-full bg-blue-600 px-8 py-3 text-sm font-black uppercase tracking-widest text-white hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/40">
-                                    support@batchunits.industrial
+                                <a href="mailto:ihalokamofficial@gmail.com" className="rounded-full bg-blue-600 px-8 py-3 text-sm font-black uppercase tracking-widest text-white hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/40">
+                                    ihalokamofficial@gmail.com
                                 </a>
                                 <div className="h-px w-12 bg-slate-700 hidden md:block" />
                                 <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em]">

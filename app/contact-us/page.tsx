@@ -82,7 +82,7 @@ function page() {
                             Global Operations
                         </h2>
                         <p className="text-lg text-slate-500 leading-relaxed font-medium mb-12">
-                            BatchUnits operates as a decentralized industrial utility. While our processing is local-first, our support team is distributed across major engineering hubs to ensure continuous uptime and assistance.
+                            Standard Convert operates as a decentralized industrial utility. While our processing is local-first, our support team is distributed across major engineering hubs to ensure continuous uptime and assistance.
                         </p>
 
                         <div className="grid md:grid-cols-2 gap-8 text-left">
@@ -116,7 +116,7 @@ function page() {
                                 </button>
                                 <div className="h-px w-12 bg-slate-700 hidden md:block" />
                                 <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em]">
-                                    BatchUnits v4.0 Industrial
+                                    Standard Convert v4.0
                                 </p>
                             </div>
                         </div>

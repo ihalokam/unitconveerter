@@ -40,7 +40,7 @@ function page() {
                             <span className="text-blue-500">Service.</span>
                         </h1>
                         <p className="max-w-2xl text-xl text-slate-400 font-medium leading-relaxed">
-                            By accessing BatchUnits, you agree to our specialized local-first governance protocols. Last updated: {lastUpdated}
+                            By accessing Standard Convert, you agree to our specialized local-first governance protocols. Last updated: {lastUpdated}
                         </p>
                     </div>
                     {/* Background Watermark */}
@@ -77,7 +77,7 @@ function page() {
                             <div>
                                 <h2 className="text-3xl font-black tracking-tighter text-slate-900 mb-6">01. Acceptance of Terms</h2>
                                 <p className="text-lg text-slate-500 leading-relaxed font-medium">
-                                    By using the BatchUnits interface, you acknowledge that you have read and agree to be bound by these terms. This license is personal, non-transferable, and applies strictly to the use of our browser-based transformation engine.
+                                    By using the Standard Convert interface, you acknowledge that you have read and agree to be bound by these terms. This license is personal, non-transferable, and applies strictly to the use of our browser-based transformation engine.
                                 </p>
                             </div>
 
@@ -103,7 +103,7 @@ function page() {
                             <div>
                                 <h2 className="text-3xl font-black tracking-tighter text-slate-900 mb-6">03. Limitations of Liability</h2>
                                 <p className="text-lg text-slate-500 leading-relaxed font-medium">
-                                    BatchUnits Industrial shall not be held liable for any damages (including loss of data or profit) arising out of the use or inability to use our tools. Since we do not store data, we cannot recover results once you close your browser session.
+                                    Standard Convert shall not be held liable for any damages (including loss of data or profit) arising out of the use or inability to use our tools. Since we do not store data, we cannot recover results once you close your browser session.
                                 </p>
                             </div>
 
@@ -119,10 +119,10 @@ function page() {
                                 Governing Law
                             </h2>
                             <p className="max-w-2xl mx-auto text-slate-400 text-lg leading-relaxed mb-10">
-                                These terms are governed by the laws of the jurisdiction in which BatchUnits Industrial is registered. For legal and compliance inquiries, please contact our team.
+                                These terms are governed by the laws of the jurisdiction in which Standard Convert is registered. For legal and compliance inquiries, please contact our team.
                             </p>
                             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                                <a href="mailto:legal@batchunits.industrial" className="rounded-full bg-blue-600 px-8 py-3 text-sm font-black uppercase tracking-widest text-white hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/40">
+                                <a href="mailto:ihalokamofficial@gmail.com" className="rounded-full bg-blue-600 px-8 py-3 text-sm font-black uppercase tracking-widest text-white hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/40">
                                     ihalokamofficial@gmail.com
                                 </a>
                                 <div className="h-px w-12 bg-slate-700 hidden md:block" />

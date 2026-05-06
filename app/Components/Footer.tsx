@@ -18,7 +18,7 @@ function Footer() {
                                 <Activity size={16} />
                             </div>
                             <span className="text-lg font-black tracking-tighter font-mono">
-                                BATCH<span className="text-blue-600">UNITS</span>
+                            STANDARD<span className="text-blue-600">CONVERT</span>
                             </span>
                         </div>
                         <p className="text-sm text-slate-500 leading-relaxed">
@@ -75,7 +75,7 @@ function Footer() {
                 {/* Bottom Bar */}
                 <div className="mt-12 pt-8 border-t border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-xs text-slate-400 font-medium">
-                        © <span suppressHydrationWarning>{currentYear}</span> BATCH UNITS Industrial. All rights reserved.
+                        © <span suppressHydrationWarning>{currentYear}</span> Standard Convert. All rights reserved.
                     </p>
                     <div className="flex items-center gap-4 text-slate-400">
                         <Globe size={16} />
