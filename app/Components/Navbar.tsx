@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Image from "next/image"; // Added for the logo
+import Image from "next/image";
 import {
     ChevronDown,
     Menu,
@@ -13,6 +13,7 @@ import {
     Thermometer,
     Droplets,
     Gauge,
+    FileText, // Added for PDF Tools
 } from "lucide-react";
 
 export default function Navbar() {
@@ -55,6 +56,14 @@ export default function Navbar() {
                         className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition"
                     >
                         All-in-One
+                    </Link>
+
+                    {/* Standalone PDF Tools Link for better SEO visibility */}
+                    <Link
+                        href="/pdf-tools"
+                        className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition"
+                    >
+                        PDF Tools
                     </Link>
 
                     {/* DROPDOWN CONTAINER */}
@@ -118,6 +127,15 @@ export default function Navbar() {
                         onClick={() => setMenuOpen(false)}
                     >
                         All in One Converter
+                    </Link>
+
+                    {/* Mobile PDF Tools Link */}
+                    <Link
+                        href="/pdf-tools"
+                        className="block text-lg font-black tracking-tight text-slate-900"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        PDF Tools
                     </Link>
 
                     <div className="space-y-3">

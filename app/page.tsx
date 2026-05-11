@@ -10,6 +10,7 @@ import Glimpse from "./Components/Glimpse";
 import Trust from "./Components/Trust";
 import Upload from "./Components/Upload";
 
+
 export default function Home() {
   return (
     <div>
