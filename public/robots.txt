@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap location — must match baseUrl in sitemap.ts
+Sitemap: https://standardconvert.com/sitemap.xml

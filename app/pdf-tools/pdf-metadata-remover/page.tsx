@@ -7,12 +7,13 @@ import Faq from '@/app/Components/PDFtools/MetaDataRemover/Faq'
 import Features from '@/app/Components/PDFtools/MetaDataRemover/Features'
 import Disclaimer from '@/app/Components/PDFtools/MetaDataRemover/Disclaimer'
 import { Metadata } from 'next'
+import Algorithm from '@/app/Components/PDFtools/MetaDataRemover/Algo'
 
 export const metadata: Metadata = {
     title: 'Remove PDF Metadata | Secure & Local PDF Header Scrubber',
     description: 'Remove PDF Metadata. Strip /Author, /Title, /Creator, and hidden XMP metadata packets. 100% local browser-based processing—no files are ever uploaded.',
     alternates: {
-        canonical: 'https://standardconverter.com/pdf-metadata-remover'
+        canonical: 'https://standardconvert.com/pdf-tools/pdf-metadata-remover'
     },
     keywords: [
         "Remove PDF metadata",
@@ -24,28 +25,35 @@ export const metadata: Metadata = {
         "Anonymous PDF sharing"
     ],
     openGraph: {
-        title: 'Deep PDF Metadata Remover | StandardConverter.com',
+        title: 'Deep PDF Metadata Remover | StandardConvert.com',
         description: 'Sanitize your PDF documents by removing /Author, /Producer, and location data. Secure, local-first metadata scrubbing.',
-        url: 'https://standardconverter.com/pdf-metadata-remover',
-        siteName: 'Standard Converter',
+        url: 'https://standardconvert.com/pdf-tools/pdf-metadata-remover',
+        siteName: 'Standard Convert',
         type: 'website',
     },
     twitter: {
         card: 'summary_large_image',
         title: 'Sanitize PDF Metadata Locally',
         description: 'Remove hidden identity markers from your PDF files before sharing. No server uploads.',
-    }
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
 }
 
 function page() {
     return (
         <div>
             <Navbar />
-            <MetadataRemove />
-            <Features />
-            <Guide />
-            <Faq />
-            <Disclaimer />
+            <main>
+                <MetadataRemove />
+                <Features />
+                <Guide />
+                <Algorithm />
+                <Faq />
+                <Disclaimer />
+            </main>
             <Footer />
         </div>
     )

@@ -4,31 +4,31 @@ import { HelpCircle, ChevronDown, ShieldCheck, Zap, Lock, Globe } from 'lucide-r
 function Faq() {
     const faqData = [
         {
-            q: "Is it safe to convert my sensitive images to PDF on StandardConverter.com?",
-            a: "Absolutely. StandardConverter.com uses a 'Zero-Server' architecture. Your images are never uploaded; the conversion happens entirely within your browser's local memory, ensuring your sensitive industrial data never leaves your device."
+            q: "Is it safe to convert my sensitive images to PDF on StandardConvert.com?",
+            a: "Absolutely. StandardConvert.com uses a 'Zero-Server' architecture. Your images are never uploaded; the conversion happens entirely within your browser's local memory, ensuring your sensitive industrial data never leaves your device."
         },
         {
             q: "Can I use StandardConverter without an internet connection?",
-            a: "Yes. Once the tool is loaded, StandardConverter.com operates locally. You can convert PNG, JPG, and WebP files to PDF completely offline, making it ideal for secure, low-connectivity industrial sites."
+            a: "Yes. Once the tool is loaded, StandardConvert.com operates locally. You can convert PNG, JPG, and WebP files to PDF completely offline, making it ideal for secure, low-connectivity industrial sites."
         },
         {
             q: "What is the file size limit for StandardConverter?",
-            a: "We do not impose artificial file size limits. Since StandardConverter.com utilizes your local machine's hardware for processing, your only limit is the available RAM on your computer or mobile device."
+            a: "We do not impose artificial file size limits. Since StandardConvert.com utilizes your local machine's hardware for processing, your only limit is the available RAM on your computer or mobile device."
         },
         {
-            q: "How does StandardConverter.com handle multiple file merges?",
+            q: "How does StandardConvert.com handle multiple file merges?",
             a: "You can drag and drop dozens of files simultaneously. StandardConverter allows you to reorder these pages visually before generating the final PDF to ensure a professional sequence."
         },
         {
             q: "Will my PDF output be high-resolution?",
-            a: "Yes. StandardConverter.com is engineered for industrial precision. By selecting our 'High' quality setting, the PDF preserves the original DPI of your source images for crisp, clear documentation."
+            a: "Yes. StandardConvert.com is engineered for industrial precision. By selecting our 'High' quality setting, the PDF preserves the original DPI of your source images for crisp, clear documentation."
         },
         {
             q: "Is there a cost to use the professional layout features?",
-            a: "StandardConverter.com provides professional-grade layout control—including A4, Letter, and Legal sizing—completely free. Our goal is to provide a reliable utility for global engineering standards."
+            a: "StandardConvert.com provides professional-grade layout control—including A4, Letter, and Legal sizing—completely free. Our goal is to provide a reliable utility for global engineering standards."
         },
         {
-            q: "Does StandardConverter.com collect any metadata?",
+            q: "Does StandardConvert.com collect any metadata?",
             a: "No. Our privacy-by-design approach means we do not collect industrial metadata, proprietary schemas, or personal identifying information. Your workflow is completely anonymous."
         },
         {
@@ -36,12 +36,12 @@ function Faq() {
             a: "StandardConverter includes a 'Grayscale' toggle in the optimization panel, allowing you to convert colored photos into black-and-white PDFs, saving ink and creating a clean scanned look."
         },
         {
-            q: "Is StandardConverter.com compatible with mobile browsers?",
+            q: "Is StandardConvert.com compatible with mobile browsers?",
             a: "Yes. It is fully optimized for mobile Chrome and Safari. You get the same local-processing power on your phone as you do on a desktop, without needing to install an app."
         },
         {
             q: "Why should I choose StandardConverter over other online tools?",
-            a: "StandardConverter.com is the only tool that combines 'Zero-Server' privacy with high-precision industrial layout controls. It is built for professionals who cannot risk data exposure on cloud servers."
+            a: "StandardConvert.com is the only tool that combines 'Zero-Server' privacy with high-precision industrial layout controls. It is built for professionals who cannot risk data exposure on cloud servers."
         }
     ];
 
@@ -96,7 +96,7 @@ function Faq() {
                 <div className="mt-20 p-10 rounded-[2.5rem] bg-slate-900 text-center relative overflow-hidden">
                     <div className="relative z-10">
                         <h4 className="text-white text-xl font-bold mb-2">Secure. Standard. Local.</h4>
-                        <p className="text-slate-400 text-sm mb-6">StandardConverter.com is updated regularly to meet evolving global data security standards.</p>
+                        <p className="text-slate-400 text-sm mb-6">StandardConvert.com is updated regularly to meet evolving global data security standards.</p>
                         <div className="flex flex-wrap justify-center gap-4">
                             <span className="flex items-center gap-2 text-[10px] font-black text-blue-400 uppercase tracking-widest bg-blue-500/10 px-4 py-2 rounded-full border border-blue-500/20">
                                 <Lock size={12} /> StandardConverter Privacy

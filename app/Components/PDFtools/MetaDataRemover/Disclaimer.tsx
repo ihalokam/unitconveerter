@@ -27,7 +27,7 @@ function Disclaimer() {
                                 <div>
                                     <h4 className="font-bold text-slate-900 mb-2 uppercase text-sm tracking-tight">Scope of Sanitization</h4>
                                     <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                                        StandardConverter.com purges hidden document headers, including <code className="bg-slate-100 px-1 rounded">/Info</code> trailer entries, <code className="bg-slate-100 px-1 rounded">XMP packets</code>, and <code className="bg-slate-100 px-1 rounded">/Metadata</code> streams. However, this tool does <strong>not</strong> redact visible text, embedded watermarks, or identifying information contained within the visual body of the PDF. Users are responsible for manually redacting visible sensitive data.
+                                        StandardConvert.com purges hidden document headers, including <code className="bg-slate-100 px-1 rounded">/Info</code> trailer entries, <code className="bg-slate-100 px-1 rounded">XMP packets</code>, and <code className="bg-slate-100 px-1 rounded">/Metadata</code> streams. However, this tool does <strong>not</strong> redact visible text, embedded watermarks, or identifying information contained within the visual body of the PDF. Users are responsible for manually redacting visible sensitive data.
                                     </p>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@ function Disclaimer() {
                                 <div>
                                     <h4 className="font-bold text-slate-900 mb-2 uppercase text-sm tracking-tight">Data Sovereignty</h4>
                                     <p className="text-xs text-slate-500 leading-relaxed font-medium">
-                                        Because processing occurs 100% locally within your browser, StandardConverter.com never possesses, stores, or sees your files. Consequently, we cannot verify the success of a scrub or recover unsanitized versions. Use of this utility is at the user&apos;s own risk regarding legal compliance and document security.
+                                        Because processing occurs 100% locally within your browser, StandardConvert.com never possesses, stores, or sees your files. Consequently, we cannot verify the success of a scrub or recover unsanitized versions. Use of this utility is at the user&apos;s own risk regarding legal compliance and document security.
                                     </p>
                                 </div>
                             </div>
@@ -78,11 +78,11 @@ function Disclaimer() {
 
                                 <div className="space-y-4 text-slate-600 text-sm font-medium leading-relaxed">
                                     <p>
-                                        <strong>Final Verification Responsibility:</strong> While StandardConverter.com is engineered to strip technical metadata strings (including but not limited to <code className="text-blue-600">/Author</code>, <code className="text-blue-600">/CreationDate</code>, and <code className="text-blue-600">XMP Packets</code>), users are <strong>strictly required</strong> to verify the output file using independent third-party forensic tools before sharing or publishing.
+                                        <strong>Final Verification Responsibility:</strong> While StandardConvert.com is engineered to strip technical metadata strings (including but not limited to <code className="text-blue-600">/Author</code>, <code className="text-blue-600">/CreationDate</code>, and <code className="text-blue-600">XMP Packets</code>), users are <strong>strictly required</strong> to verify the output file using independent third-party forensic tools before sharing or publishing.
                                     </p>
 
                                     <p className="bg-slate-50 p-6 rounded-2xl border border-slate-200 italic text-slate-900">
-                                        "By utilizing this tool, you acknowledge that <strong>StandardConverter.com</strong> and its operators assume <strong>zero liability</strong> for any consequences arising from the use of sanitized files. This includes, but is not limited to, non-compliance with financial regulations, data privacy laws (GDPR, CCPA), legal discovery requirements, or any professional/financial loss resulting from metadata leakage or file corruption."
+                                        "By utilizing this tool, you acknowledge that <strong>StandardConvert.com</strong> and its operators assume <strong>zero liability</strong> for any consequences arising from the use of sanitized files. This includes, but is not limited to, non-compliance with financial regulations, data privacy laws (GDPR, CCPA), legal discovery requirements, or any professional/financial loss resulting from metadata leakage or file corruption."
                                     </p>
 
                                     <p>
@@ -94,7 +94,7 @@ function Disclaimer() {
                                 <div className="mt-8 flex flex-col md:flex-row items-center gap-4 py-4 px-6 bg-red-50 rounded-2xl border border-red-100">
                                     <ShieldAlert className="text-red-600 shrink-0" size={24} />
                                     <p className="text-[11px] font-bold text-red-800 uppercase leading-tight">
-                                        Warning: Always check and verify document properties manually before proceeding. StandardConverter.com is a local-only utility and cannot guarantee the absolute anonymity required by specific high-security financial or legal frameworks.
+                                        Warning: Always check and verify document properties manually before proceeding. StandardConvert.com is a local-only utility and cannot guarantee the absolute anonymity required by specific high-security financial or legal frameworks.
                                     </p>
                                 </div>
                             </div>

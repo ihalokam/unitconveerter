@@ -6,9 +6,10 @@ import PdfHome from '../Components/PDFtools/PdfHome';
 
 // SEO Metadata Export
 export const metadata = {
-    title: 'Industrial Conversion Tool Registry | StandardConverter.com',
-    description: 'Explore our suite of local-first processing modules. From Image-to-PDF to Metadata removal, process your industrial data securely in your browser.',
-    alternates: { canonical: 'https://standardconverter.com/tools' },
+    title: 'PDF Tools Suite | Free & Private PDF Utilities | StandardConvert.com',
+    description: 'Explore our suite of local-first PDF processing tools. Image to PDF converter, metadata remover, and more — all processed securely in your browser with zero uploads.',
+    alternates: { canonical: 'https://standardconvert.com/pdf-tools' },
+    robots: { index: true, follow: true },
 };
 
 function page() {

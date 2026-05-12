@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  // IMPORTANT: baseUrl must exactly match the canonical URLs declared in each page's metadata.
   const baseUrl = "https://standardconvert.com";
   const now = new Date();
 
@@ -68,20 +69,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     {
       url: `${baseUrl}/pdf-tools`,
       lastModified: now,
-      changeFrequency: "weekly",
+      changeFrequency: "monthly",
       priority: 0.9,
     },
     {
       url: `${baseUrl}/pdf-tools/image-to-pdf-converter`,
       lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
+      changeFrequency: "monthly",
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/pdf-tools/pdf-metadata-remover`,
       lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
+      changeFrequency: "monthly",
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/privacy-policy`,
