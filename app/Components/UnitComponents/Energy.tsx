@@ -11,7 +11,7 @@ function Energy() {
 
     return (
         <div className="mx-auto max-w-7xl px-8 py-6">
-            <Link href="/energy-unit-converter-in-bulk-csv-excel-files" className="group block">
+            <Link href="/bulk-unit-converter/energy-unit-converter-in-bulk-csv-excel-files" className="group block">
                 <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-8 shadow-sm transition-all hover:shadow-md hover:border-amber-300">
 
                     {/* Header: Icon & Title */}

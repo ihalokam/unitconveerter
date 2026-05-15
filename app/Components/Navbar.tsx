@@ -21,12 +21,12 @@ export default function Navbar() {
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const bulkLinks = [
-        { name: "Pressure", href: "/pressure-unit-converter-in-bulk-csv-excel-files", icon: <Gauge size={16} /> },
-        { name: "Length & Distance", href: "/length-unit-converter-in-bulk-csv-excel-files", icon: <Ruler size={16} /> },
-        { name: "Mass & Weight", href: "/mass-unit-converter-in-bulk-csv-excel-files", icon: <Weight size={16} /> },
-        { name: "Temperature", href: "/temperature-unit-converter-in-bulk-csv-excel-files", icon: <Thermometer size={16} /> },
-        { name: "Volume", href: "/volume-unit-converter-in-bulk-csv-excel-files", icon: <Droplets size={16} /> },
-        { name: "Energy & Power", href: "/energy-unit-converter-in-bulk-csv-excel-files", icon: <Zap size={16} /> },
+        { name: "Pressure", href: "/bulk-unit-converter/pressure-unit-converter-in-bulk-csv-excel-files", icon: <Gauge size={16} /> },
+        { name: "Length & Distance", href: "/bulk-unit-converter/length-unit-converter-in-bulk-csv-excel-files", icon: <Ruler size={16} /> },
+        { name: "Mass & Weight", href: "/bulk-unit-converter/mass-unit-converter-in-bulk-csv-excel-files", icon: <Weight size={16} /> },
+        { name: "Temperature", href: "/bulk-unit-converter/temperature-unit-converter-in-bulk-csv-excel-files", icon: <Thermometer size={16} /> },
+        { name: "Volume", href: "/bulk-unit-converter/volume-unit-converter-in-bulk-csv-excel-files", icon: <Droplets size={16} /> },
+        { name: "Energy & Power", href: "/bulk-unit-converter/energy-unit-converter-in-bulk-csv-excel-files", icon: <Zap size={16} /> },
     ];
 
     return (

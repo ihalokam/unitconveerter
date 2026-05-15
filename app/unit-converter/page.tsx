@@ -1,7 +1,7 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import TotalConv from '../Components/TotalConv'
-import TotalContent from '../Components/TotalContent'
+import TotalConv from '../Components/UnitComponents/TotalConv'
+import TotalContent from '../Components/UnitComponents/TotalContent'
 import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
 
