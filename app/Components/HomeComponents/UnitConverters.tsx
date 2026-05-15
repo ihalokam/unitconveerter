@@ -50,7 +50,7 @@ function UnitConverters() {
                                     className="group p-6 bg-slate-50 border border-slate-100 rounded-3xl hover:bg-white hover:border-blue-600 hover:shadow-2xl hover:shadow-blue-100 transition-all duration-300"
                                 >
                                     <div className={`${tool.color} mb-4 transition-transform group-hover:scale-110`}>
-                                        {React.cloneElement(tool.icon as React.ReactElement, { size: 28 })}
+                                        {React.cloneElement(tool.icon as React.ReactElement<{ size: number }>, { size: 28 })}
                                     </div>
                                     <h4 className="font-bold text-slate-900 mb-1">{tool.name}</h4>
                                     <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest group-hover:text-blue-600 transition-colors">
@@ -76,7 +76,7 @@ function UnitConverters() {
                                     className="flex items-start gap-4 p-5 rounded-3xl border border-transparent hover:border-slate-200 hover:bg-slate-50 transition-all group"
                                 >
                                     <div className="p-3 bg-slate-100 rounded-2xl text-slate-600 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                                        {React.cloneElement(tool.icon as React.ReactElement, { size: 20 })}
+                                        {React.cloneElement(tool.icon as React.ReactElement<{ size: number }>, { size: 20 })}
                                     </div>
                                     <div>
                                         <h4 className="font-bold text-slate-900 text-sm">{tool.name}</h4>
