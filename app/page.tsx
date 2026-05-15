@@ -6,6 +6,14 @@ import PdfComponent from "./Components/HomeComponents/PdfComponent";
 import Calculator from "./Components/Calculator/Calculator";
 
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  alternates: {
+    canonical: "/",
+  },
+};
+
 export default function Home() {
   return (
     <div>

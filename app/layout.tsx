@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://standardconvert.com"),
   title: {
     default: "Standard Convert – Unit Converter (Single & Bulk, Fast & Free)",
     template: "%s | Standard Convert",
@@ -39,9 +40,6 @@ export const metadata: Metadata = {
 
   authors: [{ name: "Standard Convert Team" }],
 
-  alternates: {
-    canonical: "https://standardconvert.com",
-  },
 
   openGraph: {
     title: "Standard Convert – All-in-One Unit Converter",

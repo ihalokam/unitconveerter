@@ -1,4 +1,5 @@
 import React from 'react'
+import type { Metadata } from 'next'
 import Navbar from '@/app/Components/Navbar'
 import Footer from '@/app/Components/Footer'
 import Calcluator from '@/app/Components/Calculator/ShortsEarnings/Calculator'
@@ -10,9 +11,12 @@ import HeaderOne from '@/app/Components/Calculator/ShortsEarnings/HeaderOne'
 import HeaderTwo from '@/app/Components/Calculator/ShortsEarnings/HeaderTwo'
 import Link from '@/app/Components/Calculator/ShortsEarnings/Link'
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "YouTube Shorts Earnings Calculator",
     description: "Calculate your YouTube shorts earnings with our easy-to-use calculator.",
+    alternates: {
+        canonical: "/calculator/youtube-shorts-earnings-calculator"
+    },
     keywords: [
         "YouTube shorts earnings calculator",
         "youtube shorts rpm ranked country-wise",

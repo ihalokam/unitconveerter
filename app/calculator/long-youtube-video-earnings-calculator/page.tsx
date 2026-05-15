@@ -1,4 +1,5 @@
 import Navbar from "@/app/Components/Navbar"
+import type { Metadata } from 'next'
 import Footer from "@/app/Components/Footer"
 import Calculator from "@/app/Components/Calculator/LongVideoEarnings/Calculator"
 import HeadingOne from "@/app/Components/Calculator/LongVideoEarnings/HeadingOne"
@@ -9,9 +10,12 @@ import NicheTable from "@/app/Components/Calculator/LongVideoEarnings/NicheTable
 import VidLengthTable from "@/app/Components/Calculator/LongVideoEarnings/VidLengthTable"
 import Faq from "@/app/Components/Calculator/LongVideoEarnings/Faq"
 
-export const metadata = {
+export const metadata: Metadata = {
     title: "YouTube Long Video Earnings Calculator",
     description: "Calculate your YouTube long video earnings with our easy-to-use calculator.",
+    alternates: {
+        canonical: "/calculator/long-youtube-video-earnings-calculator"
+    },
     keywords: [
         "YouTube earnings calculator",
         "YouTube long video revenue calculator",

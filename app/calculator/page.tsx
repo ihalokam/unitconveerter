@@ -31,9 +31,14 @@ const tools = [
     // { title: "Tiktok Calc", desc: "...", path: "/...", icon: <... />, badge: "..." }
 ];
 
-export const metadata = {
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
     title: "Calculators for daily uses",
     description: "Differnt calculator for differnt uses",
+    alternates: {
+        canonical: "/calculator"
+    },
     keywords: [
         "Calculators for daily uses",
         "YouTube earnings calculator",
