@@ -31,6 +31,17 @@ const tools = [
     // { title: "Tiktok Calc", desc: "...", path: "/...", icon: <... />, badge: "..." }
 ];
 
+export const metadata = {
+    title: "Calculators for daily uses",
+    description: "Differnt calculator for differnt uses",
+    keywords: [
+        "Calculators for daily uses",
+        "YouTube earnings calculator",
+        "YouTube shorts earnings calculator",
+        "YouTube long video earnings calculator",
+    ]
+}
+
 export default function CalculatorDictionary() {
     return (
         <div className="min-h-screen bg-white">
