@@ -270,18 +270,7 @@ function UploadStep({ onSuccess }: { onSuccess: (rows: RawSheet, filename: strin
                     <span>{error}</span>
                 </div>
             )}
-            {/* Quick-start guide */}
-            <div className="w-full max-w-lg rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
-                <p className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-3">How it works</p>
-                <ol className="flex flex-col gap-2">
-                    {["Upload a CSV or Excel file with energy data", "Pick the row that has your column names", "Map each pressure column + choose units", "Set rounding, then download converted file"].map((s, i) => (
-                        <li key={i} className="flex items-start gap-2.5 text-xs text-zinc-500">
-                            <span className="w-4 h-4 rounded-full bg-zinc-800 border border-zinc-700 text-zinc-400 font-bold flex items-center justify-center shrink-0 mt-0.5">{i + 1}</span>
-                            {s}
-                        </li>
-                    ))}
-                </ol>
-            </div>
+
         </section>
     );
 }

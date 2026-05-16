@@ -4,6 +4,7 @@ import EnergyService from '@/app/Components/UnitComponents/EnergyService'
 import Navbar from '@/app/Components/Navbar'
 import Footer from '@/app/Components/Footer'
 import EnergyContnet from '@/app/Components/UnitComponents/EnergyContnet'
+import HowEnergy from '@/app/Components/UnitComponents/HowEnergy'
 
 export const metadata: Metadata = {
     title: 'Energy Unit Converter – Joules, kWh, Calories, BTU, eV',
@@ -21,6 +22,7 @@ export default function EnergyConverterPage() {
         <>
             <Navbar />
             <EnergyService />
+            <HowEnergy />
             <EnergyContnet />
             <Footer />
         </>
