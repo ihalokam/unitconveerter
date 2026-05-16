@@ -9,8 +9,20 @@ import Calculator from "./Components/Calculator/Calculator";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  title: "Tools to make your work easier",
+  description: "SaaS solutions for everyday tasks, making jobs easier. Tools with local processing and privacy first design",
+  keywords: [
+    "unit converters",
+    "online calculator",
+    "mass converter",
+    "length converter",
+    "PDF tools",
+    "merge PDF",
+    "JPG to PDF",
+    "free online tools"
+  ],
   alternates: {
-    canonical: "/",
+    canonical: "https://standardconvert.com",
   },
 };
 

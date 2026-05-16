@@ -448,7 +448,7 @@ export default function ImageToPdf() {
 
     return (
         <div
-            className={`min-h-screen transition-colors duration-300 ${dark ? "bg-gray-950 text-gray-100" : "bg-slate-50 text-gray-900"}`}
+            className={`transition-colors duration-300 ${dark ? "bg-gray-950 text-gray-100" : "bg-slate-50 text-gray-900"}`}
         >
             {/* ── Header ── */}
             <header
@@ -486,7 +486,7 @@ export default function ImageToPdf() {
                 </div>
             </header>
 
-            <main className="max-w-5xl mx-auto px-4 py-6 space-y-4">
+            <main className="max-w-5xl mx-auto px-4 pt-6 pb-2 space-y-4">
                 {/* ── Drop Zone ── */}
                 <div
                     ref={dropRef}

@@ -35,7 +35,7 @@ function PngToPdfContent() {
   ];
 
   return (
-    <section className="py-24 px-8 bg-white overflow-hidden">
+    <section className="pt-10 pb-24 px-8 bg-white overflow-hidden">
       <div className="mx-auto max-w-7xl">
 
         {/* Section Header */}
@@ -44,7 +44,7 @@ function PngToPdfContent() {
             <Zap size={14} className="text-blue-600" /> Utility Documentation
           </div>
           <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6">
-            🛠️ Key <span className="text-blue-600">Features</span>
+            Image to PDF Converter-<span className="text-blue-600"> Locally on your device</span>
           </h2>
           <div className="h-1 w-24 bg-blue-600 rounded-full" />
         </div>

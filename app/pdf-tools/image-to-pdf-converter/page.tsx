@@ -8,7 +8,7 @@ import Guide from '@/app/Components/PDFtools/PNGtoPDF/Guide'
 import { Metadata } from 'next';
 import Algorithm from '@/app/Components/PDFtools/PNGtoPDF/Algorithm'
 export const metadata: Metadata = {
-    title: 'Secure Image to PDF Converter | PNG & JPG to PDF',
+    title: 'Secure Image to PDF Converter',
     description: 'Convert PNG, JPG, and WebP to PDF with 100% privacy. No server uploads. Professional layout control (A4, Letter) with bulk drag-and-drop support.',
     alternates: {
         canonical: 'https://standardconvert.com/pdf-tools/image-to-pdf-converter'
@@ -19,24 +19,8 @@ export const metadata: Metadata = {
         "Offline JPG to PDF",
         "Bulk image to PDF converter",
         "image to PDF converter",
-        "A4 PDF layout tool"
+        "A4 PDF layout image converter"
     ],
-    openGraph: {
-        title: 'Secure Image to PDF Converter | StandardConvert.com',
-        description: 'Convert PNG, JPG, and WebP to PDF locally in your browser. No uploads, no servers — professional PDF layout with drag-and-drop support.',
-        url: 'https://standardconvert.com/pdf-tools/image-to-pdf-converter',
-        siteName: 'Standard Convert',
-        type: 'website',
-    },
-    twitter: {
-        card: 'summary_large_image',
-        title: 'Convert Images to PDF Locally — No Uploads',
-        description: 'Drag & drop PNG, JPG, WebP files and generate a professional PDF entirely in your browser. 100% private.',
-    },
-    robots: {
-        index: true,
-        follow: true,
-    },
 }
 
 function page() {
