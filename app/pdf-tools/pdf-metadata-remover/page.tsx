@@ -10,14 +10,14 @@ import { Metadata } from 'next'
 import Algorithm from '@/app/Components/PDFtools/MetaDataRemover/Algo'
 
 export const metadata: Metadata = {
-    title: 'Remove PDF Metadata | Secure & Local PDF Header Scrubber',
-    description: 'Remove PDF Metadata. Strip /Author, /Title, /Creator, and hidden XMP metadata packets. 100% local browser-based processing—no files are ever uploaded.',
+    title: 'PDF Metadata Remover',
+    description: 'Remove PDF Metadata, securely and locally, not sending any info to any server.',
     alternates: {
         canonical: 'https://standardconvert.com/pdf-tools/pdf-metadata-remover'
     },
     keywords: [
         "Remove PDF metadata",
-        "PDF author remover",
+        "secure PDF Metadata Remover",
         "Strip PDF hidden info",
         "Clean PDF properties",
         "XMP metadata scrubber",
