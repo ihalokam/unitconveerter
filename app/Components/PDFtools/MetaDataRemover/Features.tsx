@@ -39,7 +39,7 @@ function Features() {
                         <ShieldAlert size={14} className="text-blue-600" /> Security Protocol Active
                     </div>
                     <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 mb-6">
-                        🔐 Deep <span className="text-blue-600">Metadata Scrubbing</span>
+                        🔐 PDF <span className="text-blue-600">Metadata Remover</span>
                     </h2>
                     <div className="h-1 w-24 bg-blue-600 rounded-full" />
                 </div>
