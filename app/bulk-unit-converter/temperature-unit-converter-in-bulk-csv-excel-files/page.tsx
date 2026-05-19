@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import TempService from '../../Components/UnitComponents/TempService'
+import { TempServiceDynamic as TempService } from '../../Components/UnitComponents/ServiceLoaders'
 import Navbar from '../../Components/Navbar'
 import Footer from '../../Components/Footer'
 import TempContent from '../../Components/UnitComponents/TemperatureContent'

@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import LengthService from '../../Components/UnitComponents/LengthService'
+import { LengthServiceDynamic as LengthService } from '../../Components/UnitComponents/ServiceLoaders'
 import Navbar from '../../Components/Navbar'
 import Footer from '../../Components/Footer'
 import LengthContent from '../../Components/UnitComponents/LengthContent'

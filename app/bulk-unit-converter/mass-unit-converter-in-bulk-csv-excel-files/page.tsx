@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import MassService from '../../Components/UnitComponents/MassService'
+import { MassServiceDynamic as MassService } from '../../Components/UnitComponents/ServiceLoaders'
 import Navbar from '../../Components/Navbar'
 import Footer from '../../Components/Footer'
 import MassContent from '../../Components/UnitComponents/MassContent'

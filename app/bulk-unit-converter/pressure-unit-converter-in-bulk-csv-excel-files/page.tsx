@@ -1,6 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
-import PressureService from "../../Components/UnitComponents/PressureService";
+import { PressureServiceDynamic as PressureService } from "../../Components/UnitComponents/ServiceLoaders";
 import Navbar from "../../Components/Navbar";
 import Footer from "../../Components/Footer";
 import PressureContent from "../../Components/UnitComponents/PressureContent";

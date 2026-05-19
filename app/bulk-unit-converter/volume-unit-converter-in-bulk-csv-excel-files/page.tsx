@@ -1,6 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import VolumeService from '../../Components/UnitComponents/VolumeService'
+import { VolumeServiceDynamic as VolumeService } from '../../Components/UnitComponents/ServiceLoaders'
 import Navbar from '../../Components/Navbar'
 import Footer from '../../Components/Footer'
 import VolumeContent from '../../Components/UnitComponents/VolumeContent'
