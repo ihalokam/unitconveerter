@@ -137,8 +137,8 @@ function PrivacyPage() {
                                 If you have questions regarding our local-first architecture or security protocols, please reach out to our engineering team.
                             </p>
                             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                                <a href="mailto:ihalokamofficial@gmail.com" className="rounded-full bg-blue-600 px-8 py-3 text-sm font-black uppercase tracking-widest text-white hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/40">
-                                    ihalokamofficial@gmail.com
+                                <a href="mailto:support@standardconvert.com" className="rounded-full bg-blue-600 px-8 py-3 text-sm font-black uppercase tracking-widest text-white hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/40">
+                                    support@standardconvert.com
                                 </a>
                                 <div className="h-px w-12 bg-slate-700 hidden md:block" />
                                 <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em]">

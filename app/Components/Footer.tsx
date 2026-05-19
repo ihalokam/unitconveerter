@@ -9,16 +9,16 @@ function Footer() {
     return (
         <footer className="mt-20 border-t border-slate-200 bg-slate-50">
             <div className="mx-auto max-w-7xl px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
 
                     {/* Brand Column */}
-                    <div className="md:col-span-1">
+                    <div className="md:col-span-2">
                         <div className="flex items-center gap-2 mb-4">
                             <div className="bg-slate-900 p-1 rounded text-white">
                                 <Activity size={16} />
                             </div>
                             <span className="text-lg font-black tracking-tighter font-mono">
-                            STANDARD<span className="text-blue-600">CONVERT</span>
+                                STANDARD<span className="text-blue-600">CONVERT</span>
                             </span>
                         </div>
                         <p className="text-sm text-slate-500 leading-relaxed">
@@ -26,7 +26,29 @@ function Footer() {
                         </p>
                     </div>
 
-                    {/* Links Column 1: Company */}
+                    {/* Links Column 1: Tools (SEO Internal Linking) */}
+                    <div>
+                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 mb-6">Tools</h4>
+                        <ul className="space-y-4">
+                            <li>
+                                <Link href="/unit-converter" className="text-sm text-slate-600 hover:text-blue-600 transition-colors">
+                                    Unit Converter
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/pdf-tools" className="text-sm text-slate-600 hover:text-blue-600 transition-colors">
+                                    PDF Tools
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/calculator" className="text-sm text-slate-600 hover:text-blue-600 transition-colors">
+                                    Calculators
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Links Column 2: Company */}
                     <div>
                         <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 mb-6">Company</h4>
                         <ul className="space-y-4">
@@ -43,7 +65,7 @@ function Footer() {
                         </ul>
                     </div>
 
-                    {/* Links Column 2: Legal */}
+                    {/* Links Column 3: Legal */}
                     <div>
                         <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 mb-6">Compliance</h4>
                         <ul className="space-y-4">
@@ -58,17 +80,6 @@ function Footer() {
                                 </Link>
                             </li>
                         </ul>
-                    </div>
-
-                    {/* System Status / Region */}
-                    <div className="rounded-xl bg-white border border-slate-200 p-5">
-                        <div className="flex items-center gap-2 mb-2 text-green-600">
-                            <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
-                            <span className="text-xs font-bold uppercase tracking-tight">Systems Operational</span>
-                        </div>
-                        <p className="text-[10px] text-slate-400 leading-tight">
-                            Global conversion engines running at 99.9% uptime. v4.0.2 Deployment.
-                        </p>
                     </div>
                 </div>
 

@@ -42,6 +42,7 @@ export default function Navbar() {
                             fill
                             sizes="36px"
                             className="object-cover"
+                            priority={true}
                         />
                     </div>
                     <span className="text-xl font-black tracking-tighter text-slate-900 font-mono">
@@ -58,12 +59,19 @@ export default function Navbar() {
                         All-in-One
                     </Link>
 
-                    {/* Standalone PDF Tools Link for better SEO visibility */}
+                    {/* Standalone Tool Links for better SEO visibility */}
                     <Link
                         href="/pdf-tools"
                         className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition"
                     >
                         PDF Tools
+                    </Link>
+
+                    <Link
+                        href="/calculator"
+                        className="text-sm font-bold uppercase tracking-widest text-slate-500 hover:text-blue-600 transition"
+                    >
+                        Calculators
                     </Link>
 
                     {/* DROPDOWN CONTAINER */}
@@ -85,12 +93,13 @@ export default function Navbar() {
 
                         {/* DROPDOWN MENU */}
                         {dropdownOpen && (
-                            <div className="absolute right-0 top-[100%] w-64 pt-2 z-50">
+                            <div className="absolute right-0 top-full w-64 pt-2 z-50">
                                 <div className="bg-white border border-slate-200 rounded-2xl shadow-xl p-2 animate-in fade-in zoom-in-95 duration-200">
                                     {bulkLinks.map((link) => (
                                         <Link
                                             key={link.href}
                                             href={link.href}
+                                            prefetch={false}
                                             onClick={() => setDropdownOpen(false)}
                                             className="flex items-center gap-3 px-4 py-3 hover:bg-slate-50 rounded-xl transition-colors group"
                                         >
@@ -129,13 +138,21 @@ export default function Navbar() {
                         All in One Converter
                     </Link>
 
-                    {/* Mobile PDF Tools Link */}
+                    {/* Mobile Tool Links */}
                     <Link
                         href="/pdf-tools"
                         className="block text-lg font-black tracking-tight text-slate-900"
                         onClick={() => setMenuOpen(false)}
                     >
                         PDF Tools
+                    </Link>
+
+                    <Link
+                        href="/calculator"
+                        className="block text-lg font-black tracking-tight text-slate-900"
+                        onClick={() => setMenuOpen(false)}
+                    >
+                        Creator Calculators
                     </Link>
 
                     <div className="space-y-3">

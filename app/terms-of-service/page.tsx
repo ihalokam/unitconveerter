@@ -122,8 +122,8 @@ function page() {
                                 These terms are governed by the laws of the jurisdiction in which Standard Convert is registered. For legal and compliance inquiries, please contact our team.
                             </p>
                             <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-                                <a href="mailto:ihalokamofficial@gmail.com" className="rounded-full bg-blue-600 px-8 py-3 text-sm font-black uppercase tracking-widest text-white hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/40">
-                                    ihalokamofficial@gmail.com
+                                <a href="mailto:support@standardconvert.com" className="rounded-full bg-blue-600 px-8 py-3 text-sm font-black uppercase tracking-widest text-white hover:bg-blue-500 transition-all shadow-xl shadow-blue-900/40">
+                                    support@standardconvert.com
                                 </a>
                                 <div className="h-px w-12 bg-slate-700 hidden md:block" />
                                 <p className="text-slate-500 text-sm italic font-medium">Engineered for the Modern Industrial Workflow.</p>

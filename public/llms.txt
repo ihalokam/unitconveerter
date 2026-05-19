@@ -1,0 +1,67 @@
+# Standard Convert
+
+> Standard Convert is a free, privacy-first browser utility suite. Every tool runs 100% locally in the user's browser — no server uploads, no data collection, no accounts required.
+
+## About
+
+Standard Convert was built in 2026 to provide professional-grade data transformation tools for engineers, data scientists, creators, and everyday professionals. All computation happens client-side using modern Web APIs.
+
+**Website:** https://standardconvert.com  
+**Contact:** support@standardconvert.com
+
+## Tools
+
+### Unit Converter
+- **URL:** https://standardconvert.com/unit-converter
+- **Description:** Convert across 15+ unit categories including mass, length, temperature, volume, energy, and pressure. Supports bulk CSV processing for large datasets.
+- **Categories:** mass, length, temperature, volume, energy, pressure, speed, area, data storage, frequency, angle, time, fuel economy, digital resolution, force
+
+### Bulk Unit Converter (CSV)
+- **URL:** https://standardconvert.com/bulk-unit-converter
+- **Description:** Upload a CSV or Excel file and convert an entire column of unit values in one click. Exports clean XLSX output.
+- **Sub-tools:**
+  - https://standardconvert.com/bulk-unit-converter/mass-unit-converter-in-bulk-csv-excel-files
+  - https://standardconvert.com/bulk-unit-converter/length-unit-converter-in-bulk-csv-excel-files
+  - https://standardconvert.com/bulk-unit-converter/temperature-unit-converter-in-bulk-csv-excel-files
+  - https://standardconvert.com/bulk-unit-converter/volume-unit-converter-in-bulk-csv-excel-files
+  - https://standardconvert.com/bulk-unit-converter/pressure-unit-converter-in-bulk-csv-excel-files
+  - https://standardconvert.com/bulk-unit-converter/energy-unit-converter-in-bulk-csv-excel-files
+
+### PDF Tools
+- **URL:** https://standardconvert.com/pdf-tools
+- **Description:** A suite of local-first PDF processing tools. Zero server uploads.
+
+#### Image to PDF Converter
+- **URL:** https://standardconvert.com/pdf-tools/image-to-pdf-converter
+- **Description:** Convert PNG, JPG, and WebP images to PDF. Supports bulk drag-and-drop, page reordering, A4/Letter/Legal layout selection, and grayscale optimization. 100% local, no upload.
+
+#### PDF Metadata Remover
+- **URL:** https://standardconvert.com/pdf-tools/pdf-metadata-remover
+- **Description:** Strip hidden PDF metadata including /Author, /Creator, /Producer, creation dates, XMP packets, and GPS data. Deep-scrub engine processes documents entirely in-browser.
+
+### YouTube Earnings Calculators
+- **URL:** https://standardconvert.com/calculator
+- **Description:** Data-driven revenue estimation tools for YouTube creators.
+
+#### Long-Form Video Earnings Calculator
+- **URL:** https://standardconvert.com/calculator/long-youtube-video-earnings-calculator
+- **Description:** Estimate YouTube long-form video ad revenue by country, niche, and video duration. Uses 2026 creator-reported RPM data. Includes country RPM tables, niche RPM tables, and video length multiplier tables.
+
+#### YouTube Shorts Earnings Calculator
+- **URL:** https://standardconvert.com/calculator/youtube-shorts-earnings-calculator
+- **Description:** Estimate YouTube Shorts revenue by country using 2026 RPM data. Supports the top 20 global creator regions. Shows daily, monthly, and yearly earning projections.
+
+## Key Features
+
+- **Zero-Server Architecture:** No file uploads. All processing in the browser.
+- **Privacy First:** No accounts, no tracking beyond anonymized analytics (Google Analytics).
+- **Free:** All tools are completely free with no paywalls.
+- **Bulk Processing:** CSV/XLSX batch conversion for unit conversions.
+- **2026 Data:** Calculator RPM data sourced from real creator reports.
+
+## Policies
+
+- **Privacy Policy:** https://standardconvert.com/privacy-policy
+- **Terms of Service:** https://standardconvert.com/terms-of-service
+- **About:** https://standardconvert.com/about-us
+- **Contact:** https://standardconvert.com/contact-us

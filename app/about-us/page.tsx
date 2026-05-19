@@ -10,6 +10,27 @@ import {
     Microscope,
     ArrowRight
 } from 'lucide-react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'About Standard Convert – Privacy-First Browser Tools',
+    description: 'Learn about Standard Convert – a privacy-first tool suite with zero-server architecture for engineers and professionals. 100% client-side processing.',
+    alternates: { canonical: 'https://standardconvert.com/about-us' },
+    openGraph: {
+        title: 'About Standard Convert – Privacy-First Browser Tools',
+        description: 'Learn about Standard Convert – a privacy-first tool suite with zero-server architecture for engineers and professionals.',
+        url: 'https://standardconvert.com/about-us',
+        siteName: 'Standard Convert',
+        type: 'website',
+        images: [{ url: 'https://standardconvert.com/og.webp', width: 1200, height: 630, alt: 'About Standard Convert' }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'About Standard Convert – Privacy-First Browser Tools',
+        description: 'A privacy-first tool suite with zero-server architecture for engineers and professionals.',
+        images: ['https://standardconvert.com/og.webp'],
+    },
+}
 
 function AboutPage() {
     const values = [

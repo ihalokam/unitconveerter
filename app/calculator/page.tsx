@@ -13,7 +13,7 @@ import Link from 'next/link'
 const tools = [
     {
         title: "Long-form Video Earnings",
-        desc: "Calculater for long form Youtube video earnings.",
+        desc: "Estimate your YouTube ad revenue for long-form videos by country, niche, and duration. Uses 2026 creator-reported RPM data.",
         path: "/calculator/long-youtube-video-earnings-calculator",
         icon: <Play className="text-blue-600" size={20} fill="currentColor" />,
         badge: "Most Accurate",
@@ -21,7 +21,7 @@ const tools = [
     },
     {
         title: "YouTube Shorts Revenue",
-        desc: "Calculator for youtube shorts earnings.",
+        desc: "Estimate your YouTube Shorts earnings by country with 2026 RPM data. See daily, monthly, and yearly revenue breakdowns.",
         path: "/calculator/youtube-shorts-earnings-calculator",
         icon: <Zap className="text-orange-500" size={20} fill="currentColor" />,
         badge: "Fast Growth",
@@ -34,17 +34,33 @@ const tools = [
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "Calculators for daily uses",
-    description: "Differnt calculator for differnt uses",
+    title: "YouTube Earnings Calculators – Long-Form & Shorts Revenue Estimator",
+    description: "Free online calculators for creators and professionals. Estimate YouTube long-form and Shorts earnings by country and niche with 2026 creator-reported RPM data.",
     alternates: {
-        canonical: "/calculator"
+        canonical: "https://standardconvert.com/calculator"
     },
     keywords: [
-        "Calculators for daily uses",
         "YouTube earnings calculator",
+        "YouTube revenue estimator",
         "YouTube shorts earnings calculator",
         "YouTube long video earnings calculator",
-    ]
+        "YouTube RPM calculator",
+        "how much does YouTube pay",
+    ],
+    openGraph: {
+        title: "YouTube Earnings Calculators – Standard Convert",
+        description: "Estimate YouTube long-form and Shorts earnings by country and niche with 2026 creator-reported RPM data.",
+        url: "https://standardconvert.com/calculator",
+        siteName: "Standard Convert",
+        type: "website",
+        images: [{ url: "https://standardconvert.com/og.webp", width: 1200, height: 630, alt: "YouTube Earnings Calculators" }],
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "YouTube Earnings Calculators – Standard Convert",
+        description: "Estimate YouTube long-form and Shorts earnings by country and niche with 2026 RPM data.",
+        images: ["https://standardconvert.com/og.webp"],
+    },
 }
 
 export default function CalculatorDictionary() {
@@ -64,7 +80,9 @@ export default function CalculatorDictionary() {
                     </h1>
                     <p className="mt-6 text-slate-500 font-medium max-w-xl text-sm leading-relaxed">
                         A comprehensive suite of 2026 data-driven tools designed to help creators project earnings,
-                        optimize for high-RPM niches, and scale their digital business.
+                        optimize for high-RPM niches, and scale their digital business. Choose a calculator below
+                        to estimate your revenue by country, video length, niche, and audience region — powered
+                        by real creator-reported RPM data from 2026.
                     </p>
                 </div>
             </section>
@@ -80,7 +98,7 @@ export default function CalculatorDictionary() {
                                 className="group relative flex flex-col justify-between p-8 bg-white border border-slate-100 rounded-[2.5rem] hover:border-blue-600 hover:shadow-2xl hover:shadow-blue-100 transition-all duration-500 overflow-hidden"
                             >
                                 {/* Decorative Background Gradient */}
-                                <div className={`absolute top-0 left-0 w-full h-full bg-gradient-to-br ${tool.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                                <div className={`absolute top-0 left-0 w-full h-full bg-linear-to-br ${tool.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
 
                                 <div className="relative z-10">
                                     <div className="flex justify-between items-start mb-8">

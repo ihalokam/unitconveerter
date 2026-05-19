@@ -2,25 +2,46 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
 import { Mail, MessageSquare, Globe, ShieldCheck, Clock, ArrowRight } from 'lucide-react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Contact Support | Standard Convert',
+    description: 'Reach the Standard Convert support team for technical questions, feedback, or partnership inquiries. We aim to respond within 24 hours.',
+    alternates: { canonical: 'https://standardconvert.com/contact-us' },
+    openGraph: {
+        title: 'Contact Support | Standard Convert',
+        description: 'Reach the Standard Convert support team for technical questions, feedback, or partnership inquiries.',
+        url: 'https://standardconvert.com/contact-us',
+        siteName: 'Standard Convert',
+        type: 'website',
+        images: [{ url: 'https://standardconvert.com/og.webp', width: 1200, height: 630, alt: 'Contact Standard Convert' }],
+    },
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Contact Support | Standard Convert',
+        description: 'Reach the Standard Convert support team for technical questions, feedback, or partnership inquiries.',
+        images: ['https://standardconvert.com/og.webp'],
+    },
+}
 
 function page() {
     const contactChannels = [
         {
             title: "Technical Support",
             desc: "Questions regarding conversion logic, batch processing, or API integration.",
-            email: "ihalokamofficial@gmail.com",
+            email: "support@standardconvert.com",
             icon: <MessageSquare size={24} className="text-blue-600" />
         },
         {
             title: "Legal & Compliance",
             desc: "Inquiries regarding our Zero-Server architecture and data privacy protocols.",
-            email: "ihalokamofficial@gmail.com",
+            email: "support@standardconvert.com",
             icon: <ShieldCheck size={24} className="text-blue-600" />
         },
         {
             title: "General Inquiries",
             desc: "Partnerships, feedback, or general questions about our industrial tools.",
-            email: "ihalokamofficial@gmail.com",
+            email: "support@standardconvert.com",
             icon: <Globe size={24} className="text-blue-600" />
         }
     ];
@@ -29,7 +50,7 @@ function page() {
         <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col">
             <Navbar />
 
-            <main className="flex-grow">
+            <main className="grow">
                 {/* HERO SECTION */}
                 <section className="relative overflow-hidden bg-slate-900 py-24 px-8 text-white">
                     <div className="mx-auto max-w-7xl relative z-10">
@@ -88,12 +109,12 @@ function page() {
                         <div className="grid md:grid-cols-2 gap-8 text-left">
                             <div className="bg-slate-50 rounded-3xl p-10 border border-slate-100 shadow-inner">
                                 <h4 className="text-xs font-black uppercase tracking-widest text-blue-600 mb-2">Direct Support</h4>
-                                <p className="text-2xl font-bold text-slate-900 mb-4">ihalokamofficial@gmail.com</p>
+                                <p className="text-2xl font-bold text-slate-900 mb-4">support@standardconvert.com</p>
                                 <p className="text-sm text-slate-500 font-medium">For urgent technical issues regarding the conversion pipeline.</p>
                             </div>
                             <div className="bg-slate-50 rounded-3xl p-10 border border-slate-100 shadow-inner">
                                 <h4 className="text-xs font-black uppercase tracking-widest text-blue-600 mb-2">Enterprise Solutions</h4>
-                                <p className="text-2xl font-bold text-slate-900 mb-4">ihalokamofficial@gmail.com</p>
+                                <p className="text-2xl font-bold text-slate-900 mb-4">support@standardconvert.com</p>
                                 <p className="text-sm text-slate-500 font-medium">For custom unit mapping and corporate implementation.</p>
                             </div>
                         </div>

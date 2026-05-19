@@ -49,7 +49,7 @@ function AboutUs() {
                             <span className="text-blue-600 italic underline decoration-slate-900 underline-offset-8">PRAGMATISTS.</span>
                         </h2>
                         <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-md">
-                            StandardConverter is a high-performance utility suite designed for professionals who demand
+                            Standard Convert is a high-performance utility suite designed for professionals who demand
                             speed without compromising data security.
                         </p>
                     </div>
