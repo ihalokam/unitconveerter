@@ -16,26 +16,26 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://standardconvert.com"),
   title: {
-    default: "Standard Convert – Unit Converter (Single & Bulk, Fast & Free)",
+    default: "Standard Convert – Free Tools for Everyday Life",
     template: "%s | Standard Convert",
   },
 
   description:
-    "Convert units instantly with Standard Convert. Supports quick single conversions and powerful bulk conversion via CSV across length, mass, temperature, volume, energy and more.",
+    "Free online unit converter and PDF tools. Convert mass, length, temperature, volume and more. Privacy-first, 100% client-side processing with bulk CSV support.",
 
   keywords: [
     "unit converter",
-    "batch conversion",
     "bulk unit converter",
-    "CSV unit converter",
+    "PDF tools",
+    "image to PDF",
+    "PDF metadata remover",
     "mass converter",
     "length converter",
     "temperature converter",
     "volume converter",
     "energy converter",
-    "pressure converter",
-    "measurement calculator",
-    "online conversion tool",
+    "free online tools",
+    "privacy-first tools",
   ],
 
   authors: [{ name: "Standard Convert Team" }],
@@ -96,16 +96,16 @@ const jsonLd = {
     priceCurrency: "USD",
   },
   description:
-    "Free bulk and single unit converter for mass, length, temperature, volume, energy and pressure. Supports CSV batch conversion.",
+    "Free online tools for everyday life. Convert units in bulk or one at a time, remove PDF metadata, convert images to PDF, and calculate YouTube earnings — all 100% locally in your browser. No uploads, no tracking.",
   featureList: [
-    "Mass unit conversion",
-    "Length unit conversion",
-    "Temperature unit conversion",
-    "Volume unit conversion",
-    "Energy unit conversion",
-    "Pressure unit conversion",
+    "unit converter",
     "Bulk CSV conversion",
     "Excel XLSX export",
+    "PDF metadata remover",
+    "Image to PDF converter",
+    "YouTube long video earnings calculator",
+    "YouTube Shorts earnings calculator",
+    "Privacy-first, 100% client-side processing",
   ],
 };
 

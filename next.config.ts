@@ -11,11 +11,25 @@ const nextConfig: NextConfig = {
   async redirects() {
     const bulkSuffix = "-in-bulk-csv-excel-files";
     const routes = ["energy", "length", "mass", "pressure", "temperature", "volume"];
-    return routes.map((r) => ({
+
+    const bulkRedirects = routes.map((r) => ({
       source: `/${r}-unit-converter`,
-      destination: `/${r}-unit-converter${bulkSuffix}`,
+      destination: `/bulk-unit-converter/${r}-unit-converter${bulkSuffix}`,
       permanent: true,
     }));
+
+    // Force permanent (301) www → non-www redirect so Google
+    // recognises non-www as the only canonical origin.
+    const wwwRedirects = [
+      {
+        source: "/:path*",
+        has: [{ type: "host" as const, value: "www.standardconvert.com" }],
+        destination: "https://standardconvert.com/:path*",
+        permanent: true,
+      },
+    ];
+
+    return [...wwwRedirects, ...bulkRedirects];
   },
 
   async headers() {

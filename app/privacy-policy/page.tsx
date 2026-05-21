@@ -2,6 +2,19 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
 import { ShieldCheck, Lock, EyeOff, DatabaseZap, Mail, Globe } from 'lucide-react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Privacy Policy | Standard Convert',
+    description: 'Standard Convert is a local-first tool. Your data never leaves your browser. Read our privacy policy to understand how we protect your data.',
+    alternates: {
+        canonical: 'https://standardconvert.com/privacy-policy',
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
+}
 
 function PrivacyPage() {
     const lastUpdated = "April 28, 2026";
@@ -28,7 +41,7 @@ function PrivacyPage() {
         <div className="min-h-screen bg-white text-slate-900 font-sans flex flex-col">
             <Navbar />
 
-            <main className="flex-grow">
+            <main className="grow">
                 {/* HERO SECTION (Matches About Us Style) */}
                 <section className="relative overflow-hidden bg-slate-900 py-24 px-8 text-white">
                     <div className="mx-auto max-w-7xl relative z-10">

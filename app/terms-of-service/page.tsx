@@ -2,6 +2,19 @@ import React from 'react'
 import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
 import { Scale, FileCheck, AlertTriangle, Cpu, Gavel, ShieldAlert, Globe } from 'lucide-react'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+    title: 'Terms of Service | Standard Convert',
+    description: 'Read the Standard Convert terms of service. Our tools are provided as-is for local browser use. No data is stored or uploaded to any server.',
+    alternates: {
+        canonical: 'https://standardconvert.com/terms-of-service',
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
+}
 
 function page() {
     const lastUpdated = "April 28, 2026";
