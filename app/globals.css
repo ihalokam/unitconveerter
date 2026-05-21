@@ -1,1 +1,38 @@
 @import "tailwindcss";
+
+/* ─── Base font-size anchor ─────────────────────────────────────────────────
+   Tailwind v4 preflight resets ALL heading sizes to "inherit".
+   Without this, production builds show all text at the same small size
+   because dev-mode and prod-mode process CSS differently.
+   This block re-establishes the browser-standard typographic scale.
+────────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 2em;
+    font-weight: 700;
+  }
+  h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+  }
+  h3 {
+    font-size: 1.25em;
+    font-weight: 600;
+  }
+  h4 {
+    font-size: 1.125em;
+    font-weight: 600;
+  }
+  h5 {
+    font-size: 1em;
+    font-weight: 600;
+  }
+  h6 {
+    font-size: 0.875em;
+    font-weight: 600;
+  }
+}
