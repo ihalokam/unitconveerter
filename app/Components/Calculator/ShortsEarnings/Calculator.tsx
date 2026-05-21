@@ -88,8 +88,18 @@ export default function Calculator() {
                         <input
                             type="text"
                             inputMode="numeric"
-                            value={Number(rawViews).toLocaleString()}
-                            onChange={(e) => setRawViews(e.target.value.replace(/[^0-9]/g, ""))}
+                            value={
+                                rawViews
+                                    ? Number(rawViews).toLocaleString(
+                                        typeof window !== "undefined"
+                                            ? navigator.language
+                                            : "en-US"
+                                    )
+                                    : ""
+                            }
+                            onChange={(e) =>
+                                setRawViews(e.target.value.replace(/[^0-9]/g, ""))
+                            }
                             className="w-full rounded-2xl border border-slate-200 bg-white px-5 py-4 text-2xl font-black tracking-tighter text-slate-900 placeholder:text-slate-300 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
                         />
                         {monthlyViews > 0 && (

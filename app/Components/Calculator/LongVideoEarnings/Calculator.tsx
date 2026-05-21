@@ -181,11 +181,25 @@ export default function Calculator() {
                                 <input
                                     id="views-input"
                                     type="text"
-                                    value={raw}
-                                    onChange={e => {
-                                        setRaw(e.target.value);
-                                        const n = parseInt(e.target.value.replace(/,/g, ""), 10);
-                                        if (!isNaN(n) && n >= 100 && n <= 1e9) setViews(n);
+                                    inputMode="numeric"
+                                    value={
+                                        raw
+                                            ? Number(raw.replace(/,/g, "")).toLocaleString(
+                                                typeof window !== "undefined"
+                                                    ? navigator.language
+                                                    : "en-US"
+                                            )
+                                            : ""
+                                    }
+                                    onChange={(e) => {
+                                        const clean = e.target.value.replace(/[^0-9]/g, "");
+                                        setRaw(clean);
+
+                                        const n = parseInt(clean, 10);
+
+                                        if (!isNaN(n) && n >= 100 && n <= 1e9) {
+                                            setViews(n);
+                                        }
                                     }}
                                     placeholder="e.g. 500000"
                                     className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xl font-black text-slate-900 tracking-tight focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
