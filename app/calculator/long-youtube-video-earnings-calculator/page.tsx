@@ -9,6 +9,7 @@ import LanguageTable from "@/app/Components/Calculator/LongVideoEarnings/Languag
 import NicheTable from "@/app/Components/Calculator/LongVideoEarnings/NicheTable"
 import VidLengthTable from "@/app/Components/Calculator/LongVideoEarnings/VidLengthTable"
 import Faq from "@/app/Components/Calculator/LongVideoEarnings/Faq"
+import Link from "@/app/Components/Calculator/LongVideoEarnings/Link"
 
 export const metadata: Metadata = {
     title: "YouTube Long Video Earnings Calculator",
@@ -136,6 +137,7 @@ function page() {
             <Navbar />
             <HeadingOne />
             <Calculator />
+            <Link />
             <HowTo />
             <Table />
             <LanguageTable />
