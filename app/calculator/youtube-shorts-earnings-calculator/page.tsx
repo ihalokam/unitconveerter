@@ -26,7 +26,7 @@ export const metadata: Metadata = {
         "youtube shorts ad revenue calculator"
     ],
     openGraph: {
-        title: "YouTube Shorts Earnings Calculator | Standard Convert",
+        title: "YouTube Shorts Earnings Calculator ",
         description: "Estimate YouTube Shorts revenue by country with 2026 RPM data. See daily, monthly, and yearly earnings for creators worldwide.",
         url: "https://standardconvert.com/calculator/youtube-shorts-earnings-calculator",
         siteName: "Standard Convert",

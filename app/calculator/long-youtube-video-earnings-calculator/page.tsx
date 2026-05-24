@@ -27,7 +27,7 @@ export const metadata: Metadata = {
         "youtube rpm ranked by country and language",
     ],
     openGraph: {
-        title: "YouTube Long-Form Video Earnings Calculator | Standard Convert",
+        title: "YouTube Long-Form Video Earnings Calculator",
         description: "Estimate YouTube long-form video earnings by country, niche, and video duration. Uses 2026 creator-reported RPM data.",
         url: "https://standardconvert.com/calculator/long-youtube-video-earnings-calculator",
         siteName: "Standard Convert",

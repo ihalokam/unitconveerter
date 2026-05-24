@@ -6,8 +6,8 @@ import PdfHome from '../Components/PDFtools/PdfHome';
 
 // SEO Metadata Export
 export const metadata = {
-    title: 'PDF Tools Suite | Free & Private PDF Utilities | Standard Convert',
-    description: 'Explore our suite of local-first PDF processing tools. Image to PDF converter, metadata remover, and more — all processed securely in your browser with zero uploads.',
+    title: 'PDF all in one converter tools',
+    description: 'pdf conversion tools',
     alternates: { canonical: 'https://standardconvert.com/pdf-tools' },
     robots: { index: true, follow: true },
     keywords: [

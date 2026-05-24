@@ -36,8 +36,8 @@ const tools = [
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-    title: "YouTube Earnings Calculators – Long-Form & Shorts Revenue Estimator",
-    description: "Free online calculators for creators and professionals. Estimate YouTube long-form and Shorts earnings by country and niche with 2026 creator-reported RPM data.",
+    title: "Daily use calculators for differenet purposes",
+    description: "The calculators you need for daily use, to make your work more easy",
     alternates: {
         canonical: "https://standardconvert.com/calculator"
     },

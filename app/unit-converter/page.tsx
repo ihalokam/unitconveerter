@@ -6,11 +6,11 @@ import Navbar from '../Components/Navbar'
 import Footer from '../Components/Footer'
 
 export const metadata: Metadata = {
-    title: 'All-in-One Unit Converter – Mass, Length, Temp, Volume, Energy & Pressure',
+    title: 'Unit converter | Convert any unit from one to another',
     description: 'One converter for all units. Convert mass, length, temperature, volume, energy, and pressure in a single tool. Free, fast, and accurate online unit converter.',
     alternates: { canonical: 'https://standardconvert.com/unit-converter' },
     openGraph: {
-        title: 'All-in-One Unit Converter – Standard Convert',
+        title: 'Unit converter | Convert any unit from one to another',
         description: 'Convert any unit in one place. Mass, length, temperature, volume, energy, and pressure. Free and accurate.',
         url: 'https://standardconvert.com/unit-converter',
     },
