@@ -6,7 +6,8 @@ import {
     PlayCircle,
     Zap,
     BarChart4,
-    ChevronRight
+    ChevronRight,
+    Layers
 } from 'lucide-react'
 
 function Calculator() {
@@ -16,14 +17,21 @@ function Calculator() {
             path: "/calculator/long-youtube-video-earnings-calculator",
             desc: "Detailed estimates based on 8m+ duration and niche multipliers.",
             icon: <PlayCircle size={20} className="text-blue-600" />,
-            tag: "RSC Ready"
+            tag: "Youtube"
         },
         {
             title: "YouTube Shorts Revenue",
             path: "/calculator/youtube-shorts-earnings-calculator",
             desc: "Fast projections for vertical video ad-pool payouts.",
             icon: <Zap size={20} className="text-orange-500" />,
-            tag: "2026 Data"
+            tag: "Youtube"
+        },
+        {
+            title: "Concrete Calculator",
+            path: "/calculator/concrete-calculator",
+            desc: "Calculate cubic yards, bag counts, and instant cost comparisons.",
+            icon: <Layers size={20} className="text-amber-600" />,
+            tag: "DIY & Pro"
         }
     ];
 
@@ -45,7 +53,7 @@ function Calculator() {
                                 Useful <span className="text-blue-600">Calculators</span>
                             </h2>
                             <p className="text-slate-400 font-medium text-sm md:text-base leading-relaxed">
-                                See diffent Calculators to make your plans easy and work more faster.
+                                Explore our collection of specialized calculators to streamline your planning and work faster.
                             </p>
                         </div>
 

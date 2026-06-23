@@ -5,7 +5,8 @@ import {
     ArrowUpRight,
     LayoutGrid,
     ChevronRight,
-    TrendingUp
+    TrendingUp,
+    Layers
 } from 'lucide-react'
 import Link from 'next/link'
 import Navbar from '../Components/Navbar'
@@ -29,8 +30,15 @@ const tools = [
         badge: "Fast Growth",
         color: "from-orange-500/10 to-transparent"
     },
-    // To add a new page later:
-    // { title: "Tiktok Calc", desc: "...", path: "/...", icon: <... />, badge: "..." }
+    {
+        title: "Concrete Calculator",
+        path: "/calculator/concrete-calculator",
+        desc: "Calculate bags, raw batching recipes, cost estimates, and rebar layouts.",
+        icon: <Layers size={20} className="text-stone-500" />,
+        tag: "DIY & Pro",
+        badge: "Construction",
+        color: "from-stone-500/15 to-transparent"
+    }
 ];
 
 import type { Metadata } from 'next';
@@ -48,14 +56,19 @@ export const metadata: Metadata = {
         "YouTube long video earnings calculator",
         "YouTube RPM calculator",
         "how much does YouTube pay",
+        "concrete calculator",
+        "concrete volume estimator",
+        "bag counts for slabs",
+        "construction calculators",
+        "utility tools",
     ],
     openGraph: {
-        title: "YouTube Earnings Calculators – Standard Convert",
-        description: "Estimate YouTube long-form and Shorts earnings by country and niche with 2026 creator-reported RPM data.",
+        title: "Free Utility & Growth Calculators – Standard Convert",
+        description: "Explore our collection of specialized calculators, from YouTube revenue estimators to construction and concrete volume tools.",
         url: "https://standardconvert.com/calculator",
         siteName: "Standard Convert",
         type: "website",
-        images: [{ url: "https://standardconvert.com/og.webp", width: 1200, height: 630, alt: "YouTube Earnings Calculators" }],
+        images: [{ url: "https://standardconvert.com/og.webp", width: 1200, height: 630, alt: "Utility Calculators" }],
     },
     twitter: {
         card: "summary_large_image",
@@ -80,13 +93,11 @@ export default function CalculatorDictionary() {
                             </span>
                         </div>
                         <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-900 uppercase italic leading-none">
-                            Creator <span className="text-blue-600">Calculators</span>
+                            Utility <span className="text-blue-600">Calculators</span>
                         </h1>
                         <p className="mt-6 text-slate-500 font-medium max-w-xl text-sm leading-relaxed">
-                            A comprehensive suite of 2026 data-driven tools designed to help creators project earnings,
-                            optimize for high-RPM niches, and scale their digital business. Choose a calculator below
-                            to estimate your revenue by country, video length, niche, and audience region — powered
-                            by real creator-reported RPM data from 2026.
+                            A comprehensive suite of data-driven tools designed to simplify your projects—from creator earnings
+                            and digital growth to construction estimators and unit conversions.
                         </p>
                     </div>
                 </section>

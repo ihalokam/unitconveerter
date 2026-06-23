@@ -4,70 +4,76 @@ import { ShieldCheck, Zap, Lock, Globe } from 'lucide-react'
 function AboutUs() {
     const pillars = [
         {
-            quote: "We deliver the tools for your job easy",
-            desc: "Engineering complex binary logic into simple, one-click solutions.",
-            icon: <Zap className="text-blue-600" size={24} />,
-            label: "Efficiency"
+            quote: "We make complex operations easy",
+            desc: "Engineering complex multi-variable calculations into responsive, human-readable user tools.",
+            icon: <Zap className="text-blue-600" size={22} />,
+            label: "Efficiency Matrix"
         },
         {
-            quote: "We build security first tools",
-            desc: "Privacy isn't an afterthought; it is the foundation of our source code.",
-            icon: <ShieldCheck className="text-blue-600" size={24} />,
-            label: "Integrity"
+            quote: "We build security-first utilities",
+            desc: "Privacy isn't an afterthought; total zero-knowledge architecture is baked directly into our code.",
+            icon: <ShieldCheck className="text-blue-600" size={22} />,
+            label: "Integrity Layer"
         },
         {
-            quote: "Your data never leaves your system",
-            desc: "100% Client-side processing. We don't have servers because we don't need your data.",
-            icon: <Lock className="text-blue-600" size={24} />,
-            label: "Sovereignty"
+            quote: "Your datasets never leave your system",
+            desc: "100% Client-side browser processing. We don't maintain data servers because we don't store your records.",
+            icon: <Lock className="text-blue-600" size={22} />,
+            label: "Data Sovereignty"
         },
         {
-            quote: "Free, Fast and Secure",
-            desc: "Professional grade utilities available to everyone, everywhere, at zero cost.",
-            icon: <Globe className="text-blue-600" size={24} />,
-            label: "Accessibility"
+            quote: "Free, Fast, and Unrestricted",
+            desc: "Enterprise-grade digital converters and financial estimators accessible globally at zero operational cost.",
+            icon: <Globe className="text-blue-600" size={22} />,
+            label: "Universal Access"
         }
     ];
 
     return (
-        <section className="py-24 px-8 bg-slate-50 overflow-hidden relative">
+        <section className="py-32 px-6 bg-white overflow-hidden relative border-t border-slate-100">
             {/* Background Branding Watermark */}
-            <div className="absolute top-10 -right-20 text-[12rem] font-black text-slate-200/40 select-none pointer-events-none">
-                ABOUT
+            <div className="absolute top-12 -right-16 text-[14rem] font-black text-slate-100/70 tracking-tighter select-none pointer-events-none uppercase italic">
+                SaaS//
             </div>
 
             <div className="mx-auto max-w-7xl relative z-10">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div className="grid lg:grid-cols-12 gap-16 items-center">
 
-                    {/* Left: Mission Statement */}
-                    <div>
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-widest mb-6">
-                            <ShieldCheck size={14} /> The Standard Protocol
+                    {/* Left Frame: Core SaaS Mission Statement */}
+                    <div className="lg:col-span-5">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-600 text-[10px] font-black uppercase tracking-[0.3em] mb-8 border border-blue-100/50">
+                            <ShieldCheck size={14} /> System Core Protocol
                         </div>
-                        <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-slate-900 leading-[0.9] mb-8">
-                            TOOLS BUILT FOR <br />
-                            <span className="text-blue-600 italic underline decoration-slate-900 underline-offset-8">PRAGMATISTS.</span>
-                        </h2>
+
+                        {/* H1 Semantics for SEO Engine Optimization */}
+                        <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-900 leading-[0.95] mb-8 uppercase italic">
+                            SaaS Tools <br />
+                            Engineered For <br />
+                            <span className="text-blue-600 not-italic font-black relative">
+                                Pragmatists.
+                                <span className="absolute left-0 bottom-1 w-full h-[6px] bg-slate-900 -z-10 opacity-10"></span>
+                            </span>
+                        </h1>
+
                         <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-md">
-                            Standard Convert is a high-performance utility suite designed for professionals who demand
-                            speed without compromising data security.
+                            Standard Convert is an infrastructure of ultra-fast calculators, computational models, and semantic data converters designed for creators and developers who require millisecond performance.
                         </p>
                     </div>
 
-                    {/* Right: The Quote Pillars */}
-                    <div className="grid sm:grid-cols-2 gap-4">
+                    {/* Right Frame: Micro-Architecture Pillars */}
+                    <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
                         {pillars.map((item, i) => (
                             <div
                                 key={i}
-                                className="p-8 bg-white border border-slate-200 rounded-[2.5rem] shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group"
+                                className="p-8 bg-slate-50 border border-slate-100 rounded-[2.5rem] hover:bg-white hover:border-blue-600 hover:shadow-2xl hover:shadow-blue-100/50 transition-all duration-500 group"
                             >
-                                <div className="mb-6 p-3 bg-slate-50 rounded-2xl w-fit group-hover:bg-blue-50 transition-colors">
+                                <div className="mb-6 p-4 bg-white rounded-2xl w-fit border border-slate-200/60 shadow-sm group-hover:border-blue-200 transition-colors">
                                     {item.icon}
                                 </div>
-                                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-2 block">
+                                <span className="font-mono text-[9px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2 block">
                                     {item.label}
                                 </span>
-                                <h4 className="text-xl font-bold text-slate-900 leading-tight mb-3 italic tracking-tight">
+                                <h4 className="text-lg font-black text-slate-900 leading-tight mb-3 uppercase italic tracking-tight">
                                     "{item.quote}"
                                 </h4>
                                 <p className="text-xs text-slate-400 font-medium leading-relaxed">
