@@ -6,6 +6,7 @@ import Hero from '@/app/Components/PDFtools/md-pdf/Hero'
 import ConverterWorkspace from '@/app/Components/PDFtools/md-pdf/Converterworkspace'
 import FeatureGaps from '@/app/Components/PDFtools/md-pdf/Featuregaps'
 import Faq from '@/app/Components/PDFtools/md-pdf/Faq'
+import Trust from '@/app/Components/PDFtools/md-pdf/Trust'
 
 // 1. Define Static SEO Metadata
 export const metadata: Metadata = {
@@ -75,6 +76,7 @@ export default function Page() {
                 <main className="flex-grow">
                     <Hero />
                     <ConverterWorkspace />
+                    <Trust />
                     <FeatureGaps />
                     <Faq />
                 </main>
