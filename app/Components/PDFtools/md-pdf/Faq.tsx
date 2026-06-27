@@ -1,3 +1,5 @@
+import React from "react";
+
 const FAQS = [
     {
         q: "How do I convert markdown with Mermaid diagrams to PDF without losing formatting?",
@@ -23,19 +25,43 @@ const FAQS = [
 
 export default function Faq() {
     return (
-        <section className="bg-neutral-50 border-t border-neutral-200">
-            <div className="mx-auto max-w-3xl px-6 py-20">
-                <span className="font-mono text-xs text-neutral-500 uppercase tracking-wide">FAQ</span>
-                <h2 className="mt-2 text-2xl font-semibold text-neutral-950 mb-10">Common questions</h2>
+        <section className="bg-neutral-50 border-t border-neutral-200/80 selection:bg-neutral-900 selection:text-white">
+            <div className="mx-auto max-w-5xl px-6 py-24 md:py-32">
 
-                <div className="space-y-6">
+                {/* Section Header */}
+                <div className="max-w-2xl mb-16 md:mb-24">
+                    <span className="font-mono text-xs font-semibold text-neutral-400 uppercase tracking-widest block bg-neutral-100 border border-neutral-200/60 rounded px-2 py-0.5 w-fit">
+                        Documentation
+                    </span>
+                    <h2 className="mt-4 text-3xl md:text-4xl font-semibold text-neutral-950 tracking-tight">
+                        Common questions
+                    </h2>
+                </div>
+
+                {/* FAQ List */}
+                <div className="divide-y divide-neutral-200/70 border-t border-b border-neutral-200/70">
                     {FAQS.map((item) => (
-                        <div key={item.q} className="border-b border-neutral-200 pb-6 last:border-b-0">
-                            <h3 className="text-base font-medium text-neutral-950">{item.q}</h3>
-                            <p className="mt-2 text-sm text-neutral-600 leading-relaxed">{item.a}</p>
+                        <div
+                            key={item.q}
+                            className="grid md:grid-cols-[300px_1fr] gap-4 md:gap-12 py-8 md:py-10 first:pt-6 last:pb-6"
+                        >
+                            {/* Question Column */}
+                            <div>
+                                <h3 className="text-base font-semibold text-neutral-950 tracking-tight leading-snug">
+                                    {item.q}
+                                </h3>
+                            </div>
+
+                            {/* Answer Column */}
+                            <div className="bg-white/50 border border-neutral-200/50 rounded-xl p-5 shadow-sm md:p-6 md:bg-transparent md:border-0 md:rounded-none md:p-0 md:shadow-none">
+                                <p className="text-sm md:text-base text-neutral-600 leading-relaxed font-normal">
+                                    {item.a}
+                                </p>
+                            </div>
                         </div>
                     ))}
                 </div>
+
             </div>
         </section>
     );

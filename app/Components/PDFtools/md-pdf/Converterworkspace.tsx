@@ -103,8 +103,6 @@ export default function ConverterWorkspace() {
         }
     }, []);
 
-    // Debounced live preview — re-renders 400ms after the user stops typing,
-    // not on every keystroke, since mermaid/katex parsing isn't free.
     useEffect(() => {
         if (debounceRef.current) clearTimeout(debounceRef.current);
         debounceRef.current = setTimeout(() => runRender(markdown), 400);
@@ -135,32 +133,47 @@ export default function ConverterWorkspace() {
         }
     };
 
-
+    const totalLines = markdown.split("\n").length;
 
     return (
-        <section id="workspace" className="bg-neutral-50 border-b border-neutral-200">
-            <div className="mx-auto max-w-6xl px-6 py-16">
-                <div className="mb-8">
-                    <span className="font-mono text-xs text-neutral-500 uppercase tracking-wide">Workspace</span>
-                    <h2 className="mt-2 text-2xl font-semibold text-neutral-950">Write, preview, export</h2>
-                    <p className="mt-1 text-neutral-600">
-                        Paste Markdown or drop a file. Your content never leaves this tab.
+        <section id="workspace" className="bg-neutral-50/70 border-b border-neutral-200/80 selection:bg-neutral-900 selection:text-white">
+            <div className="mx-auto max-w-6xl px-6 py-20">
+
+                {/* Workspace Intro Header */}
+                <div className="max-w-2xl mb-12">
+                    <span className="font-mono text-[10px] font-bold text-neutral-400 uppercase tracking-widest bg-neutral-100 border border-neutral-200 px-2 py-0.5 rounded">
+                        Workspace Engine
+                    </span>
+                    <h2 className="mt-3 text-3xl font-semibold text-neutral-950 tracking-tight">
+                        Write, preview, export
+                    </h2>
+                    <p className="mt-2 text-sm md:text-base text-neutral-600 leading-relaxed font-normal">
+                        Paste your markdown tree or import a local file structure. Your layout configuration and string data run entirely sandbox-isolated within your current tab context.
                     </p>
                 </div>
 
+                {/* Error Banner Notification */}
                 {error && (
-                    <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
-                        {error}
+                    <div className="mb-6 rounded-xl border border-red-200/80 bg-red-50/60 p-4 text-sm text-red-800 flex items-center gap-3 backdrop-blur-sm">
+                        <span className="h-2 w-2 rounded-full bg-red-500 shrink-0" />
+                        <span className="font-medium tracking-tight">{error}</span>
                     </div>
                 )}
 
-                <div className="grid lg:grid-cols-2 gap-px bg-neutral-200 rounded-xl overflow-hidden border border-neutral-200">
-                    {/* Editor pane */}
-                    <div className="bg-white flex flex-col">
-                        <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200">
-                            <span className="font-mono text-xs text-neutral-500">source.md</span>
-                            <label className="font-mono text-xs text-neutral-500 hover:text-neutral-900 cursor-pointer transition-colors">
-                                Upload file
+                {/* Main Split Window Interface Frame */}
+                <div className="grid lg:grid-cols-2 gap-px bg-neutral-200/80 rounded-2xl overflow-hidden border border-neutral-200 shadow-xl shadow-neutral-200/40">
+
+                    {/* Code Editor Column Pane */}
+                    <div className="bg-white flex flex-col relative group">
+                        <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200 bg-neutral-50/60 sticky top-0 z-10">
+                            <div className="flex items-center gap-2">
+                                <span className="font-mono text-xs font-semibold text-neutral-700">source.md</span>
+                                <span className="font-mono text-[10px] bg-neutral-200/60 text-neutral-500 rounded px-1.5 py-0.5">
+                                    {totalLines} lines
+                                </span>
+                            </div>
+                            <label className="font-mono text-xs font-medium text-neutral-500 hover:text-neutral-950 cursor-pointer transition-colors border border-neutral-200 bg-white shadow-sm hover:shadow rounded-md px-2.5 py-1">
+                                Import File
                                 <input
                                     type="file"
                                     accept=".md,.markdown"
@@ -169,56 +182,68 @@ export default function ConverterWorkspace() {
                                 />
                             </label>
                         </div>
-                        <textarea
-                            value={markdown}
-                            onChange={(e) => setMarkdown(e.target.value)}
-                            spellCheck={false}
-                            className="flex-1 min-h-[480px] resize-none px-5 py-4 font-mono text-[13px] leading-6 text-neutral-800 outline-none"
-                            placeholder="# Start typing Markdown..."
-                        />
+
+                        {/* Simulated IDE Line Counter Split Frame */}
+                        <div className="flex flex-1 min-h-[520px] bg-white relative">
+                            <div className="w-12 border-r border-neutral-100 bg-neutral-50/40 py-4 select-none text-right pr-3 font-mono text-[11px] text-neutral-300 leading-6 hidden sm:block">
+                                {Array.from({ length: Math.max(totalLines, 1) }).map((_, i) => (
+                                    <div key={i}>{i + 1}</div>
+                                ))}
+                            </div>
+                            <textarea
+                                value={markdown}
+                                onChange={(e) => setMarkdown(e.target.value)}
+                                spellCheck={false}
+                                className="flex-1 min-h-[520px] resize-none px-5 py-4 font-mono text-[13px] leading-6 text-neutral-800 outline-none placeholder:text-neutral-300"
+                                placeholder="# Start typing Markdown..."
+                            />
+                        </div>
                     </div>
 
-                    {/* Preview pane */}
-                    <div className="bg-white flex flex-col">
-                        <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200">
-                            <span className="font-mono text-xs text-neutral-500">
-                                {isRendering ? "rendering…" : "preview"}
-                            </span>
-                            <div className="flex items-center gap-3 font-mono text-xs text-neutral-500">
+                    {/* Preview Viewport Output Pane */}
+                    <div className="bg-white flex flex-col relative">
+                        <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-200 bg-neutral-50/60 sticky top-0 z-10">
+                            <div className="flex items-center gap-2">
+                                <span className="font-mono text-xs font-semibold text-neutral-700">compiled_preview</span>
+                                <span className={`inline-block h-2 w-2 rounded-full transition-colors ${isRendering ? "bg-amber-400 animate-pulse" : "bg-emerald-500"}`} />
+                            </div>
+                            <div className="flex items-center gap-3 font-mono text-[11px] text-neutral-500 font-medium">
                                 <span>{stats.wordCount} words</span>
-                                <span>·</span>
-                                <span>{stats.readingTimeMin} min read</span>
+                                <span className="text-neutral-300">|</span>
+                                <span>{stats.readingTimeMin}m read</span>
                             </div>
                         </div>
                         <div
                             ref={previewRef}
-                            className="flex-1 min-h-[480px] overflow-auto px-6 py-5 prose-preview"
-                            dangerouslySetInnerHTML={{ __html: html || "<p style='color:#a3a3a3'>Nothing to preview yet.</p>" }}
+                            className="flex-1 min-h-[520px] max-h-[640px] overflow-y-auto px-6 py-5 prose-preview bg-neutral-50/30"
+                            dangerouslySetInnerHTML={{ __html: html || "<p style='color:#a3a3a3; font-family:monospace; font-size:13px;'>No input buffer string streams detected.</p>" }}
                         />
                     </div>
                 </div>
 
-                {/* Export controls */}
-                <div className="mt-6 rounded-xl border border-neutral-200 bg-white px-6 py-5">
-                    <div className="flex flex-wrap items-end gap-5">
-                        <div className="flex flex-col gap-1.5">
-                            <label className="font-mono text-xs text-neutral-500">File name</label>
+                {/* Operational Parameters & Compilation Control Panel */}
+                <div className="mt-8 rounded-2xl border border-neutral-200 bg-white p-6 md:p-8 shadow-md shadow-neutral-100">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 items-end">
+
+                        {/* File Name Configuration Input */}
+                        <div className="flex flex-col gap-2">
+                            <label className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-500">Document Title</label>
                             <input
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)}
-                                className="w-40 rounded-md border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-500"
+                                className="w-full rounded-xl border border-neutral-200 px-3.5 py-2.5 text-sm text-neutral-800 outline-none bg-neutral-50/50 focus:bg-white focus:border-neutral-900 transition-all font-medium"
                             />
                         </div>
 
-                        <div className="flex flex-col gap-1.5">
-                            <label className="font-mono text-xs text-neutral-500">Page size</label>
-                            <div className="flex rounded-md border border-neutral-300 overflow-hidden">
+                        {/* Page Geometry Controls */}
+                        <div className="flex flex-col gap-2">
+                            <label className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-500">Page Geometry</label>
+                            <div className="flex rounded-xl border border-neutral-200 bg-neutral-50/50 p-1 w-full">
                                 {PAGE_SIZES.map((s) => (
                                     <button
                                         key={s.value}
                                         onClick={() => setPageSize(s.value)}
-                                        className={`px-3 py-2 text-sm transition-colors ${pageSize === s.value ? "bg-neutral-950 text-white" : "bg-white text-neutral-600 hover:bg-neutral-50"
-                                            }`}
+                                        className={`flex-1 text-center py-1.5 text-xs font-semibold rounded-lg transition-all ${pageSize === s.value ? "bg-neutral-950 text-white shadow-sm" : "text-neutral-600 hover:text-neutral-950"}`}
                                     >
                                         {s.label}
                                     </button>
@@ -226,61 +251,81 @@ export default function ConverterWorkspace() {
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-1.5">
-                            <label className="font-mono text-xs text-neutral-500">Margins</label>
-                            <div className="flex rounded-md border border-neutral-300 overflow-hidden">
+                        {/* Layout Margin Grid Configuration */}
+                        <div className="flex flex-col gap-2">
+                            <label className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-500">Layout Margins</label>
+                            <div className="flex rounded-xl border border-neutral-200 bg-neutral-50/50 p-1 w-full">
                                 {MARGINS.map((m) => (
                                     <button
                                         key={m.value}
                                         onClick={() => setMargin(m.value)}
-                                        className={`px-3 py-2 text-sm transition-colors ${margin === m.value ? "bg-neutral-950 text-white" : "bg-white text-neutral-600 hover:bg-neutral-50"
-                                            }`}
+                                        className={`flex-1 text-center py-1.5 text-xs font-semibold rounded-lg transition-all uppercase tracking-wide ${margin === m.value ? "bg-neutral-950 text-white shadow-sm" : "text-neutral-600 hover:text-neutral-950"}`}
                                     >
-                                        {m.label}
+                                        {m.value.substring(0, 3)}
                                     </button>
                                 ))}
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-1.5">
-                            <label className="font-mono text-xs text-neutral-500">Theme</label>
-                            <select
-                                value={theme}
-                                onChange={(e) => setTheme(e.target.value as PrintOptions["theme"])}
-                                className="rounded-md border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-neutral-500 bg-white"
-                            >
-                                {THEMES.map((t) => (
-                                    <option key={t.value} value={t.value}>
-                                        {t.label} — {t.hint}
-                                    </option>
-                                ))}
-                            </select>
+                        {/* Typographic Theme Profiler Dropdown Selector */}
+                        <div className="flex flex-col gap-2">
+                            <label className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-500">Style Profiler Theme</label>
+                            <div className="relative">
+                                <select
+                                    value={theme}
+                                    onChange={(e) => setTheme(e.target.value as PrintOptions["theme"])}
+                                    className="w-full rounded-xl border border-neutral-200 px-3.5 py-2.5 text-sm outline-none bg-neutral-50/50 focus:bg-white focus:border-neutral-900 transition-all font-medium appearance-none cursor-pointer text-neutral-800"
+                                >
+                                    {THEMES.map((t) => (
+                                        <option key={t.value} value={t.value}>
+                                            {t.label} ({t.hint})
+                                        </option>
+                                    ))}
+                                </select>
+                                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3.5 text-neutral-400">
+                                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Secondary Metrics Engine Status Bars */}
+                    <div className="mt-8 pt-6 border-t border-neutral-200/60 grid md:grid-cols-[1fr_auto] items-center gap-4">
+                        <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                            <p className="text-xs text-neutral-500 leading-relaxed font-normal max-w-md">
+                                Exports natively using targeted vector page layouts. Select <span className="font-semibold text-neutral-800">Save as PDF</span> within your operating system print sub-dialog workspace.
+                            </p>
+
+                            {(stats.mermaidCount > 0 || stats.mathCount > 0) && (
+                                <div className="flex flex-wrap items-center gap-3 border-l border-neutral-200 pl-6 hidden md:flex">
+                                    {stats.mermaidCount > 0 && (
+                                        <span className="font-mono text-[11px] font-medium bg-neutral-50 text-neutral-600 border border-neutral-200 px-2 py-0.5 rounded-md">
+                                            {stats.mermaidCount} vectors
+                                        </span>
+                                    )}
+                                    {stats.mathCount > 0 && (
+                                        <span className="font-mono text-[11px] font-medium bg-neutral-50 text-neutral-600 border border-neutral-200 px-2 py-0.5 rounded-md">
+                                            {stats.mathCount} LaTeX bundles
+                                        </span>
+                                    )}
+                                </div>
+                            )}
                         </div>
 
-                        <div className="ml-auto flex items-center gap-2">
+                        {/* Primary Compilation Trigger Execution Button */}
+                        <div className="w-full md:w-auto">
                             <button
                                 onClick={handleExport}
                                 disabled={!html || isExporting}
-                                title="Vector text, clean page breaks. Opens your browser's print dialog — choose 'Save as PDF'."
-                                className="rounded-lg bg-neutral-950 text-white px-6 py-3 text-sm font-medium hover:bg-neutral-800 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+                                className="w-full md:w-auto rounded-xl bg-neutral-950 text-white px-6 py-3.5 text-sm font-semibold hover:bg-neutral-800 disabled:opacity-35 disabled:cursor-not-allowed shadow-md shadow-neutral-950/10 transition-all"
                             >
-                                {isExporting ? "Opening print dialog…" : "Export to PDF"}
+                                {isExporting ? "Opening dialog..." : "Export System Document"}
                             </button>
                         </div>
                     </div>
 
-                    <p className="mt-4 text-xs text-neutral-500 border-t border-neutral-100 pt-4">
-                        Opens your browser&apos;s print dialog in a clean popup — select{" "}
-                        <span className="font-medium text-neutral-700">Save as PDF</span> as the destination.
-                        Vector text, clean page breaks around code, tables and diagrams are all preserved.
-                    </p>
-
-                    {(stats.mermaidCount > 0 || stats.mathCount > 0) && (
-                        <div className="mt-3 flex gap-4 font-mono text-xs text-neutral-500">
-                            {stats.mermaidCount > 0 && <span>{stats.mermaidCount} diagram(s) rendered</span>}
-                            {stats.mathCount > 0 && <span>{stats.mathCount} equation(s) rendered</span>}
-                        </div>
-                    )}
                 </div>
             </div>
         </section>
