@@ -9,7 +9,7 @@ import Faq from '@/app/Components/PDFtools/md-pdf/Faq'
 
 // 1. Define Static SEO Metadata
 export const metadata: Metadata = {
-    title: 'Free Markdown to PDF Converter | Render Mermaid & LaTeX Natively',
+    title: 'Markdown to PDF Converter | Render Mermaid & LaTeX Natively',
     description: 'Convert Markdown (.md) files to high-quality PDFs entirely in your browser. Seamlessly renders Mermaid diagrams, KaTeX math equations, and preserves clean page breaks.',
     keywords: [
         'markdown to pdf',

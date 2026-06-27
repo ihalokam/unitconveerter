@@ -20,7 +20,7 @@ export const metadata = {
         "no upload PDF converter",
     ],
     openGraph: {
-        title: 'Free PDF Tools – Private, Local-First Processing | Standard Convert',
+        title: 'Free PDF Tools for conversions',
         description: 'Image to PDF converter, metadata remover, and more. All processed securely in your browser with zero server uploads.',
         url: 'https://standardconvert.com/pdf-tools',
         siteName: 'Standard Convert',
