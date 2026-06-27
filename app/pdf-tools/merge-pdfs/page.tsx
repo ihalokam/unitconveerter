@@ -23,11 +23,21 @@ export const metadata: Metadata = {
         'no upload pdf tool',
         'client side pdf',
     ],
+    alternates: {
+        canonical: 'https://standardconvert.com/pdf-tools/merge-pdfs',
+    },
+    robots: {
+        index: true,
+        follow: true,
+    },
     openGraph: {
         title: 'Merge PDF Files Online — Free & Private',
         description:
             'Drag, reorder, and merge PDF files entirely in your browser. Zero uploads, zero servers.',
+        url: 'https://standardconvert.com/pdf-tools/merge-pdfs',
+        siteName: 'Standard Convert',
         type: 'website',
+        images: [{ url: 'https://standardconvert.com/og.webp', width: 1200, height: 630, alt: 'Merge PDFs – Standard Convert' }],
     },
 };
 
