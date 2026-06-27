@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import { FileImage, ArrowRight, ShieldAlert, Cpu, Zap, LucideIcon, FileStack } from 'lucide-react'
+import { FileImage, ArrowRight, ShieldAlert, Cpu, Zap, LucideIcon, FileStack, FileCode } from 'lucide-react'
 
 // 1. Define a strict type for our PDF tool modules
 interface PdfTool {
@@ -40,6 +40,14 @@ const PDF_TOOLS_REGISTRY: PdfTool[] = [
         href: '/pdf-tools/merge-pdfs',
         icon: FileStack, // Make sure to import FileStack from 'lucide-react' at the top of your file
         badge: { text: 'New Module', type: 'new' }
+    },
+    {
+        id: '04',
+        title: 'Markdown to PDF',
+        description: 'Convert Markdown (.md) files into structured, print-ready PDFs with native Mermaid and LaTeX rendering.',
+        href: '/pdf-tools/markdown-to-pdf',
+        icon: FileCode,
+        badge: { text: 'Active', type: 'new' }
     },
     // 💡 To add a new tool in the future, just uncomment and edit this:
     // {
