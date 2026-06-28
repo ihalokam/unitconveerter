@@ -15,24 +15,421 @@
     font-size: 2em;
     font-weight: 700;
   }
+
   h2 {
     font-size: 1.5em;
     font-weight: 700;
   }
+
   h3 {
     font-size: 1.25em;
     font-weight: 600;
   }
+
   h4 {
     font-size: 1.125em;
     font-weight: 600;
   }
+
   h5 {
     font-size: 1em;
     font-weight: 600;
   }
+
   h6 {
     font-size: 0.875em;
     font-weight: 600;
   }
+}
+
+/* Append this block to your existing app/globals.css.
+   Styles the live preview pane (.prose-preview) and silences default <textarea> styling.
+   Mirrors the print stylesheet in app/lib/markdownEngine.ts closely, but tuned for screen. */
+
+.prose-preview h1,
+.prose-preview h2,
+.prose-preview h3,
+.prose-preview h4 {
+  font-weight: 600;
+  color: #0a0a0a;
+  line-height: 1.3;
+  margin: 1.3em 0 0.5em;
+}
+
+.prose-preview h1 {
+  font-size: 1.7rem;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 0.4em;
+}
+
+.prose-preview h2 {
+  font-size: 1.3rem;
+  margin-top: 1.6em;
+}
+
+.prose-preview h3 {
+  font-size: 1.1rem;
+}
+
+.prose-preview p {
+  margin: 0.7em 0;
+  color: #262626;
+  line-height: 1.65;
+}
+
+.prose-preview ul,
+.prose-preview ol {
+  margin: 0.6em 0;
+  padding-left: 1.4em;
+  color: #262626;
+}
+
+.prose-preview li {
+  margin: 0.25em 0;
+}
+
+.prose-preview pre {
+  background: #f6f6f6;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  margin: 1em 0;
+}
+
+.prose-preview :not(pre)>code {
+  background: #f0f0f0;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.prose-preview table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  font-size: 0.85rem;
+}
+
+.prose-preview th,
+.prose-preview td {
+  border: 1px solid #e0e0e0;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+.prose-preview th {
+  background: #f6f6f6;
+  font-weight: 600;
+}
+
+.prose-preview blockquote {
+  border-left: 3px solid #0a0a0a;
+  margin: 1em 0;
+  padding: 0.2em 1em;
+  color: #525252;
+  font-style: italic;
+}
+
+/* --- GitHub Alert / Obsidian Callout rendering for the live preview pane. Colors come
+   from the --md-callout-color variable set inline per-callout in markdownEngine.ts;
+   this block only lays out the shared structure. Foldable callouts use native
+   <details>/<summary> so click-to-toggle works with zero JS wiring even though this
+   markup is injected via dangerouslySetInnerHTML. --- */
+.prose-preview .md-callout {
+  margin: 1em 0;
+  border-radius: 8px;
+  border: 1px solid var(--md-callout-color, #888);
+  border-left-width: 4px;
+  background: color-mix(in srgb, var(--md-callout-color, #888) 6%, white);
+  overflow: hidden;
+}
+
+.prose-preview .md-callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.55em 0.9em;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--md-callout-color, #444);
+  cursor: default;
+  list-style: none;
+  /* removes the default <summary> disclosure triangle */
+}
+
+.prose-preview summary.md-callout-title {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.prose-preview summary.md-callout-title::-webkit-details-marker {
+  display: none;
+}
+
+.prose-preview .md-callout-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.prose-preview .md-callout-fold {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+details.md-callout[open]>summary .md-callout-fold {
+  transform: rotate(180deg);
+}
+
+.prose-preview .md-callout-body {
+  padding: 0 0.9em 0.75em 0.9em;
+  font-style: normal;
+  color: #1a1a1a;
+  font-size: 0.92rem;
+}
+
+.prose-preview .md-callout-body>*:first-child {
+  margin-top: 0;
+}
+
+.prose-preview .md-callout-body>*:last-child {
+  margin-bottom: 0;
+}
+
+.prose-preview img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.prose-preview a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.prose-preview .md-mermaid-block {
+  text-align: center;
+  margin: 1.2em 0;
+}
+
+.prose-preview .md-mermaid-block svg {
+  max-width: 100%;
+  height: auto !important;
+}
+
+.prose-preview .md-math-block {
+  text-align: center;
+  margin: 0.8em 0;
+  overflow-x: auto;
+}
+
+.prose-preview .md-mermaid-error,
+.prose-preview .md-math-error {
+  color: #b91c1c;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+textarea:focus {
+  outline: none;
+}
+
+/* Append this block to your existing app/globals.css.
+   Styles the live preview pane (.prose-preview) and silences default <textarea> styling.
+   Mirrors the print stylesheet in app/lib/markdownEngine.ts closely, but tuned for screen. */
+
+.prose-preview h1,
+.prose-preview h2,
+.prose-preview h3,
+.prose-preview h4 {
+  font-weight: 600;
+  color: #0a0a0a;
+  line-height: 1.3;
+  margin: 1.3em 0 0.5em;
+}
+
+.prose-preview h1 {
+  font-size: 1.7rem;
+  border-bottom: 1px solid #e5e5e5;
+  padding-bottom: 0.4em;
+}
+
+.prose-preview h2 {
+  font-size: 1.3rem;
+  margin-top: 1.6em;
+}
+
+.prose-preview h3 {
+  font-size: 1.1rem;
+}
+
+.prose-preview p {
+  margin: 0.7em 0;
+  color: #262626;
+  line-height: 1.65;
+}
+
+.prose-preview ul,
+.prose-preview ol {
+  margin: 0.6em 0;
+  padding-left: 1.4em;
+  color: #262626;
+}
+
+.prose-preview li {
+  margin: 0.25em 0;
+}
+
+.prose-preview pre {
+  background: #f6f6f6;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 14px 16px;
+  overflow-x: auto;
+  font-size: 0.82rem;
+  margin: 1em 0;
+}
+
+.prose-preview :not(pre)>code {
+  background: #f0f0f0;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+.prose-preview table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1em 0;
+  font-size: 0.85rem;
+}
+
+.prose-preview th,
+.prose-preview td {
+  border: 1px solid #e0e0e0;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+.prose-preview th {
+  background: #f6f6f6;
+  font-weight: 600;
+}
+
+.prose-preview blockquote {
+  border-left: 3px solid #0a0a0a;
+  margin: 1em 0;
+  padding: 0.2em 1em;
+  color: #525252;
+  font-style: italic;
+}
+
+/* --- GitHub Alert / Obsidian Callout rendering for the live preview pane. Colors come
+   from the --md-callout-color variable set inline per-callout in markdownEngine.ts;
+   this block only lays out the shared structure. Foldable callouts use native
+   <details>/<summary> so click-to-toggle works with zero JS wiring even though this
+   markup is injected via dangerouslySetInnerHTML. --- */
+.prose-preview .md-callout {
+  margin: 1em 0;
+  border-radius: 8px;
+  border: 1px solid var(--md-callout-color, #888);
+  border-left-width: 4px;
+  background: var(--md-callout-bg, #f5f5f5);
+  overflow: hidden;
+}
+
+.prose-preview .md-callout-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.55em 0.9em;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--md-callout-color, #444);
+  cursor: default;
+  list-style: none;
+  /* removes the default <summary> disclosure triangle */
+}
+
+.prose-preview summary.md-callout-title {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.prose-preview summary.md-callout-title::-webkit-details-marker {
+  display: none;
+}
+
+.prose-preview .md-callout-icon {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+
+.prose-preview .md-callout-fold {
+  width: 14px;
+  height: 14px;
+  margin-left: auto;
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+
+details.md-callout[open]>summary .md-callout-fold {
+  transform: rotate(180deg);
+}
+
+.prose-preview .md-callout-body {
+  padding: 0 0.9em 0.75em 0.9em;
+  font-style: normal;
+  color: #1a1a1a;
+  font-size: 0.92rem;
+}
+
+.prose-preview .md-callout-body>*:first-child {
+  margin-top: 0;
+}
+
+.prose-preview .md-callout-body>*:last-child {
+  margin-bottom: 0;
+}
+
+.prose-preview img {
+  max-width: 100%;
+  border-radius: 6px;
+}
+
+.prose-preview a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.prose-preview .md-mermaid-block {
+  text-align: center;
+  margin: 1.2em 0;
+}
+
+.prose-preview .md-mermaid-block svg {
+  max-width: 100%;
+  height: auto !important;
+}
+
+.prose-preview .md-math-block {
+  text-align: center;
+  margin: 0.8em 0;
+  overflow-x: auto;
+}
+
+.prose-preview .md-mermaid-error,
+.prose-preview .md-math-error {
+  color: #b91c1c;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+textarea:focus {
+  outline: none;
 }
