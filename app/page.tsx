@@ -5,6 +5,7 @@ import UnitConverters from "./Components/HomeComponents/UnitConverters";
 import PdfComponent from "./Components/HomeComponents/PdfComponent";
 import Calculator from "./Components/Calculator/Calculator";
 import SeoContent from "./Components/HomeComponents/SeoContent";
+import UnitConv from "./Components/HomeComponents/UnitConv";
 
 import type { Metadata } from "next";
 
@@ -59,8 +60,9 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      {/* SEO H1 – visually hidden but critical for search engines */}
+
       <h1 className="sr-only">Free Online Unit Converter &amp; PDF Tools</h1>
+      <UnitConv />
       <AboutUs />
       <UnitConverters />
       <PdfComponent />
