@@ -355,19 +355,85 @@ export function exportToPdf(html: string, options: PrintOptions) {
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>${escapeHtml(options.title || "Document")}</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<link id="hljs-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+<link id="katex-css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
 <style>${printStylesheet(options.pageSize, options.margin)}</style>
 </head>
 <body class="${themeClass}">
 <article class="md-document">${printHtml}</article>
 <a href="https://standardconvert.com/" class="md-watermark" target="_blank" rel="noopener">standardconvert.com</a>
 <script>
-  window.onload = function () {
-    setTimeout(function () {
+  (function () {
+    // Maximum time to wait for remote resources before printing anyway (ms).
+    // KaTeX fonts can be slow on first load; 4 s covers even slow connections
+    // while still being far shorter than the old "wait a few seconds manually" workaround.
+    var FALLBACK_MS = 4000;
+    var printed = false;
+
+    function doPrint() {
+      if (printed) return;
+      printed = true;
       window.print();
-    }, 250);
-  };
+    }
+
+    // Safety valve: always print eventually even if a resource hangs.
+    var fallback = setTimeout(doPrint, FALLBACK_MS);
+
+    function tryPrint() {
+      // document.fonts.ready resolves after every @font-face declared in the
+      // page's stylesheets (including those loaded via CDN <link> tags) has
+      // either downloaded or failed. This is the correct signal to use instead
+      // of a blind setTimeout, because window.onload fires as soon as the HTML
+      // is parsed — before the CDN stylesheet fetches and their referenced fonts
+      // have finished downloading.
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(function () {
+          clearTimeout(fallback);
+          doPrint();
+        });
+      } else {
+        // Older Safari / Firefox ESR fallback: fonts API unavailable.
+        // Give an extra 800 ms beyond stylesheet load for @font-face downloads.
+        setTimeout(function () {
+          clearTimeout(fallback);
+          doPrint();
+        }, 800);
+      }
+    }
+
+    // Track how many external <link> stylesheets still need to load.
+    // We only proceed to tryPrint() once all of them have fired their
+    // load event (or errored), because document.fonts.ready only knows
+    // about fonts that are already referenced by parsed CSS — if the
+    // stylesheet hasn't loaded yet, its @font-face rules aren't visible yet.
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    var pending = links.length;
+
+    if (pending === 0) {
+      // No external stylesheets; go straight to font-ready check.
+      tryPrint();
+      return;
+    }
+
+    function onLinkSettled() {
+      pending -= 1;
+      if (pending === 0) {
+        // All stylesheets are parsed; NOW wait for the fonts they declared.
+        tryPrint();
+      }
+    }
+
+    Array.prototype.forEach.call(links, function (link) {
+      // If a <link> already has its sheet populated the load event has already
+      // fired (can happen when the browser serves from cache synchronously).
+      if (link.sheet) {
+        onLinkSettled();
+      } else {
+        link.addEventListener('load', onLinkSettled);
+        link.addEventListener('error', onLinkSettled); // count errors too, don't hang
+      }
+    });
+  })();
 </script>
 </body>
 </html>`);
