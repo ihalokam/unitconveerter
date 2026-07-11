@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo, Suspense } from 'react';
+import { useSearchParams, usePathname } from 'next/navigation';
 import {
     Ruler, Weight, Thermometer, Zap, Clock, Globe2,
     Gauge, Wind, Database, Droplets, ChevronRight,
@@ -17,6 +18,7 @@ type Category = {
     label: string;
     icon: React.ReactNode;
     color: string;
+    aliases: string[]; // extra slugs/keywords that should route to this category
     units: SimpleUnit[];
     convert?: (value: number, from: string, to: string) => number;
 };
@@ -32,6 +34,7 @@ const FALLBACK_RATES: Record<string, number> = {
 const CATEGORIES: Category[] = [
     {
         key: 'length', label: 'Length', icon: <Ruler size={18} />, color: '#3b82f6',
+        aliases: ['distance', 'meters', 'feet'],
         units: [
             { label: 'Millimeter (mm)', value: 'mm', toBase: 0.001 },
             { label: 'Centimeter (cm)', value: 'cm', toBase: 0.01 },
@@ -46,6 +49,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'mass', label: 'Mass', icon: <Weight size={18} />, color: '#8b5cf6',
+        aliases: ['weight', 'kg', 'kilogram'],
         units: [
             { label: 'Milligram (mg)', value: 'mg', toBase: 0.000001 },
             { label: 'Gram (g)', value: 'g', toBase: 0.001 },
@@ -58,6 +62,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'temperature', label: 'Temperature', icon: <Thermometer size={18} />, color: '#ef4444',
+        aliases: ['temp', 'celsius', 'fahrenheit'],
         units: [
             { label: 'Celsius (°C)', value: 'c', toBase: 1 },
             { label: 'Fahrenheit (°F)', value: 'f', toBase: 1 },
@@ -72,6 +77,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'area', label: 'Area', icon: <Square size={18} />, color: '#10b981',
+        aliases: ['acreage', 'square-feet', 'sqft'],
         units: [
             { label: 'Square Millimeter (mm²)', value: 'mm2', toBase: 0.000001 },
             { label: 'Square Centimeter (cm²)', value: 'cm2', toBase: 0.0001 },
@@ -87,6 +93,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'volume', label: 'Volume', icon: <Waves size={18} />, color: '#06b6d4',
+        aliases: ['liters', 'gallons'],
         units: [
             { label: 'Milliliter (ml)', value: 'ml', toBase: 0.001 },
             { label: 'Liter (L)', value: 'l', toBase: 1 },
@@ -100,6 +107,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'speed', label: 'Speed', icon: <Wind size={18} />, color: '#f59e0b',
+        aliases: ['velocity', 'mph', 'kmh'],
         units: [
             { label: 'Meters/second (m/s)', value: 'mps', toBase: 1 },
             { label: 'Kilometers/hour (km/h)', value: 'kmh', toBase: 0.27778 },
@@ -110,6 +118,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'time', label: 'Time', icon: <Clock size={18} />, color: '#6366f1',
+        aliases: ['duration'],
         units: [
             { label: 'Millisecond (ms)', value: 'ms', toBase: 0.001 },
             { label: 'Second (s)', value: 's', toBase: 1 },
@@ -123,6 +132,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'energy', label: 'Energy', icon: <Zap size={18} />, color: '#eab308',
+        aliases: ['calories', 'joules', 'kwh-energy'],
         units: [
             { label: 'Joule (J)', value: 'j', toBase: 1 },
             { label: 'Kilojoule (kJ)', value: 'kj', toBase: 1000 },
@@ -135,6 +145,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'power', label: 'Power', icon: <Battery size={18} />, color: '#f97316',
+        aliases: ['watts', 'horsepower'],
         units: [
             { label: 'Watt (W)', value: 'w', toBase: 1 },
             { label: 'Kilowatt (kW)', value: 'kw', toBase: 1000 },
@@ -145,6 +156,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'pressure', label: 'Pressure', icon: <Gauge size={18} />, color: '#84cc16',
+        aliases: ['psi', 'bar', 'atm'],
         units: [
             { label: 'Pascal (Pa)', value: 'pa', toBase: 1 },
             { label: 'Kilopascal (kPa)', value: 'kpa', toBase: 1000 },
@@ -156,6 +168,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'data', label: 'Data', icon: <Database size={18} />, color: '#ec4899',
+        aliases: ['storage', 'bytes', 'digital'],
         units: [
             { label: 'Bit (b)', value: 'bit', toBase: 0.125 },
             { label: 'Byte (B)', value: 'byte', toBase: 1 },
@@ -168,6 +181,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'angle', label: 'Angle', icon: <Crosshair size={18} />, color: '#14b8a6',
+        aliases: ['degrees', 'radians'],
         units: [
             { label: 'Degree (°)', value: 'deg', toBase: Math.PI / 180 },
             { label: 'Radian (rad)', value: 'rad', toBase: 1 },
@@ -178,6 +192,7 @@ const CATEGORIES: Category[] = [
     },
     {
         key: 'fuel', label: 'Fuel', icon: <Droplets size={18} />, color: '#0ea5e9',
+        aliases: ['mpg', 'fuel-economy', 'mileage'],
         units: [
             { label: 'km/L', value: 'kml', toBase: 1 },
             { label: 'mpg (US)', value: 'mpg-us', toBase: 0.425143707 },
@@ -185,17 +200,20 @@ const CATEGORIES: Category[] = [
             { label: 'L/100km', value: 'l100km', toBase: 1 },
         ],
         convert: (v, from, to) => {
-            const toKpl = (val: number, u: string) => u === 'l100km' ? (val === 0 ? Infinity : 100 / val) : val * (CATEGORIES.find(c => c.key === 'fuel')!.units.find(u2 => u2.value === u)?.toBase ?? 1);
-            const fromKpl = (val: number, u: string) => u === 'l100km' ? (val === 0 ? Infinity : 100 / val) : val / (CATEGORIES.find(c => c.key === 'fuel')!.units.find(u2 => u2.value === u)?.toBase ?? 1);
+            const fuelCat = CATEGORIES.find(c => c.key === 'fuel')!;
+            const toKpl = (val: number, u: string) => u === 'l100km' ? (val === 0 ? Infinity : 100 / val) : val * (fuelCat.units.find(u2 => u2.value === u)?.toBase ?? 1);
+            const fromKpl = (val: number, u: string) => u === 'l100km' ? (val === 0 ? Infinity : 100 / val) : val / (fuelCat.units.find(u2 => u2.value === u)?.toBase ?? 1);
             return fromKpl(toKpl(v, from), to);
         },
     },
     {
         key: 'currency', label: 'Currency', icon: <Globe2 size={18} />, color: '#22c55e',
+        aliases: ['money', 'exchange-rate', 'forex', 'usd', 'eur'],
         units: Object.keys(FALLBACK_RATES).map(code => ({ label: code, value: code, toBase: 1 })),
     },
     {
         key: 'cpu', label: 'Frequency', icon: <Cpu size={18} />, color: '#a855f7',
+        aliases: ['hertz', 'clock-speed'],
         units: [
             { label: 'Hertz (Hz)', value: 'hz', toBase: 1 },
             { label: 'Kilohertz (kHz)', value: 'khz', toBase: 1000 },
@@ -204,6 +222,31 @@ const CATEGORIES: Category[] = [
         ],
     },
 ];
+
+// ─── URL → Category resolution ────────────────────────────────────────────────
+// Lets a person land directly on the right converter, e.g. /?unit=pressure,
+// /?unit=pressure-converter, /pressure-converter, or /convert/psi-to-bar
+
+function slugify(s: string): string {
+    return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+}
+
+function resolveCategoryFromSlug(raw: string | null): string | null {
+    if (!raw) return null;
+    const slug = slugify(raw.replace(/-?converter$/i, ''));
+    if (!slug) return null;
+
+    for (const cat of CATEGORIES) {
+        const candidates = [cat.key, slugify(cat.label), ...cat.aliases.map(slugify)];
+        if (candidates.includes(slug)) return cat.key;
+        // also match "psi-to-bar" style slugs by checking unit values
+        const unitValues = cat.units.map(u => slugify(u.value));
+        if (slug.includes('-to-') && slug.split('-to-').some(part => unitValues.includes(part))) {
+            return cat.key;
+        }
+    }
+    return null;
+}
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -239,24 +282,13 @@ function CategoryTab({ category, active, onClick }: CategoryTabProps) {
     return (
         <button
             onClick={onClick}
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                padding: '10px 16px',
-                borderRadius: '12px',
-                border: active ? `1.5px solid ${category.color}` : '1.5px solid transparent',
-                background: active ? `${category.color}15` : 'transparent',
-                color: active ? category.color : '#64748b',
-                fontWeight: active ? 700 : 500,
-                fontSize: '0.85rem',
-                cursor: 'pointer',
-                transition: 'all 0.18s ease',
-                whiteSpace: 'nowrap',
-                fontFamily: 'inherit',
-            }}
+            style={active ? { borderColor: category.color, background: `${category.color}15`, color: category.color } : undefined}
+            className={`flex items-center gap-2 rounded-xl border-[1.5px] px-3 py-2.5 text-[0.85rem] font-medium transition-all duration-150 whitespace-nowrap
+                ${active ? 'border-transparent font-bold' : 'border-transparent text-slate-500 hover:bg-slate-50'}`}
         >
-            <span style={{ color: active ? category.color : '#94a3b8', flexShrink: 0 }}>{category.icon}</span>
+            <span style={{ color: active ? category.color : '#94a3b8' }} className="shrink-0">
+                {category.icon}
+            </span>
             {category.label}
         </button>
     );
@@ -272,37 +304,24 @@ interface SelectFieldProps {
 
 function SelectField({ label, value, units, onChange, accentColor }: SelectFieldProps) {
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', flex: 1 }}>
-            <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+        <div className="flex flex-1 flex-col gap-1.5">
+            <label className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 {label}
             </label>
-            <div style={{ position: 'relative' }}>
+            <div className="relative">
                 <select
                     value={value}
                     onChange={e => onChange(e.target.value)}
-                    style={{
-                        width: '100%',
-                        padding: '14px 40px 14px 16px',
-                        borderRadius: '14px',
-                        border: `1.5px solid #e2e8f0`,
-                        background: '#fff',
-                        color: '#1e293b',
-                        fontSize: '0.95rem',
-                        fontFamily: 'inherit',
-                        fontWeight: 500,
-                        cursor: 'pointer',
-                        appearance: 'none',
-                        outline: 'none',
-                        transition: 'border-color 0.15s',
-                    }}
-                    onFocus={e => { e.currentTarget.style.borderColor = accentColor; e.currentTarget.style.boxShadow = `0 0 0 3px ${accentColor}20`; }}
-                    onBlur={e => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.boxShadow = 'none'; }}
+                    style={{ ['--tw-ring-color' as string]: accentColor }}
+                    className="w-full cursor-pointer appearance-none rounded-2xl border-[1.5px] border-slate-200 bg-white px-4 py-3.5 pr-10 text-[0.95rem] font-medium text-slate-800 outline-none transition-colors focus:ring-[3px]"
+                    onFocus={e => { e.currentTarget.style.borderColor = accentColor; }}
+                    onBlur={e => { e.currentTarget.style.borderColor = '#e2e8f0'; }}
                 >
                     {units.map(u => (
                         <option key={u.value} value={u.value}>{u.label}</option>
                     ))}
                 </select>
-                <ChevronRight size={16} style={{ position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%) rotate(90deg)', color: '#94a3b8', pointerEvents: 'none' }} />
+                <ChevronRight size={16} className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 rotate-90 text-slate-400" />
             </div>
         </div>
     );
@@ -319,33 +338,18 @@ interface ResultDisplayProps {
 function ResultDisplay({ result, toUnit, fromValue, fromUnit, accentColor }: ResultDisplayProps) {
     const isValid = result !== null && fromValue.trim() !== '';
     return (
-        <div style={{
-            borderRadius: '18px',
-            background: `linear-gradient(135deg, ${accentColor}08 0%, ${accentColor}15 100%)`,
-            border: `1.5px solid ${accentColor}30`,
-            padding: '28px 32px',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: '8px',
-            minHeight: '120px',
-            justifyContent: 'center',
-        }}>
-            <div style={{ fontSize: '0.75rem', fontWeight: 700, color: accentColor, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+        <div
+            style={{ background: `linear-gradient(135deg, ${accentColor}08 0%, ${accentColor}15 100%)`, borderColor: `${accentColor}30` }}
+            className="flex min-h-[120px] flex-col justify-center gap-2 rounded-[18px] border-[1.5px] px-8 py-7"
+        >
+            <div style={{ color: accentColor }} className="text-xs font-bold uppercase tracking-widest">
                 Result
             </div>
-            <div style={{
-                fontSize: 'clamp(1.8rem, 4vw, 2.8rem)',
-                fontWeight: 800,
-                color: isValid ? '#0f172a' : '#cbd5e1',
-                letterSpacing: '-0.03em',
-                lineHeight: 1.1,
-                fontFamily: "'DM Mono', 'Fira Mono', 'Consolas', monospace",
-                wordBreak: 'break-all',
-            }}>
+            <div className={`break-all font-mono text-[clamp(1.8rem,4vw,2.8rem)] font-extrabold leading-tight tracking-tight ${isValid ? 'text-slate-900' : 'text-slate-300'}`}>
                 {isValid ? formatResult(result!) : '—'}
             </div>
             {isValid && (
-                <div style={{ fontSize: '0.9rem', color: '#64748b', fontWeight: 500 }}>
+                <div className="text-sm font-medium text-slate-500">
                     {fromValue} {fromUnit.label} = {formatResult(result!)} {toUnit.label}
                 </div>
             )}
@@ -367,28 +371,19 @@ function AllUnitsTable({ category, inputValue, fromUnit, rates, fromKey }: AllUn
     if (!Number.isFinite(inputValue) || inputValue === 0) return null;
 
     return (
-        <div style={{ marginTop: '8px' }}>
-            <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px' }}>
+        <div className="mt-2">
+            <div className="mb-2.5 text-[0.78rem] font-bold uppercase tracking-wider text-slate-400">
                 All conversions for {inputValue} {fromUnit.label}
             </div>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '8px' }}>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(220px,1fr))] gap-2">
                 {category.units.map(unit => {
                     if (unit.value === fromKey) return null;
                     const result = convertUnits(inputValue, fromUnit, unit, category, rates, fromKey, unit.value);
                     if (result === null) return null;
                     return (
-                        <div key={unit.value} style={{
-                            padding: '12px 16px',
-                            borderRadius: '12px',
-                            background: '#f8fafc',
-                            border: '1px solid #f1f5f9',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            gap: '8px',
-                        }}>
-                            <span style={{ fontSize: '0.82rem', color: '#64748b', fontWeight: 500 }}>{unit.label}</span>
-                            <span style={{ fontSize: '0.9rem', fontWeight: 700, color: '#1e293b', fontFamily: "'DM Mono', monospace" }}>
+                        <div key={unit.value} className="flex items-center justify-between gap-2 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
+                            <span className="text-[0.82rem] font-medium text-slate-500">{unit.label}</span>
+                            <span className="font-mono text-sm font-bold text-slate-800">
                                 {formatResult(result)}
                             </span>
                         </div>
@@ -401,8 +396,17 @@ function AllUnitsTable({ category, inputValue, fromUnit, rates, fromKey }: AllUn
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
-export default function TotalConv() {
-    const [activeCatKey, setActiveCatKey] = useState('length');
+function TotalConvInner() {
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+
+    const initialCatKey = useMemo(() => {
+        const fromQuery = searchParams.get('unit') ?? searchParams.get('category') ?? searchParams.get('type');
+        const fromPath = pathname?.split('/').filter(Boolean).pop() ?? null;
+        return resolveCategoryFromSlug(fromQuery) ?? resolveCategoryFromSlug(fromPath) ?? 'length';
+    }, [searchParams, pathname]);
+
+    const [activeCatKey, setActiveCatKey] = useState(initialCatKey);
     const [inputValue, setInputValue] = useState('1');
     const [fromKey, setFromKey] = useState('m');
     const [toKey, setToKey] = useState('ft');
@@ -443,6 +447,9 @@ export default function TotalConv() {
 
     useEffect(() => { void fetchRates(); }, [fetchRates]);
 
+    // Re-sync if the URL changes (e.g. person clicks a different "X converter" link)
+    useEffect(() => { setActiveCatKey(initialCatKey); }, [initialCatKey]);
+
     useEffect(() => {
         setFromKey(category.units[0].value);
         setToKey((category.units[1] ?? category.units[0]).value);
@@ -452,216 +459,163 @@ export default function TotalConv() {
     const handleSwap = () => { setFromKey(toKey); setToKey(fromKey); };
 
     return (
-        <>
-            <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap');
-        .unit-converter-conv, .unit-converter-conv * { box-sizing: border-box; }
-        .unit-converter-conv .cat-scroll::-webkit-scrollbar { height: 4px; }
-        .unit-converter-conv .cat-scroll::-webkit-scrollbar-track { background: transparent; }
-        .unit-converter-conv .cat-scroll::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 4px; }
-        .unit-converter-conv .swap-btn:hover { transform: scale(1.08) rotate(180deg) !important; }
-        .unit-converter-conv .swap-btn { transition: transform 0.3s ease !important; }
-        .unit-converter-conv select option { font-family: 'Plus Jakarta Sans', sans-serif; }
-      `}</style>
+        <div className="min-h-screen font-sans text-slate-800" style={{ background: 'linear-gradient(160deg, #f0f9ff 0%, #fafafa 40%, #fff7ed 100%)' }}>
+            <div className="mx-auto max-w-[1100px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
 
-            <div className="unit-converter-conv" style={{
-                minHeight: '100vh',
-                background: 'linear-gradient(160deg, #f0f9ff 0%, #fafafa 40%, #fff7ed 100%)',
-                fontFamily: "'Plus Jakarta Sans', sans-serif",
-                color: '#1e293b',
-            }}>
-                <div style={{ maxWidth: '1100px', margin: '0 auto', padding: 'clamp(20px, 4vw, 48px) clamp(16px, 4vw, 32px)' }}>
-
-                    {/* ── Header ── */}
-                    <header style={{ marginBottom: '36px' }}>
-                        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px' }}>
-                            <div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '10px' }}>
-                                    <div style={{ width: 36, height: 36, borderRadius: '10px', background: `linear-gradient(135deg, ${category.color}, ${category.color}99)`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff' }}>
-                                        <TrendingUp size={18} />
-                                    </div>
-                                    <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                                        Unit Converter
-                                    </span>
-                                </div>
-                                <h1 style={{ fontSize: 'clamp(1.8rem, 5vw, 3rem)', fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1.05, color: '#0f172a' }}>
-                                    Convert anything,<br />
-                                    <span style={{ color: category.color }}>instantly.</span>
-                                </h1>
-                            </div>
-                            {activeCatKey === 'currency' && (
-                                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '6px' }}>
-                                    <div style={{
-                                        fontSize: '0.78rem', fontWeight: 600, padding: '4px 12px', borderRadius: '20px',
-                                        background: rateStatus === 'live' ? '#dcfce7' : rateStatus === 'loading' ? '#fef9c3' : '#fee2e2',
-                                        color: rateStatus === 'live' ? '#166534' : rateStatus === 'loading' ? '#854d0e' : '#991b1b',
-                                    }}>
-                                        {rateStatus === 'live' ? `● Live · ${rateDate}` : rateStatus === 'loading' ? '● Fetching…' : '● Fallback rates'}
-                                    </div>
-                                    <button
-                                        onClick={() => void fetchRates()}
-                                        disabled={rateStatus === 'loading'}
-                                        style={{
-                                            display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 16px',
-                                            borderRadius: '12px', border: '1.5px solid #e2e8f0', background: '#fff',
-                                            color: '#475569', fontSize: '0.82rem', fontWeight: 600, cursor: 'pointer',
-                                            fontFamily: 'inherit',
-                                        }}
-                                    >
-                                        <RefreshCw size={14} style={{ animation: rateStatus === 'loading' ? 'spin 1s linear infinite' : 'none' }} />
-                                        Refresh
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                    </header>
-
-                    {/* ── Category Tabs ── */}
-                    <div className="cat-scroll" style={{ overflowX: 'auto', marginBottom: '28px', paddingBottom: '4px' }}>
-                        <div style={{ display: 'flex', gap: '6px', width: 'max-content' }}>
-                            {CATEGORIES.map(cat => (
-                                <CategoryTab
-                                    key={cat.key}
-                                    category={cat}
-                                    active={activeCatKey === cat.key}
-                                    onClick={() => setActiveCatKey(cat.key)}
-                                />
-                            ))}
-                        </div>
-                    </div>
-
-                    {/* ── Main Card ── */}
-                    <div style={{
-                        background: '#fff',
-                        borderRadius: '24px',
-                        border: '1px solid #f1f5f9',
-                        boxShadow: '0 4px 6px -1px rgba(0,0,0,0.04), 0 20px 60px -10px rgba(0,0,0,0.07)',
-                        overflow: 'hidden',
-                    }}>
-                        {/* Top bar accent */}
-                        <div style={{ height: '3px', background: `linear-gradient(90deg, ${category.color}, ${category.color}60)` }} />
-
-                        <div style={{ padding: 'clamp(20px, 4vw, 36px)' }}>
-                            {/* ── Input Row ── */}
-                            <div style={{ marginBottom: '24px' }}>
-                                <label style={{ fontSize: '0.75rem', fontWeight: 700, color: '#94a3b8', letterSpacing: '0.08em', textTransform: 'uppercase', display: 'block', marginBottom: '8px' }}>
-                                    Value
-                                </label>
-                                <input
-                                    type="text"
-                                    inputMode="decimal"
-                                    value={inputValue}
-                                    onChange={e => setInputValue(e.target.value)}
-                                    placeholder="Enter a number…"
-                                    style={{
-                                        width: '100%',
-                                        padding: '16px 20px',
-                                        borderRadius: '16px',
-                                        border: `1.5px solid #e2e8f0`,
-                                        background: '#fafafa',
-                                        color: '#0f172a',
-                                        fontSize: 'clamp(1.1rem, 3vw, 1.5rem)',
-                                        fontFamily: "'DM Mono', monospace",
-                                        fontWeight: 500,
-                                        outline: 'none',
-                                        transition: 'all 0.15s',
-                                    }}
-                                    onFocus={e => { e.currentTarget.style.borderColor = category.color; e.currentTarget.style.boxShadow = `0 0 0 3px ${category.color}20`; e.currentTarget.style.background = '#fff'; }}
-                                    onBlur={e => { e.currentTarget.style.borderColor = '#e2e8f0'; e.currentTarget.style.boxShadow = 'none'; e.currentTarget.style.background = '#fafafa'; }}
-                                />
-                            </div>
-
-                            {/* ── From / Swap / To ── */}
-                            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '12px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                                <SelectField label="From" value={fromKey} units={category.units} onChange={setFromKey} accentColor={category.color} />
-
-                                <button
-                                    className="swap-btn"
-                                    onClick={handleSwap}
-                                    style={{
-                                        width: 48, height: 48, borderRadius: '14px', flexShrink: 0, marginBottom: '2px',
-                                        border: `1.5px solid ${category.color}40`,
-                                        background: `${category.color}10`,
-                                        color: category.color,
-                                        display: 'flex', alignItems: 'center', justifyContent: 'center',
-                                        cursor: 'pointer',
-                                    }}
-                                    title="Swap units"
+                {/* ── Header ── */}
+                <header className="mb-9">
+                    <div className="flex flex-wrap items-start justify-between gap-4">
+                        <div>
+                            <div className="mb-2.5 flex items-center gap-2.5">
+                                <div
+                                    style={{ background: `linear-gradient(135deg, ${category.color}, ${category.color}99)` }}
+                                    className="flex h-9 w-9 items-center justify-center rounded-[10px] text-white"
                                 >
-                                    <ArrowLeftRight size={18} />
+                                    <TrendingUp size={18} />
+                                </div>
+                                <span className="text-[0.78rem] font-bold uppercase tracking-widest text-slate-400">
+                                    Unit Converter
+                                </span>
+                            </div>
+                            <h1 className="text-[clamp(1.8rem,5vw,3rem)] font-extrabold leading-[1.05] tracking-tight text-slate-900">
+                                Convert anything,<br />
+                                <span style={{ color: category.color }}>instantly.</span>
+                            </h1>
+                        </div>
+                        {activeCatKey === 'currency' && (
+                            <div className="flex flex-col items-end gap-1.5">
+                                <div
+                                    className={`rounded-full px-3 py-1 text-[0.78rem] font-semibold
+                                        ${rateStatus === 'live' ? 'bg-green-100 text-green-800'
+                                            : rateStatus === 'loading' ? 'bg-yellow-100 text-yellow-800'
+                                                : 'bg-red-100 text-red-800'}`}
+                                >
+                                    {rateStatus === 'live' ? `● Live · ${rateDate}` : rateStatus === 'loading' ? '● Fetching…' : '● Fallback rates'}
+                                </div>
+                                <button
+                                    onClick={() => void fetchRates()}
+                                    disabled={rateStatus === 'loading'}
+                                    className="flex items-center gap-1.5 rounded-xl border-[1.5px] border-slate-200 bg-white px-4 py-2 text-[0.82rem] font-semibold text-slate-600 disabled:opacity-60"
+                                >
+                                    <RefreshCw size={14} className={rateStatus === 'loading' ? 'animate-spin' : ''} />
+                                    Refresh
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </header>
+
+                {/* ── Category Grid (wraps — no horizontal scroll, every category visible) ── */}
+                <div className="mb-7 grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
+                    {CATEGORIES.map(cat => (
+                        <CategoryTab
+                            key={cat.key}
+                            category={cat}
+                            active={activeCatKey === cat.key}
+                            onClick={() => setActiveCatKey(cat.key)}
+                        />
+                    ))}
+                </div>
+
+                {/* ── Main Card ── */}
+                <div className="overflow-hidden rounded-3xl border border-slate-100 bg-white shadow-[0_4px_6px_-1px_rgba(0,0,0,0.04),0_20px_60px_-10px_rgba(0,0,0,0.07)]">
+                    <div className="h-[3px]" style={{ background: `linear-gradient(90deg, ${category.color}, ${category.color}60)` }} />
+
+                    <div className="p-5 sm:p-7 lg:p-9">
+                        {/* ── Input Row ── */}
+                        <div className="mb-6">
+                            <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-400">
+                                Value
+                            </label>
+                            <input
+                                type="text"
+                                inputMode="decimal"
+                                value={inputValue}
+                                onChange={e => setInputValue(e.target.value)}
+                                placeholder="Enter a number…"
+                                style={{ ['--tw-ring-color' as string]: category.color }}
+                                className="w-full rounded-2xl border-[1.5px] border-slate-200 bg-slate-50 px-5 py-4 font-mono text-[clamp(1.1rem,3vw,1.5rem)] font-medium text-slate-900 outline-none transition-all focus:bg-white focus:ring-[3px]"
+                                onFocus={e => { e.currentTarget.style.borderColor = category.color; }}
+                                onBlur={e => { e.currentTarget.style.borderColor = '#e2e8f0'; }}
+                            />
+                        </div>
+
+                        {/* ── From / Swap / To ── */}
+                        <div className="mb-6 flex flex-wrap items-end gap-3">
+                            <SelectField label="From" value={fromKey} units={category.units} onChange={setFromKey} accentColor={category.color} />
+
+                            <button
+                                onClick={handleSwap}
+                                style={{ borderColor: `${category.color}40`, background: `${category.color}10`, color: category.color }}
+                                className="mb-0.5 flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border-[1.5px] transition-transform duration-300 hover:rotate-180 hover:scale-110"
+                                title="Swap units"
+                            >
+                                <ArrowLeftRight size={18} />
+                            </button>
+
+                            <SelectField label="To" value={toKey} units={category.units} onChange={setToKey} accentColor={category.color} />
+                        </div>
+
+                        {/* ── Result ── */}
+                        <ResultDisplay
+                            result={result}
+                            toUnit={toUnit}
+                            fromValue={inputValue}
+                            fromUnit={fromUnit}
+                            accentColor={category.color}
+                        />
+
+                        {/* ── All units toggle ── */}
+                        {numericValue !== null && numericValue !== 0 && category.units.length > 2 && (
+                            <div className="mt-5">
+                                <button
+                                    onClick={() => setShowAllUnits(v => !v)}
+                                    style={{ color: category.color }}
+                                    className="flex items-center gap-1.5 py-1 text-[0.82rem] font-bold"
+                                >
+                                    <ChevronRight size={16} className={`transition-transform duration-200 ${showAllUnits ? 'rotate-90' : 'rotate-0'}`} />
+                                    {showAllUnits ? 'Hide' : 'Show'} all {category.units.length - 1} conversions
                                 </button>
 
-                                <SelectField label="To" value={toKey} units={category.units} onChange={setToKey} accentColor={category.color} />
+                                {showAllUnits && (
+                                    <div className="mt-4">
+                                        <AllUnitsTable
+                                            category={category}
+                                            inputValue={numericValue}
+                                            fromUnit={fromUnit}
+                                            rates={rates}
+                                            fromKey={fromKey}
+                                        />
+                                    </div>
+                                )}
                             </div>
-
-                            {/* ── Result ── */}
-                            <ResultDisplay
-                                result={result}
-                                toUnit={toUnit}
-                                fromValue={inputValue}
-                                fromUnit={fromUnit}
-                                accentColor={category.color}
-                            />
-
-                            {/* ── All units toggle ── */}
-                            {numericValue !== null && numericValue !== 0 && category.units.length > 2 && (
-                                <div style={{ marginTop: '20px' }}>
-                                    <button
-                                        onClick={() => setShowAllUnits(v => !v)}
-                                        style={{
-                                            display: 'flex', alignItems: 'center', gap: '6px',
-                                            fontSize: '0.82rem', fontWeight: 700, color: category.color,
-                                            background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', padding: '4px 0',
-                                        }}
-                                    >
-                                        <ChevronRight size={16} style={{ transform: showAllUnits ? 'rotate(90deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }} />
-                                        {showAllUnits ? 'Hide' : 'Show'} all {category.units.length - 1} conversions
-                                    </button>
-
-                                    {showAllUnits && (
-                                        <div style={{ marginTop: '16px' }}>
-                                            <AllUnitsTable
-                                                category={category}
-                                                inputValue={numericValue}
-                                                fromUnit={fromUnit}
-                                                rates={rates}
-                                                fromKey={fromKey}
-                                            />
-                                        </div>
-                                    )}
-                                </div>
-                            )}
-                        </div>
+                        )}
                     </div>
-
-                    {/* ── Info Strip ── */}
-                    <div style={{ marginTop: '20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '12px' }}>
-                        {[
-                            { label: 'Categories', value: `${CATEGORIES.length}` },
-                            { label: 'Units in this category', value: `${category.units.length}` },
-                            { label: 'Total unit types', value: `${CATEGORIES.reduce((s, c) => s + c.units.length, 0)}+` },
-                        ].map(item => (
-                            <div key={item.label} style={{
-                                padding: '16px 20px',
-                                borderRadius: '16px',
-                                background: '#fff',
-                                border: '1px solid #f1f5f9',
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                            }}>
-                                <span style={{ fontSize: '0.82rem', color: '#94a3b8', fontWeight: 600 }}>{item.label}</span>
-                                <span style={{ fontSize: '1.1rem', fontWeight: 800, color: '#0f172a' }}>{item.value}</span>
-                            </div>
-                        ))}
-                    </div>
-
                 </div>
-            </div>
 
-            <style>{`
-        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-      `}</style>
-        </>
+                {/* ── Info Strip ── */}
+                <div className="mt-5 grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-3">
+                    {[
+                        { label: 'Categories', value: `${CATEGORIES.length}` },
+                        { label: 'Units in this category', value: `${category.units.length}` },
+                        { label: 'Total unit types', value: `${CATEGORIES.reduce((s, c) => s + c.units.length, 0)}+` },
+                    ].map(item => (
+                        <div key={item.label} className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white px-5 py-4">
+                            <span className="text-[0.82rem] font-semibold text-slate-400">{item.label}</span>
+                            <span className="text-lg font-extrabold text-slate-900">{item.value}</span>
+                        </div>
+                    ))}
+                </div>
+
+            </div>
+        </div>
+    );
+}
+
+export default function TotalConv() {
+    return (
+        <Suspense fallback={null}>
+            <TotalConvInner />
+        </Suspense>
     );
 }
