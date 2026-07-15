@@ -6,11 +6,11 @@ import Footer from '../../Components/Footer'
 import LengthContent from '../../Components/UnitComponents/LengthContent'
 
 export const metadata: Metadata = {
-    title: 'Length & Distance Unit Converter – mm, cm, m, km, in, ft, mi',
-    description: 'Convert length and distance units instantly. Supports mm, cm, m, km, inches, feet, yards, miles, nautical miles, and more. Bulk CSV conversion included.',
+    title: 'Length & Distance Unit Converter in bulk CSV and Excel files – mm, cm, m, km, in, ft, mi',
+    description: 'Convert length and distance units online in bulk CSV and Excel files.',
     alternates: { canonical: 'https://standardconvert.com/bulk-unit-converter/length-unit-converter-in-bulk-csv-excel-files' },
     openGraph: {
-        title: 'Length Unit Converter – Standard Convert',
+        title: 'Length & Distance Unit Converter in bulk CSV and Excel files',
         description: 'Free online length and distance converter. Metric and imperial units. Bulk CSV support.',
         url: 'https://standardconvert.com/bulk-unit-converter/length-unit-converter-in-bulk-csv-excel-files',
     },

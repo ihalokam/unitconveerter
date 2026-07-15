@@ -6,12 +6,12 @@ import Footer from "../../Components/Footer";
 import PressureContent from "../../Components/UnitComponents/PressureContent";
 
 export const metadata: Metadata = {
-    title: "Pressure Unit Converter – PSI, Bar, Pascal, atm, kPa",
-    description: "Convert pressure units instantly. PSI to bar, Pascal to atm, kPa to MPa, and more. Free bulk CSV pressure conversion tool for engineering and science.",
+    title: "Pressure Unit Converter in bulk CSV and excel files – PSI, Bar, Pascal, atm, kPa",
+    description: "Convert pressure units online in bulk CSV and Excel files.",
     alternates: { canonical: "https://standardconvert.com/bulk-unit-converter/pressure-unit-converter-in-bulk-csv-excel-files" },
     openGraph: {
-        title: "Pressure Unit Converter – Standard Convert",
-        description: "Free PSI to bar, Pascal to atm, kPa converter. Bulk CSV pressure unit conversion.",
+        title: "Pressure Unit Converter in bulk CSV and excel files",
+        description: "Convert pressure units online in bulk CSV and Excel files.",
         url: "https://standardconvert.com/bulk-unit-converter/pressure-unit-converter-in-bulk-csv-excel-files",
     },
 };

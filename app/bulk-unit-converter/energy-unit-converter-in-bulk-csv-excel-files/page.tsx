@@ -7,11 +7,11 @@ import EnergyContent from '../../Components/UnitComponents/EnergyContent'
 import HowEnergy from '../../Components/UnitComponents/HowEnergy'
 
 export const metadata: Metadata = {
-    title: 'Energy Unit Converter – Joules, kWh, Calories, BTU, eV',
-    description: 'Convert energy and power units online. Joules to calories, kWh to joules, BTU to watts, and more. Free bulk CSV energy conversion tool.',
+    title: 'Energy Unit Bulk Converter, CSV and Excel – Joules, kWh, Calories, BTU, eV',
+    description: 'Convert energy and power units online in bulk CSV and Excel files.',
     alternates: { canonical: 'https://standardconvert.com/bulk-unit-converter/energy-unit-converter-in-bulk-csv-excel-files' },
     openGraph: {
-        title: 'Energy Unit Converter – Standard Convert',
+        title: 'Energy Unit Bulk Converter, CSV and Excel',
         description: 'Free joules to kWh, calories to BTU converter. Bulk CSV energy unit conversion.',
         url: 'https://standardconvert.com/bulk-unit-converter/energy-unit-converter-in-bulk-csv-excel-files',
     },
