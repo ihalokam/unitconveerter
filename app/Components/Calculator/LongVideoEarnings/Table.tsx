@@ -1,5 +1,5 @@
 import React from 'react'
-import { Globe2, TrendingUp, Zap, BarChart3 } from 'lucide-react'
+import { Globe2, TrendingUp, BarChart3 } from 'lucide-react'
 
 function Table() {
     const data = [
@@ -33,18 +33,16 @@ function Table() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                     <div className="max-w-xl">
                         <div className="flex items-center gap-2 mb-4">
-                            <Globe2 size={16} className="text-blue-600" />
+                            <Globe2 size={16} className="text-red-600" />
                             <span className="font-mono text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Regional Intelligence</span>
                         </div>
                         <h2 className="text-4xl font-black tracking-tighter text-slate-900 uppercase italic leading-none">
-                            Countries with Highest <span className="text-blue-600">RPM</span>
+                            Countries with Highest <span className="text-red-600">RPM</span>
                         </h2>
                         <p className="text-slate-500 font-medium mt-4 text-sm leading-relaxed">
                             The countries with highest RPM rates on Youtube video. Which also shows the purchasing power of countries. So you can target those countries to get high RPM rates on your videos.
                         </p>
                     </div>
-
-
                 </div>
 
                 {/* Table Container */}
@@ -61,7 +59,7 @@ function Table() {
                             </thead>
                             <tbody className="divide-y divide-slate-50">
                                 {data.map((row, idx) => (
-                                    <tr key={idx} className="hover:bg-blue-50/30 transition-colors group">
+                                    <tr key={idx} className="hover:bg-red-50/30 transition-colors group">
                                         <td className="px-8 py-5">
                                             <div className="flex items-center gap-3">
                                                 <span className="text-xl grayscale group-hover:grayscale-0 transition-all">{row.flag}</span>
@@ -78,9 +76,9 @@ function Table() {
                                             </div>
                                         </td>
                                         <td className="px-8 py-5 text-right">
-                                            <span className={`inline-block px-3 py-1 rounded-full font-mono text-[9px] font-black uppercase tracking-widest border ${row.tier === 'Tier 1' ? 'bg-blue-50 text-blue-600 border-blue-100' :
-                                                row.tier === 'Tier 2' ? 'bg-orange-50 text-orange-600 border-orange-100' :
-                                                    'bg-slate-50 text-slate-400 border-slate-100'
+                                            <span className={`inline-block px-3 py-1 rounded-full font-mono text-[9px] font-black uppercase tracking-widest border ${row.tier === 'Tier 1' ? 'bg-red-50 text-red-600 border-red-100' :
+                                                    row.tier === 'Tier 2' ? 'bg-orange-50 text-orange-600 border-orange-100' :
+                                                        'bg-slate-50 text-slate-400 border-slate-100'
                                                 }`}>
                                                 {row.tier}
                                             </span>
@@ -95,11 +93,11 @@ function Table() {
                 {/* Footer Insight */}
                 <div className="mt-8 grid md:grid-cols-2 gap-4">
                     <div className="p-6 rounded-[2rem] bg-slate-900 text-white flex items-center gap-4">
-                        <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shrink-0">
+                        <div className="w-10 h-10 bg-red-600 rounded-xl flex items-center justify-center shrink-0">
                             <BarChart3 size={18} />
                         </div>
                         <p className="text-[11px] font-bold uppercase tracking-wider leading-relaxed">
-                            <span className="text-blue-400">Pro Logic:</span> High-tier countries (US/UK) pay more because advertisers compete for high purchasing power audiences.
+                            <span className="text-red-400">Pro Logic:</span> High-tier countries (US/UK) pay more because advertisers compete for high purchasing power audiences.
                         </p>
                     </div>
                     <div className="p-6 rounded-[2rem] bg-white border border-slate-100 flex items-center gap-4">

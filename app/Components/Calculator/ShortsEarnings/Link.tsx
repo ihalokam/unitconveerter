@@ -1,49 +1,53 @@
 import React from 'react'
-import { ArrowRight, Video, MonitorPlay, Zap } from 'lucide-react'
+import { ArrowRight, MonitorPlay, Sparkles } from 'lucide-react'
 
-function Link() {
+function LongFormLink() {
     return (
-        <section className="px-6 py-12">
+        <section className="px-6 py-8">
             <div className="max-w-2xl mx-auto">
                 <a
                     href="/calculator/long-youtube-video-earnings-calculator"
-                    className="group relative flex flex-col md:flex-row items-center justify-between gap-6 p-8 rounded-[2.5rem] bg-slate-900 border border-slate-800 transition-all duration-500 hover:border-blue-600 hover:shadow-2xl hover:shadow-blue-500/20"
+                    className="group relative flex flex-col sm:flex-row items-center justify-between gap-6 p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-sm transition-all duration-300 hover:border-red-200 hover:shadow-xl hover:shadow-red-500/5 hover:-translate-y-0.5 overflow-hidden"
                 >
-                    {/* Content */}
-                    <div className="relative z-10 flex items-center gap-5">
-                        <div className="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/20 group-hover:rotate-6 transition-transform duration-500">
-                            <MonitorPlay size={28} className="text-white" />
+                    {/* Ambient Hover Backdrop */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-red-50/0 via-red-50/20 to-red-50/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                    {/* Left Content */}
+                    <div className="relative z-10 flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+                        <div className="w-12 h-12 bg-red-50 border border-red-100/80 rounded-xl flex items-center justify-center text-red-600 shadow-sm group-hover:bg-red-600 group-hover:text-white group-hover:border-red-600 transition-all duration-300 shrink-0">
+                            <MonitorPlay size={22} className="group-hover:scale-110 transition-transform duration-300" />
                         </div>
 
-                        <div className="text-center md:text-left">
-                            <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
-                                <span className="font-mono text-[10px] font-black text-blue-400 uppercase tracking-[0.3em]">Switch Engine</span>
-                                <div className="h-px w-4 bg-slate-700"></div>
+                        <div>
+                            <div className="flex items-center justify-center sm:justify-start gap-1.5 mb-1">
+                                <span className="text-[11px] font-extrabold text-red-600 uppercase tracking-wider">
+                                    Switch Tool
+                                </span>
+                                <span className="h-1 w-1 rounded-full bg-red-400" />
                             </div>
-                            <h3 className="text-xl font-black text-white uppercase italic tracking-tight">
-                                Long-Form <span className="text-blue-500">Estimator</span>
+
+                            <h3 className="text-lg font-bold text-slate-900 tracking-tight">
+                                Long-Form <span className="text-red-600">Estimator</span>
                             </h3>
-                            <p className="text-slate-400 text-xs font-medium mt-1 uppercase tracking-wider">
-                                Analyze revenue for standard 16:9 videos
+
+                            <p className="text-xs font-normal text-slate-500 mt-0.5">
+                                Analyze estimated CPM and total revenue for standard 16:9 YouTube videos.
                             </p>
                         </div>
                     </div>
 
                     {/* Action Button */}
-                    <div className="relative z-10 flex items-center gap-3 px-6 py-3 bg-white/5 rounded-2xl border border-white/10 group-hover:bg-blue-600 group-hover:border-blue-500 transition-all">
-                        <span className="font-mono text-[10px] font-black text-white uppercase tracking-widest">Let's check</span>
-                        <ArrowRight size={14} className="text-white group-hover:translate-x-1 transition-transform" />
+                    <div className="relative z-10 flex items-center gap-2 px-4 py-2.5 bg-slate-900 text-white rounded-xl text-xs font-semibold group-hover:bg-red-600 transition-colors shadow-sm shrink-0">
+                        <span>Try Estimator</span>
+                        <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform duration-200" />
                     </div>
 
-                    {/* Decorative Background Glow */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/0 via-blue-600/0 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2.5rem]"></div>
-                    <Zap size={60} className="absolute -bottom-4 -right-4 text-white/5 -rotate-12 pointer-events-none" fill="currentColor" />
+                    {/* Background Decorative Icon */}
+                    <Sparkles size={80} className="absolute -bottom-6 -right-6 text-slate-100 -rotate-12 pointer-events-none group-hover:text-red-100/50 transition-colors duration-300" />
                 </a>
-
-
             </div>
         </section>
     )
 }
 
-export default Link
+export default LongFormLink

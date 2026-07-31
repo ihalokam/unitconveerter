@@ -1,5 +1,5 @@
 import React from 'react'
-import { HelpCircle, Plus, Lightbulb, Sparkles } from 'lucide-react'
+import { HelpCircle, Plus } from 'lucide-react'
 
 export default function FAQ() {
     const faqData = [
@@ -40,11 +40,11 @@ export default function FAQ() {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <div className="inline-flex items-center gap-2 px-3 py-1 bg-slate-50 border border-slate-100 rounded-full mb-4">
-                        <HelpCircle size={14} className="text-blue-600" />
+                        <HelpCircle size={14} className="text-red-600" />
                         <span className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Knowledge Base</span>
                     </div>
                     <h2 className="text-4xl font-black tracking-tighter text-slate-900 uppercase italic">
-                        Frequently Asked <span className="text-blue-600">Questions</span>
+                        Frequently Asked <span className="text-red-600">Questions</span>
                     </h2>
                 </div>
 
@@ -53,16 +53,16 @@ export default function FAQ() {
                     {faqData.map((faq, idx) => (
                         <div
                             key={idx}
-                            className="group p-8 rounded-[2.5rem] border border-slate-100 bg-slate-50/30 hover:bg-white hover:border-blue-600 hover:shadow-2xl hover:shadow-blue-100 transition-all duration-500"
+                            className="group p-8 rounded-[2.5rem] border border-slate-100 bg-slate-50/30 hover:bg-white hover:border-red-600 hover:shadow-2xl hover:shadow-red-100 transition-all duration-500"
                         >
                             <div className="flex gap-6">
-                                <div className="shrink-0 w-8 h-8 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 font-mono text-xs font-black group-hover:border-blue-200 group-hover:text-blue-600 transition-colors">
+                                <div className="shrink-0 w-8 h-8 bg-white border border-slate-100 rounded-xl flex items-center justify-center text-slate-400 font-mono text-xs font-black group-hover:border-red-200 group-hover:text-red-600 transition-colors">
                                     {idx + 1}
                                 </div>
                                 <div className="flex-1">
                                     <h3 className="text-lg font-black text-slate-900 uppercase italic tracking-tight mb-3 flex items-center justify-between">
                                         {faq.q}
-                                        <Plus size={18} className="text-slate-300 group-hover:text-blue-600 transition-colors" />
+                                        <Plus size={18} className="text-slate-300 group-hover:text-red-600 transition-colors" />
                                     </h3>
                                     <p className="text-sm text-slate-500 font-medium leading-relaxed max-w-3xl">
                                         {faq.a}
@@ -72,7 +72,6 @@ export default function FAQ() {
                         </div>
                     ))}
                 </div>
-
 
             </div>
         </section>

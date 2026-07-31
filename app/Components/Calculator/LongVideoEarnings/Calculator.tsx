@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import type { ReactNode } from "react";
 import { TrendingUp, Globe, Layers, Clock, ChevronDown, DollarSign, Info, Zap } from "lucide-react";
 
-// ─── DATA v4 ───────────────────────────────────────────────────────────────
+// ─── DATA CONFIGURATION ────────────────────────────────────────────────────
 
 const NICHES = [
     { id: "finance", label: "Finance & Investing", group: "fin", tier: "H" },
@@ -27,8 +27,6 @@ const NICHES = [
     { id: "mixed", label: "Mixed / General", group: "sports", tier: "S" },
 ] as const;
 
-const currentYear = new Date().getFullYear();
-
 type NicheId = (typeof NICHES)[number]["id"];
 type NicheGroup = (typeof NICHES)[number]["group"];
 type NicheTier = (typeof NICHES)[number]["tier"];
@@ -39,11 +37,11 @@ const NM: Record<NicheGroup, number> = {
 };
 
 const LENGTHS = [
-    { id: "u5", label: "< 5 min", durMult: 0.40, mvr: 0.35, note: "Pre-roll only", adBreaks: "0 mid-rolls" },
-    { id: "5to8", label: "5–8 min", durMult: 0.65, mvr: 0.42, note: "Pre-roll only", adBreaks: "0 mid-rolls" },
-    { id: "8to15", label: "8–15 min", durMult: 1.00, mvr: 0.50, note: "Mid-rolls enabled", adBreaks: "1–3 mid-rolls" },
-    { id: "15to30", label: "15–30 min", durMult: 1.80, mvr: 0.55, note: "Multiple mid-rolls", adBreaks: "3–6 mid-rolls" },
-    { id: "30p", label: "30+ min", durMult: 2.80, mvr: 0.60, note: "Max mid-rolls", adBreaks: "6–12 mid-rolls" },
+    { id: "u5", label: "< 5 min", durMult: 0.40, mvr: 0.35, adBreaks: "0 mid-rolls" },
+    { id: "5to8", label: "5–8 min", durMult: 0.65, mvr: 0.42, adBreaks: "0 mid-rolls" },
+    { id: "8to15", label: "8–15 min", durMult: 1.00, mvr: 0.50, adBreaks: "1–3 mid-rolls" },
+    { id: "15to30", label: "15–30 min", durMult: 1.80, mvr: 0.55, adBreaks: "3–6 mid-rolls" },
+    { id: "30p", label: "30+ min", durMult: 2.80, mvr: 0.60, adBreaks: "6–12 mid-rolls" },
 ] as const;
 
 type LengthId = (typeof LENGTHS)[number]["id"];
@@ -86,10 +84,12 @@ const TIER_BADGE: Record<NicheTier, string> = {
     L: "bg-slate-100 text-slate-400 border-slate-200",
     S: "bg-purple-50 text-purple-500 border-purple-100",
 };
+
 const TIER_NAME: Record<NicheTier, string> = {
     H: "High CPM", M: "Mid CPM", L: "Low CPM", S: "Special",
 };
 
+// Formatter utilities
 const fv = (n: number) =>
     n >= 1e9 ? (n / 1e9).toFixed(1) + "B"
         : n >= 1e6 ? (n / 1e6).toFixed(1) + "M"
@@ -101,8 +101,6 @@ const fc = (n: number) =>
         style: "currency", currency: "USD", maximumFractionDigits: 0,
     }).format(n);
 
-// ─── Label sub-component ────────────────────────────────────────────────────
-
 interface LabelProps {
     icon: ReactNode;
     text: string;
@@ -112,7 +110,7 @@ interface LabelProps {
 function Label({ icon, text, htmlFor }: LabelProps) {
     return (
         <label htmlFor={htmlFor} className="flex items-center gap-1.5 mb-3 cursor-pointer">
-            <span className="text-blue-500">{icon}</span>
+            <span className="text-red-600">{icon}</span>
             <span className="text-[11px] font-mono font-bold uppercase tracking-[0.22em] text-slate-400">
                 {text}
             </span>
@@ -120,16 +118,25 @@ function Label({ icon, text, htmlFor }: LabelProps) {
     );
 }
 
-// ─── Main component ─────────────────────────────────────────────────────────
-
 export default function Calculator() {
     const [views, setViews] = useState(500_000);
-    const [raw, setRaw] = useState("500000");
     const [country, setCountry] = useState("IN");
     const [niche, setNiche] = useState<NicheId>("education");
     const [length, setLength] = useState<LengthId>("8to15");
     const [search, setSearch] = useState("");
     const [open, setOpen] = useState(false);
+
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        function handleClickOutside(event: MouseEvent) {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setOpen(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, []);
 
     const C = COUNTRIES.find(c => c.code === country);
     const N = NICHES.find(n => n.id === niche);
@@ -165,59 +172,49 @@ export default function Calculator() {
     const logVal = Math.log10(Math.max(views, 100));
 
     return (
-        <div className="min-h-screen bg-[#f7f8fa] font-sans">
-
-
-
+        <div className="min-h-screen bg-[#f8f9fa] font-sans">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 py-10">
-
                 <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-5">
                     <div className="space-y-4">
 
                         {/* VIEWS */}
-                        <div className="bg-white rounded-2xl border border-slate-100 p-5">
+                        <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
                             <Label htmlFor="views-input" icon={<TrendingUp size={12} />} text="Monthly Long-form Video Views" />
                             <div className="flex items-center gap-2 mb-4">
                                 <input
                                     id="views-input"
                                     type="text"
                                     inputMode="numeric"
-                                    value={
-                                        raw
-                                            ? Number(raw.replace(/,/g, "")).toLocaleString(
-                                                typeof window !== "undefined"
-                                                    ? navigator.language
-                                                    : "en-US"
-                                            )
-                                            : ""
-                                    }
+                                    value={views.toLocaleString("en-US")}
                                     onChange={(e) => {
                                         const clean = e.target.value.replace(/[^0-9]/g, "");
-                                        setRaw(clean);
-
                                         const n = parseInt(clean, 10);
-
-                                        if (!isNaN(n) && n >= 100 && n <= 1e9) {
-                                            setViews(n);
+                                        if (!isNaN(n)) {
+                                            setViews(Math.min(Math.max(n, 0), 1e9));
+                                        } else if (clean === "") {
+                                            setViews(0);
                                         }
                                     }}
-                                    placeholder="e.g. 500000"
-                                    className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xl font-black text-slate-900 tracking-tight focus:outline-none focus:border-blue-500 focus:bg-white transition-all"
+                                    placeholder="e.g. 500,000"
+                                    className="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xl font-black text-slate-900 tracking-tight focus:outline-none focus:border-red-500 focus:bg-white transition-all"
                                 />
-                                <div className="bg-blue-600 text-white rounded-xl px-4 py-2.5 font-mono font-bold text-sm min-w-[60px] text-center">
+                                <div className="bg-red-600 text-white rounded-xl px-4 py-2.5 font-mono font-bold text-sm min-w-[60px] text-center shrink-0">
                                     {fv(views)}
                                 </div>
                             </div>
                             <input
-                                type="range" min={2} max={9} step={0.01} value={logVal}
+                                type="range"
+                                min={2}
+                                max={9}
+                                step={0.01}
+                                value={logVal}
                                 onChange={e => {
                                     const v = Math.round(Math.pow(10, parseFloat(e.target.value)));
                                     setViews(v);
-                                    setRaw(String(v));
                                 }}
                                 className="w-full h-1.5 rounded-full appearance-none cursor-pointer"
                                 style={{
-                                    background: `linear-gradient(to right,#2563eb ${((logVal - 2) / 7) * 100}%,#e2e8f0 ${((logVal - 2) / 7) * 100}%)`,
+                                    background: `linear-gradient(to right, #dc2626 ${((logVal - 2) / 7) * 100}%, #e2e8f0 ${((logVal - 2) / 7) * 100}%)`,
                                 }}
                             />
                             <div className="flex justify-between mt-1.5">
@@ -228,16 +225,16 @@ export default function Calculator() {
                         </div>
 
                         {/* COUNTRY */}
-                        <div className="bg-white rounded-2xl border border-slate-100 p-5 relative">
+                        <div className="bg-white rounded-2xl border border-slate-100 p-5 relative shadow-sm" ref={dropdownRef}>
                             <Label icon={<Globe size={12} />} text="Primary Audience Country" />
                             <button
                                 type="button"
                                 onClick={() => setOpen(!open)}
-                                className="w-full flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 hover:border-blue-400 transition-colors text-left"
+                                className="w-full flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 hover:border-red-400 transition-colors text-left"
                             >
                                 <span className="text-lg">{C?.flag}</span>
                                 <span className="flex-1 text-sm font-semibold text-slate-800">{C?.name}</span>
-                                <span className={`text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded-md border ${C?.tier === 1 ? "bg-blue-50 text-blue-600 border-blue-100"
+                                <span className={`text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded-md border ${C?.tier === 1 ? "bg-red-50 text-red-600 border-red-100"
                                     : C?.tier === 2 ? "bg-amber-50 text-amber-500 border-amber-100"
                                         : "bg-slate-100 text-slate-400 border-slate-200"
                                     }`}>Tier {C?.tier}</span>
@@ -246,7 +243,7 @@ export default function Calculator() {
                             </button>
 
                             {open && (
-                                <div className="absolute z-30 left-5 right-5 mt-1 bg-white border border-slate-200 rounded-2xl shadow-xl shadow-slate-100 overflow-hidden">
+                                <div className="absolute z-30 left-5 right-5 mt-1 bg-white border border-slate-200 rounded-2xl shadow-xl overflow-hidden">
                                     <div className="p-2.5 border-b border-slate-100">
                                         <input
                                             autoFocus
@@ -254,7 +251,7 @@ export default function Calculator() {
                                             placeholder="Search country…"
                                             value={search}
                                             onChange={e => setSearch(e.target.value)}
-                                            className="w-full text-sm px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:border-blue-400"
+                                            className="w-full text-sm px-3 py-2 rounded-lg bg-slate-50 border border-slate-200 focus:outline-none focus:border-red-400"
                                         />
                                     </div>
                                     <div className="max-h-52 overflow-y-auto">
@@ -265,10 +262,10 @@ export default function Calculator() {
                                                     key={c.code}
                                                     type="button"
                                                     onClick={() => { setCountry(c.code); setOpen(false); setSearch(""); }}
-                                                    className={`w-full flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 transition-colors ${c.code === country ? "bg-blue-50" : ""}`}
+                                                    className={`w-full flex items-center gap-3 px-4 py-2.5 hover:bg-slate-50 transition-colors ${c.code === country ? "bg-red-50" : ""}`}
                                                 >
                                                     <span className="text-base">{c.flag}</span>
-                                                    <span className={`flex-1 text-sm font-medium ${c.code === country ? "text-blue-600" : "text-slate-700"}`}>
+                                                    <span className={`flex-1 text-sm font-medium ${c.code === country ? "text-red-600 font-bold" : "text-slate-700"}`}>
                                                         {c.name}
                                                     </span>
                                                     <span className="font-mono text-[9px] text-slate-400">${c.base.toFixed(1)} avg RPM</span>
@@ -280,7 +277,7 @@ export default function Calculator() {
                         </div>
 
                         {/* NICHE */}
-                        <div className="bg-white rounded-2xl border border-slate-100 p-5">
+                        <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
                             <Label icon={<Layers size={12} />} text="Channel Niche" />
                             <div className="flex flex-wrap gap-2">
                                 {NICHES.map(n => {
@@ -291,8 +288,8 @@ export default function Calculator() {
                                             type="button"
                                             onClick={() => setNiche(n.id)}
                                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-semibold border transition-all ${active
-                                                ? "bg-blue-600 text-white border-blue-600 shadow-sm shadow-blue-200"
-                                                : "bg-slate-50 text-slate-600 border-slate-200 hover:border-blue-300 hover:text-blue-600"
+                                                ? "bg-red-600 text-white border-red-600 shadow-sm shadow-red-200"
+                                                : "bg-slate-50 text-slate-600 border-slate-200 hover:border-red-300 hover:text-red-600"
                                                 }`}
                                         >
                                             {n.label}
@@ -308,7 +305,7 @@ export default function Calculator() {
                         </div>
 
                         {/* LENGTH */}
-                        <div className="bg-white rounded-2xl border border-slate-100 p-5">
+                        <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
                             <Label icon={<Clock size={12} />} text="Average Video Length" />
                             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 mb-4">
                                 {LENGTHS.map(l => {
@@ -319,8 +316,8 @@ export default function Calculator() {
                                             type="button"
                                             onClick={() => setLength(l.id)}
                                             className={`py-3 rounded-xl text-xs font-bold border transition-all flex flex-col items-center gap-0.5 ${active
-                                                ? "bg-blue-600 text-white border-blue-600 shadow-sm shadow-blue-200"
-                                                : "bg-slate-50 text-slate-600 border-slate-200 hover:border-blue-300 hover:text-blue-600"
+                                                ? "bg-red-600 text-white border-red-600 shadow-sm shadow-red-200"
+                                                : "bg-slate-50 text-slate-600 border-slate-200 hover:border-red-300 hover:text-red-600"
                                                 }`}
                                         >
                                             <span>{l.label}</span>
@@ -333,9 +330,9 @@ export default function Calculator() {
                             </div>
 
                             {/* DURATION REVENUE CHART */}
-                            <div className="bg-slate-50 rounded-xl p-4">
+                            <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
                                 <div className="flex items-center gap-1.5 mb-3">
-                                    <Zap size={11} className="text-blue-500" />
+                                    <Zap size={11} className="text-red-500" />
                                     <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400">
                                         Revenue by Duration — {C?.flag} {C?.name}, {N?.label}
                                     </span>
@@ -346,16 +343,16 @@ export default function Calculator() {
                                         const isActive = LENGTHS[i].id === length;
                                         return (
                                             <div key={d.label} className="flex items-center gap-3">
-                                                <span className={`text-[10px] font-mono w-14 shrink-0 ${isActive ? "text-blue-600 font-bold" : "text-slate-400"}`}>
+                                                <span className={`text-[10px] font-mono w-14 shrink-0 ${isActive ? "text-red-600 font-bold" : "text-slate-400"}`}>
                                                     {d.label}
                                                 </span>
                                                 <div className="flex-1 bg-slate-200 rounded-full h-2 overflow-hidden">
                                                     <div
-                                                        className={`h-2 rounded-full transition-all duration-500 ${isActive ? "bg-blue-600" : "bg-slate-300"}`}
+                                                        className={`h-2 rounded-full transition-all duration-500 ${isActive ? "bg-red-600" : "bg-slate-300"}`}
                                                         style={{ width: `${pct}%` }}
                                                     />
                                                 </div>
-                                                <span className={`text-[10px] font-mono font-bold w-16 text-right shrink-0 ${isActive ? "text-blue-600" : "text-slate-500"}`}>
+                                                <span className={`text-[10px] font-mono font-bold w-16 text-right shrink-0 ${isActive ? "text-red-600" : "text-slate-500"}`}>
                                                     {fc(d.mid)}
                                                 </span>
                                             </div>
@@ -369,34 +366,33 @@ export default function Calculator() {
                         </div>
                     </div>
 
-                    {/* ── RIGHT COLUMN ── */}
+                    {/* RIGHT COLUMN */}
                     <div className="space-y-4">
-
-                        <div className="bg-blue-600 rounded-2xl p-6 text-white">
+                        <div className="bg-gradient-to-br from-red-600 to-red-700 rounded-2xl p-6 text-white shadow-lg shadow-red-500/10">
                             <div className="flex items-center gap-1.5 mb-1">
-                                <DollarSign size={12} className="text-blue-300" />
-                                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-300">
+                                <DollarSign size={12} className="text-red-200" />
+                                <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-red-200">
                                     Monthly Estimate
                                 </span>
                             </div>
                             <div className="text-4xl font-black tracking-tighter mt-1.5">{fc(est.mid)}</div>
-                            <div className="text-sm text-blue-200 mt-0.5">{fc(est.low)} – {fc(est.high)}</div>
-                            <div className="border-t border-blue-500/60 mt-5 pt-4">
-                                <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-blue-300 mb-1">Annual</div>
+                            <div className="text-sm text-red-200 mt-0.5">{fc(est.low)} – {fc(est.high)}</div>
+                            <div className="border-t border-red-500/60 mt-5 pt-4">
+                                <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-red-200 mb-1">Annual</div>
                                 <div className="text-2xl font-black tracking-tight">{fc(est.mid * 12)}</div>
-                                <div className="text-xs text-blue-300 mt-0.5">{fc(est.low * 12)} – {fc(est.high * 12)}</div>
+                                <div className="text-xs text-red-200 mt-0.5">{fc(est.low * 12)} – {fc(est.high * 12)}</div>
                             </div>
                         </div>
 
-                        <div className="bg-white rounded-2xl border border-slate-100 p-5 divide-y divide-slate-50">
-                            {([
+                        <div className="bg-white rounded-2xl border border-slate-100 p-5 divide-y divide-slate-50 shadow-sm">
+                            {[
                                 { label: "Ad RPM (Monetized)", val: `$${est.rpm.toFixed(2)}` },
                                 { label: "Total RPM (Overall)", val: `$${((est.mid / (views / 1000)) || 0).toFixed(2)}` },
                                 { label: "Monetized Views", val: fv(est.monViews) },
                                 { label: "Country Base RPM", val: `$${C?.base.toFixed(1)}` },
                                 { label: `Niche Mult (${N?.group})`, val: `×${N ? NM[N.group].toFixed(1) : "—"}` },
                                 { label: `Duration Mult (${L?.label})`, val: `×${L?.durMult.toFixed(2)}` },
-                            ] as const).map(m => (
+                            ].map(m => (
                                 <div key={m.label} className="flex items-center justify-between py-2.5">
                                     <span className="text-xs text-slate-500">{m.label}</span>
                                     <span className="font-mono text-sm font-bold text-slate-900">{m.val}</span>
@@ -421,13 +417,13 @@ export default function Calculator() {
                             </div>
                         )}
 
-                        <div className="bg-slate-900 rounded-2xl p-5">
-                            <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-500 mb-3">Per Views</div>
+                        <div className="bg-slate-900 rounded-2xl p-5 shadow-sm">
+                            <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-slate-400 mb-3">Per Views</div>
                             <div className="grid grid-cols-3 gap-2 text-center">
                                 {([["1K", 1_000], ["100K", 100_000], ["1M", 1_000_000]] as [string, number][]).map(([lbl, m]) => (
                                     <div key={lbl} className="bg-slate-800 rounded-xl py-3">
-                                        <div className="text-sm font-black text-white">{fc((est.mid / views) * m)}</div>
-                                        <div className="text-[9px] font-mono text-slate-500 mt-0.5 uppercase">{lbl} views</div>
+                                        <div className="text-sm font-black text-white">{fc((est.mid / (views || 1)) * m)}</div>
+                                        <div className="text-[9px] font-mono text-slate-400 mt-0.5 uppercase">{lbl} views</div>
                                     </div>
                                 ))}
                             </div>
@@ -448,24 +444,24 @@ export default function Calculator() {
                         </div>
 
                         <p className="text-[10px] text-slate-400 text-center leading-relaxed">
-                            {currentYear} creator-reported data. Excludes sponsorships &amp; memberships.
+                            2026 creator-reported data. Excludes sponsorships &amp; memberships.
                         </p>
                     </div>
                 </div>
             </div>
 
             <style>{`
-                input[type=range]::-webkit-slider-thumb {
-                    appearance: none; width: 16px; height: 16px; border-radius: 50%;
-                    background: #2563eb; cursor: pointer; border: 2px solid white;
-                    box-shadow: 0 0 0 2px #2563eb;
-                }
-                input[type=range]::-moz-range-thumb {
-                    width: 16px; height: 16px; border-radius: 50%;
-                    background: #2563eb; cursor: pointer; border: 2px solid white;
-                    box-shadow: 0 0 0 2px #2563eb;
-                }
-            `}</style>
+        input[type=range]::-webkit-slider-thumb {
+          appearance: none; width: 16px; height: 16px; border-radius: 50%;
+          background: #dc2626; cursor: pointer; border: 2px solid white;
+          box-shadow: 0 0 0 2px #dc2626;
+        }
+        input[type=range]::-moz-range-thumb {
+          width: 16px; height: 16px; border-radius: 50%;
+          background: #dc2626; cursor: pointer; border: 2px solid white;
+          box-shadow: 0 0 0 2px #dc2626;
+        }
+      `}</style>
         </div>
     );
 }

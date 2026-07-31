@@ -4,8 +4,7 @@ import {
     TrendingUp,
     Globe,
     Tag,
-    Calculator as CalcIcon,
-    CheckCircle2
+    Calculator as CalcIcon
 } from 'lucide-react'
 
 function HowTo() {
@@ -14,8 +13,8 @@ function HowTo() {
             title: "Input Monthly Views",
             desc: "Enter your average monthly YouTube Shorts views into the primary input field. This scales from 1K to over 1B views for high-precision forecasting.",
             icon: <TrendingUp size={20} />,
-            color: "text-blue-600",
-            bg: "bg-blue-50"
+            color: "text-red-600",
+            bg: "bg-red-50"
         },
         {
             title: "Select Audience Geography",
@@ -28,8 +27,8 @@ function HowTo() {
             title: "Factor in Promotions",
             desc: "Toggle the 'Product Promotion' switch if your content includes brand deals or affiliate links. This applies a $0.010 bonus to your effective RPM.",
             icon: <Tag size={20} />,
-            color: "text-orange-600",
-            bg: "bg-orange-50"
+            color: "text-amber-600",
+            bg: "bg-amber-50"
         },
         {
             title: "Analyze Results",
@@ -41,20 +40,22 @@ function HowTo() {
     ]
 
     return (
-        <section className="py-24 px-6 bg-slate-50/30 border-t border-slate-100">
+        <section className="py-16 px-6 bg-slate-50/50 border-t border-slate-200/60">
             <div className="max-w-5xl mx-auto">
 
                 {/* Header Section */}
-                <div className="mb-16 text-center">
-                    <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-white border border-slate-200 rounded-full mb-6 shadow-sm">
-                        <HelpCircle size={14} className="text-blue-600" />
-                        <span className="font-mono text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">User Protocol</span>
+                <div className="mb-12 text-center">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1 bg-white border border-slate-200 rounded-full mb-4 shadow-sm">
+                        <HelpCircle size={14} className="text-red-600" />
+                        <span className="text-xs font-bold uppercase tracking-wider text-slate-500">
+                            User Protocol
+                        </span>
                     </div>
-                    <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 uppercase italic leading-none">
-                        How to use the <span className="text-blue-600">Calculator</span>
+                    <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
+                        How to use the <span className="text-red-600">Calculator</span>
                     </h2>
-                    <p className="text-slate-500 font-medium mt-4 max-w-2xl mx-auto leading-relaxed">
-                        Follow this systematic approach to forecast your YouTube Shorts revenue based on 2026 ad-sharing benchmarks.
+                    <p className="text-slate-600 text-sm sm:text-base font-normal mt-3 max-w-xl mx-auto leading-relaxed">
+                        Follow this step-by-step process to forecast your YouTube Shorts revenue based on 2026 ad-sharing benchmarks.
                     </p>
                 </div>
 
@@ -63,23 +64,27 @@ function HowTo() {
                     {steps.map((step, idx) => (
                         <div
                             key={idx}
-                            className="group p-8 bg-white border border-slate-100 rounded-[2.5rem] hover:border-blue-600 hover:shadow-2xl hover:shadow-blue-100 transition-all duration-500"
+                            className="group p-6 sm:p-7 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-red-200 hover:shadow-xl hover:shadow-red-500/5 transition-all duration-300"
                         >
-                            <div className="flex items-start gap-6">
+                            <div className="flex items-start gap-5">
                                 {/* Icon Container */}
-                                <div className={`shrink-0 w-14 h-14 ${step.bg} ${step.color} rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3`}>
+                                <div className={`shrink-0 w-12 h-12 ${step.bg} ${step.color} rounded-xl flex items-center justify-center border border-black/5 transition-transform duration-300 group-hover:scale-105`}>
                                     {step.icon}
                                 </div>
 
-                                <div className="space-y-3">
-                                    <div className="flex items-center gap-3">
-                                        <span className="font-mono text-[10px] font-black text-blue-600/40 uppercase tracking-widest">
+                                <div className="space-y-2">
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-[11px] font-extrabold text-red-600 uppercase tracking-wider">
                                             Step 0{idx + 1}
                                         </span>
-                                        <div className="h-px w-8 bg-slate-100 group-hover:w-12 group-hover:bg-blue-200 transition-all duration-500"></div>
+                                        <span className="h-0.5 w-6 bg-slate-100 group-hover:w-10 group-hover:bg-red-200 transition-all duration-300 rounded-full" />
                                     </div>
-                                    <h3 className="text-xl font-black text-slate-900 tracking-tight uppercase italic">{step.title}</h3>
-                                    <p className="text-sm text-slate-500 leading-relaxed font-medium">
+
+                                    <h3 className="text-lg font-bold text-slate-900 tracking-tight">
+                                        {step.title}
+                                    </h3>
+
+                                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
                                         {step.desc}
                                     </p>
                                 </div>
@@ -87,8 +92,6 @@ function HowTo() {
                         </div>
                     ))}
                 </div>
-
-
 
             </div>
         </section>

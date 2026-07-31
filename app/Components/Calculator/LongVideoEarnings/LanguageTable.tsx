@@ -1,5 +1,5 @@
 import React from 'react'
-import { Languages, TrendingUp, HelpCircle, Activity } from 'lucide-react'
+import { Languages, TrendingUp } from 'lucide-react'
 
 // This is a React Server Component (RSC) by default
 export default function LanguageTable() {
@@ -63,11 +63,11 @@ export default function LanguageTable() {
                 {/* Static Header Section */}
                 <div className="mb-12">
                     <div className="flex items-center gap-2 mb-4">
-                        <Languages size={16} className="text-blue-600" />
+                        <Languages size={16} className="text-red-600" />
                         <span className="font-mono text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Data Repository</span>
                     </div>
                     <h2 className="text-4xl font-black tracking-tighter text-slate-900 uppercase italic">
-                        Language and <span className="text-blue-600">youtube RPM</span>
+                        Language and <span className="text-red-600">youtube RPM</span>
                     </h2>
                 </div>
 
@@ -85,7 +85,7 @@ export default function LanguageTable() {
                             </thead>
                             <tbody className="divide-y divide-slate-50">
                                 {fullData.map((item) => (
-                                    <tr key={item.rank} className="hover:bg-slate-50/80">
+                                    <tr key={item.rank} className="hover:bg-red-50/30 transition-colors">
                                         <td className="px-8 py-4 font-mono text-xs font-black text-slate-300">
                                             {item.rank.toString().padStart(2, '0')}
                                         </td>
@@ -111,7 +111,6 @@ export default function LanguageTable() {
                         </table>
                     </div>
                 </div>
-
 
             </div>
         </section>

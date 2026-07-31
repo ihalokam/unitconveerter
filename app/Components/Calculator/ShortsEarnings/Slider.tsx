@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { Zap, DollarSign, TrendingUp } from "lucide-react";
+import { Sparkles, DollarSign, TrendingUp, Equal } from "lucide-react";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -40,24 +40,25 @@ function EarningCard({
 }) {
     return (
         <div
-            className={`relative flex flex-col gap-3 rounded-3xl border p-6 transition-all duration-300
-        hover:shadow-2xl hover:shadow-blue-100 hover:border-blue-600
-        ${highlight ? "bg-blue-600 border-blue-600" : "bg-slate-50 border-slate-100"}`}
+            className={`relative flex flex-col gap-2 rounded-2xl border p-5 transition-all duration-300 ${highlight
+                    ? "bg-slate-900 border-slate-800 text-white shadow-lg shadow-slate-900/10"
+                    : "bg-white border-slate-200 text-slate-900 shadow-sm hover:border-slate-300"
+                }`}
         >
             <span
-                className={`font-mono text-[10px] font-black uppercase tracking-[0.35em]
-          ${highlight ? "text-blue-200" : "text-slate-400"}`}
+                className={`text-[11px] font-bold uppercase tracking-wider ${highlight ? "text-red-400" : "text-slate-500"
+                    }`}
             >
                 {period}
             </span>
-            <span
-                className={`text-3xl font-black tracking-tighter
-          ${highlight ? "text-white" : "text-slate-900"}`}
-            >
+            <span className="text-2xl sm:text-3xl font-extrabold tracking-tight">
                 {fmt(value)}
             </span>
             {highlight && (
-                <Zap size={48} className="absolute -right-2 -top-2 text-white/10 rotate-12" />
+                <Sparkles
+                    size={40}
+                    className="absolute -right-2 -bottom-2 text-red-500/10 rotate-12 pointer-events-none"
+                />
             )}
         </div>
     );
@@ -94,40 +95,40 @@ function RangeSlider({
         }
         .range-${id}::-webkit-slider-thumb {
           -webkit-appearance: none;
-          width: 26px;
-          height: 26px;
+          width: 24px;
+          height: 24px;
           border-radius: 9999px;
           background: #ffffff;
-          border: 3px solid #2563eb;
-          box-shadow: 0 2px 12px rgba(37,99,235,0.22);
+          border: 3px solid #dc2626;
+          box-shadow: 0 2px 8px rgba(220,38,38,0.25);
           cursor: pointer;
           transition: transform 0.15s, box-shadow 0.15s;
         }
         .range-${id}::-webkit-slider-thumb:hover {
-          transform: scale(1.18);
-          box-shadow: 0 4px 20px rgba(37,99,235,0.32);
+          transform: scale(1.15);
+          box-shadow: 0 4px 14px rgba(220,38,38,0.35);
         }
         .range-${id}::-moz-range-thumb {
-          width: 26px;
-          height: 26px;
+          width: 24px;
+          height: 24px;
           border-radius: 9999px;
           background: #ffffff;
-          border: 3px solid #2563eb;
+          border: 3px solid #dc2626;
           cursor: pointer;
         }
       `}</style>
 
-            <div className="relative w-full flex items-center">
+            <div className="relative w-full flex items-center py-2">
                 {/* Track background */}
-                <div className="absolute inset-x-0 h-1.5 rounded-full bg-slate-200 pointer-events-none">
+                <div className="absolute inset-x-0 h-2 rounded-full bg-slate-100 pointer-events-none">
                     <div
-                        className="h-full rounded-full bg-blue-600 transition-all duration-75"
+                        className="h-full rounded-full bg-red-600 transition-all duration-75"
                         style={{ width: `${pct}%` }}
                     />
                 </div>
                 <input
                     type="range"
-                    className={`range-${id} relative w-full`}
+                    className={`range-${id} relative w-full z-10`}
                     min={min}
                     max={max}
                     step={step}
@@ -155,22 +156,20 @@ export default function Slider() {
     }, [monthlyViews, rpm]);
 
     return (
-        <div className="min-h-screen bg-white font-sans">
-
-
+        <div className="bg-slate-50/50 min-h-screen py-10 font-sans">
             {/* ── Body ── */}
-            <div className="mx-auto max-w-2xl px-6 py-10 space-y-5">
+            <div className="mx-auto max-w-2xl px-6 space-y-6">
 
                 {/* Slider 1 — Monthly Views */}
-                <div className="rounded-3xl border border-slate-100 bg-slate-50 p-6 transition-all hover:border-blue-600 hover:shadow-2xl hover:shadow-blue-100">
-                    <div className="mb-5 flex items-center justify-between">
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:border-red-200">
+                    <div className="mb-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <TrendingUp size={13} className="text-blue-600" />
-                            <span className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-slate-400">
+                            <TrendingUp size={16} className="text-red-600" />
+                            <span className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                                 Monthly Views
                             </span>
                         </div>
-                        <span className="rounded-xl bg-blue-600 px-3 py-1 font-mono text-xs font-black text-white tracking-tight">
+                        <span className="rounded-lg bg-red-50 border border-red-100 px-3 py-1 text-xs font-extrabold text-red-600">
                             {compactViews(monthlyViews)}
                         </span>
                     </div>
@@ -184,22 +183,22 @@ export default function Slider() {
                         onChange={setViewSlider}
                     />
 
-                    <div className="mt-3 flex justify-between">
-                        <span className="font-mono text-[10px] font-black text-slate-300 uppercase tracking-widest">1K</span>
-                        <span className="font-mono text-[10px] font-black text-slate-300 uppercase tracking-widest">1B</span>
+                    <div className="mt-2 flex justify-between">
+                        <span className="text-[11px] font-semibold text-slate-400">1K Views</span>
+                        <span className="text-[11px] font-semibold text-slate-400">1B Views</span>
                     </div>
                 </div>
 
                 {/* Slider 2 — RPM */}
-                <div className="rounded-3xl border border-slate-100 bg-slate-50 p-6 transition-all hover:border-blue-600 hover:shadow-2xl hover:shadow-blue-100">
-                    <div className="mb-5 flex items-center justify-between">
+                <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:border-red-200">
+                    <div className="mb-4 flex items-center justify-between">
                         <div className="flex items-center gap-2">
-                            <DollarSign size={13} className="text-blue-600" />
-                            <span className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-slate-400">
+                            <DollarSign size={16} className="text-red-600" />
+                            <span className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                                 RPM Rate
                             </span>
                         </div>
-                        <span className="rounded-xl bg-blue-600 px-3 py-1 font-mono text-xs font-black text-white tracking-tight">
+                        <span className="rounded-lg bg-red-50 border border-red-100 px-3 py-1 text-xs font-extrabold text-red-600">
                             ${rpm.toFixed(3)} / 1K
                         </span>
                     </div>
@@ -213,20 +212,20 @@ export default function Slider() {
                         onChange={setRpm}
                     />
 
-                    <div className="mt-3 flex justify-between">
-                        <span className="font-mono text-[10px] font-black text-slate-300 uppercase tracking-widest">$0.000</span>
-                        <span className="font-mono text-[10px] font-black text-slate-300 uppercase tracking-widest">$1.000</span>
+                    <div className="mt-2 flex justify-between">
+                        <span className="text-[11px] font-semibold text-slate-400">$0.000</span>
+                        <span className="text-[11px] font-semibold text-slate-400">$1.000</span>
                     </div>
                 </div>
 
-                {/* ── Earnings ── */}
+                {/* ── Earnings Cards ── */}
                 <div className="space-y-4 pt-2">
                     <div className="flex items-center gap-2">
-                        <DollarSign size={13} className="text-blue-600" />
-                        <span className="font-mono text-[10px] font-black uppercase tracking-[0.35em] text-slate-400">
-                            Estimated Earnings
+                        <Equal size={16} className="text-red-600" />
+                        <span className="text-xs font-bold text-slate-800 uppercase tracking-wider">
+                            Estimated Revenue Breakdown
                         </span>
-                        <span className="h-px flex-1 bg-slate-100" />
+                        <span className="h-px flex-1 bg-slate-200" />
                     </div>
 
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -235,25 +234,25 @@ export default function Slider() {
                         <EarningCard period="Yearly" value={earnings.yearly} />
                     </div>
 
-                    {/* Params pill row */}
-                    <div className="flex flex-wrap gap-x-6 gap-y-2 rounded-3xl border border-slate-100 bg-slate-50 px-6 py-4">
-                        <div>
-                            <span className="font-mono text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Views/mo </span>
-                            <span className="font-mono text-[10px] font-black text-slate-700">{compactViews(monthlyViews)}</span>
+                    {/* Parameters summary badge */}
+                    <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-slate-200 bg-white px-5 py-3.5 shadow-sm text-xs">
+                        <div className="flex items-center gap-2">
+                            <span className="text-slate-500 font-medium">Views/mo:</span>
+                            <span className="font-bold text-slate-900">{compactViews(monthlyViews)}</span>
                         </div>
-                        <div>
-                            <span className="font-mono text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">RPM </span>
-                            <span className="font-mono text-[10px] font-black text-slate-700">${rpm.toFixed(3)}/1K</span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-slate-500 font-medium">RPM:</span>
+                            <span className="font-bold text-slate-900">${rpm.toFixed(3)}/1K</span>
                         </div>
-                        <div>
-                            <span className="font-mono text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Monthly </span>
-                            <span className="font-mono text-[10px] font-black text-blue-600">{fmt(earnings.monthly)}</span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-slate-500 font-medium">Monthly Est:</span>
+                            <span className="font-bold text-red-600">{fmt(earnings.monthly)}</span>
                         </div>
                     </div>
                 </div>
 
-                <p className="pb-4 text-center font-mono text-[10px] uppercase tracking-[0.2em] text-slate-300">
-                    Estimates only · Drag sliders to explore scenarios
+                <p className="text-center text-xs text-slate-400">
+                    *Estimates for reference only. Actual earnings depend on audience geo, retention, and monetization policies.
                 </p>
             </div>
         </div>

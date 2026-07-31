@@ -1,5 +1,5 @@
 import React from 'react'
-import { Target, BarChart3, TrendingUp, ShieldCheck, Zap } from 'lucide-react'
+import { Target, TrendingUp, Zap } from 'lucide-react'
 
 export default function NicheTable() {
     const nicheData = [
@@ -31,11 +31,11 @@ export default function NicheTable() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
                     <div className="max-w-2xl">
                         <div className="flex items-center gap-2 mb-4">
-                            <Target size={16} className="text-blue-600" />
+                            <Target size={16} className="text-red-600" />
                             <span className="font-mono text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Niche Intelligence</span>
                         </div>
                         <h2 className="text-4xl font-black tracking-tighter text-slate-900 uppercase italic">
-                            Niches with <span className="text-blue-600">Best YT video RPM</span>
+                            Niches with <span className="text-red-600">Best YT video RPM</span>
                         </h2>
                         <p className="text-slate-500 font-medium mt-4 text-sm leading-relaxed">
                             Advertisers pay higher premiums for niches with high buyer intent.
@@ -58,7 +58,7 @@ export default function NicheTable() {
                             </thead>
                             <tbody className="divide-y divide-slate-50">
                                 {nicheData.map((item, idx) => (
-                                    <tr key={idx} className="group hover:bg-blue-50/40 transition-colors">
+                                    <tr key={idx} className="group hover:bg-red-50/30 transition-colors">
                                         <td className="px-8 py-5">
                                             <span className="font-black text-slate-900 uppercase italic tracking-tight text-sm">
                                                 {item.category}
@@ -76,9 +76,9 @@ export default function NicheTable() {
                                             </span>
                                         </td>
                                         <td className="px-8 py-5 text-right">
-                                            <span className={`px-3 py-1 rounded-full font-mono text-[9px] font-black uppercase tracking-widest ${item.status === 'Premium' ? 'bg-blue-600 text-white shadow-lg shadow-blue-200' :
-                                                item.status === 'High' ? 'bg-slate-900 text-white' :
-                                                    'bg-slate-100 text-slate-400'
+                                            <span className={`px-3 py-1 rounded-full font-mono text-[9px] font-black uppercase tracking-widest ${item.status === 'Premium' ? 'bg-red-600 text-white shadow-lg shadow-red-200' :
+                                                    item.status === 'High' ? 'bg-slate-900 text-white' :
+                                                        'bg-slate-100 text-slate-400'
                                                 }`}>
                                                 {item.status}
                                             </span>
@@ -93,7 +93,7 @@ export default function NicheTable() {
                 {/* Strategy Footer */}
                 <div className="mt-12 grid md:grid-cols-2 gap-6">
                     <div className="p-8 rounded-[2.5rem] bg-slate-900 text-white flex items-start gap-6">
-                        <div className="w-12 h-12 bg-blue-600 rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-blue-500/20">
+                        <div className="w-12 h-12 bg-red-600 rounded-2xl flex items-center justify-center shrink-0 shadow-lg shadow-red-500/20">
                             <Zap size={20} fill="currentColor" />
                         </div>
                         <div>
@@ -103,8 +103,6 @@ export default function NicheTable() {
                             </p>
                         </div>
                     </div>
-
-
                 </div>
 
             </div>

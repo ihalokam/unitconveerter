@@ -1,5 +1,5 @@
 import React from 'react'
-import { Globe, BarChart3, TrendingUp, Info } from 'lucide-react'
+import { Globe, TrendingUp, Info } from 'lucide-react'
 
 function Table() {
     const data = [
@@ -29,66 +29,70 @@ function Table() {
         <section className="py-12 px-6 bg-white">
             <div className="max-w-5xl mx-auto">
                 {/* Table Header Info */}
-                <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-4">
                     <div>
-                        <h2 className="text-3xl font-black tracking-tighter text-slate-900 uppercase italic flex items-center gap-3">
-                            <Globe className="text-blue-600" size={28} /> Global RPM <span className="text-blue-600">Benchmarks</span>
+                        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900 flex items-center gap-2.5">
+                            <Globe className="text-red-600 shrink-0" size={26} />
+                            Global RPM <span className="text-red-600">Benchmarks</span>
                         </h2>
-                        <p className="text-slate-500 text-xs font-bold uppercase tracking-widest mt-1">Shorts Ad-Revenue Index by Territory</p>
+                        <p className="text-slate-500 text-xs font-semibold uppercase tracking-wider mt-1">
+                            YouTube Shorts Ad-Revenue Index by Territory
+                        </p>
                     </div>
-                    <div className="flex items-center gap-2 px-4 py-2 bg-slate-50 border border-slate-100 rounded-2xl">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-slate-50 border border-slate-200/80 rounded-xl self-start sm:self-auto">
                         <TrendingUp size={14} className="text-emerald-500" />
-                        <span className="text-[10px] font-black uppercase tracking-tighter text-slate-400">Live Market Data 2024-2026</span>
+                        <span className="text-xs font-bold text-slate-600">Market Data 2024–2026</span>
                     </div>
                 </div>
 
-                <div className="mt-6 p-6 rounded-3xl bg-blue-50/50 border border-blue-100 flex items-start gap-4">
-                    <Info size={20} className="text-blue-600 shrink-0" />
-                    <p className="text-[10px] font-medium text-blue-700/70 leading-relaxed uppercase tracking-wider">
-                        RPM (Revenue Per Mille) indicates estimated earnings per 1,000 views.
-                        These figures are median benchmarks for <span className="font-black">YouTube Shorts</span> ad-revenue sharing and
-                        will fluctuate based on niche, viewer retention, and seasonality.
+                {/* Info Box */}
+                <div className="mb-8 p-4 sm:p-5 rounded-2xl bg-red-50/50 border border-red-100 flex items-start gap-3.5">
+                    <Info size={18} className="text-red-600 shrink-0 mt-0.5" />
+                    <p className="text-xs font-normal text-slate-700 leading-relaxed">
+                        <strong className="font-semibold text-slate-900">RPM (Revenue Per Mille)</strong> indicates estimated earnings per 1,000 views. These figures represent median benchmarks for <strong className="font-semibold text-slate-900">YouTube Shorts</strong> revenue sharing and fluctuate based on niche, retention, and seasonality.
                     </p>
                 </div>
 
                 {/* The Table Container */}
-                <div className="overflow-hidden rounded-[2rem] border border-slate-100 bg-white shadow-xl shadow-slate-200/40">
+                <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
                             <thead>
-                                <tr className="bg-slate-50/50 border-b border-slate-100">
-                                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Rank</th>
-                                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Territory</th>
-                                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-center">User Base</th>
-                                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-right text-blue-600">Median RPM</th>
-                                    <th className="px-6 py-5 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-center">Tier</th>
+                                <tr className="bg-slate-50 border-b border-slate-200">
+                                    <th className="px-5 py-4 text-[11px] font-bold uppercase tracking-wider text-slate-500">Rank</th>
+                                    <th className="px-5 py-4 text-[11px] font-bold uppercase tracking-wider text-slate-500">Territory</th>
+                                    <th className="px-5 py-4 text-[11px] font-bold uppercase tracking-wider text-slate-500 text-center">User Base</th>
+                                    <th className="px-5 py-4 text-[11px] font-bold uppercase tracking-wider text-red-600 text-right">Median RPM</th>
+                                    <th className="px-5 py-4 text-[11px] font-bold uppercase tracking-wider text-slate-500 text-center">Tier</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-slate-50">
+                            <tbody className="divide-y divide-slate-100">
                                 {data.map((item) => (
-                                    <tr key={item.rank} className="hover:bg-blue-50/30 transition-colors group">
-                                        <td className="px-6 py-4">
-                                            <span className="text-sm font-black text-slate-300 group-hover:text-blue-600 transition-colors">#{item.rank}</span>
+                                    <tr key={item.rank} className="hover:bg-slate-50/80 transition-colors group">
+                                        <td className="px-5 py-3.5">
+                                            <span className="text-xs font-bold text-slate-400 group-hover:text-slate-900 transition-colors">#{item.rank}</span>
                                         </td>
-                                        <td className="px-6 py-4">
+                                        <td className="px-5 py-3.5">
                                             <div className="flex items-center gap-3">
-                                                <span className="text-xl leading-none">{item.flag}</span>
-                                                <span className="text-sm font-bold text-slate-900 tracking-tight">{item.country}</span>
+                                                <span className="text-lg leading-none">{item.flag}</span>
+                                                <span className="text-sm font-semibold text-slate-900 tracking-tight">{item.country}</span>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 text-center">
-                                            <span className="text-xs font-black text-slate-500 bg-slate-100 px-2 py-1 rounded-lg">~{item.users}</span>
+                                        <td className="px-5 py-3.5 text-center">
+                                            <span className="text-xs font-medium text-slate-600 bg-slate-100/80 px-2.5 py-1 rounded-md">~{item.users}</span>
                                         </td>
-                                        <td className="px-6 py-4 text-right">
-                                            <span className="text-sm font-black text-slate-900 tracking-tight">${item.rpm.toFixed(3)}</span>
+                                        <td className="px-5 py-3.5 text-right">
+                                            <span className="text-sm font-extrabold text-slate-900">${item.rpm.toFixed(3)}</span>
                                         </td>
-                                        <td className="px-6 py-4 text-center">
-                                            <span className={`text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-full border ${item.rpm >= 0.12
-                                                ? 'bg-blue-50 text-blue-600 border-blue-100'
-                                                : item.rpm >= 0.04
-                                                    ? 'bg-slate-50 text-slate-600 border-slate-100'
-                                                    : 'bg-orange-50 text-orange-600 border-orange-100'
-                                                }`}>
+                                        <td className="px-5 py-3.5 text-center">
+                                            <span
+                                                className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${item.rpm >= 0.12
+                                                        ? 'bg-red-50 text-red-600 border-red-200/60'
+                                                        : item.rpm >= 0.04
+                                                            ? 'bg-slate-100 text-slate-700 border-slate-200'
+                                                            : 'bg-amber-50 text-amber-700 border-amber-200/60'
+                                                    }`}
+                                            >
                                                 {item.rpm >= 0.12 ? 'Premium' : item.rpm >= 0.04 ? 'Mid' : 'Volume'}
                                             </span>
                                         </td>
@@ -98,9 +102,6 @@ function Table() {
                         </table>
                     </div>
                 </div>
-
-
-
             </div>
         </section>
     )

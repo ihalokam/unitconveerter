@@ -1,5 +1,5 @@
 import React from 'react'
-import { Clock, Zap, Info, ChevronRight, BarChart3 } from 'lucide-react'
+import { Clock, Zap, Info, BarChart3 } from 'lucide-react'
 
 export default function VidLengthTable() {
     const lengthData = [
@@ -8,7 +8,7 @@ export default function VidLengthTable() {
             ads: "6–12 mid-rolls",
             rpm: "$8 – $15+",
             note: "Highest RPM potential; long-form podcasts, tutorials, and deep-dives.",
-            intensity: "bg-blue-600 text-white"
+            intensity: "bg-red-600 text-white"
         },
         {
             length: "15–30 min",
@@ -47,11 +47,11 @@ export default function VidLengthTable() {
                 {/* Header Section */}
                 <div className="mb-12">
                     <div className="flex items-center gap-2 mb-4">
-                        <Clock size={16} className="text-blue-600" />
+                        <Clock size={16} className="text-red-600" />
                         <span className="font-mono text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">Duration Logic</span>
                     </div>
                     <h2 className="text-4xl font-black tracking-tighter text-slate-900 uppercase italic">
-                        YT video Duration and <span className="text-blue-600">RPM</span>
+                        YT video Duration and <span className="text-red-600">RPM</span>
                     </h2>
                     <p className="text-slate-500 font-medium mt-4 text-sm max-w-2xl leading-relaxed">
                         Video length is the primary catalyst for revenue growth. Once you cross the 8-minute mark,
@@ -73,10 +73,10 @@ export default function VidLengthTable() {
                             </thead>
                             <tbody className="divide-y divide-slate-50">
                                 {lengthData.map((item, idx) => (
-                                    <tr key={idx} className="group hover:bg-blue-50/30 transition-all duration-300">
+                                    <tr key={idx} className="group hover:bg-red-50/30 transition-all duration-300">
                                         <td className="px-8 py-6">
                                             <div className="flex items-center gap-3">
-                                                <div className="w-2 h-2 rounded-full bg-blue-600 group-hover:scale-150 transition-transform"></div>
+                                                <div className="w-2 h-2 rounded-full bg-red-600 group-hover:scale-150 transition-transform"></div>
                                                 <span className="font-black text-slate-900 uppercase italic tracking-tight text-base">
                                                     {item.length}
                                                 </span>
@@ -109,20 +109,20 @@ export default function VidLengthTable() {
                 <div className="mt-8 grid md:grid-cols-2 gap-4">
                     <div className="p-8 rounded-[2.5rem] bg-white border border-slate-200 flex flex-col gap-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center">
+                            <div className="w-10 h-10 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center">
                                 <Info size={20} />
                             </div>
                             <h4 className="text-sm font-black uppercase italic text-slate-900">The 8-Minute Pivot</h4>
                         </div>
                         <p className="text-xs text-slate-500 font-medium leading-relaxed">
                             Historically, 10 minutes was the requirement. As of 2026 standards, the 8-minute mark is the critical threshold.
-                            If your video is 7:59, you lose <span className="text-blue-600 font-bold">up to 60%</span> of your potential ad inventory.
+                            If your video is 7:59, you lose <span className="text-red-600 font-bold">up to 60%</span> of your potential ad inventory.
                         </p>
                     </div>
 
                     <div className="p-8 rounded-[2.5rem] bg-slate-900 text-white flex flex-col gap-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center">
+                            <div className="w-10 h-10 bg-red-600 rounded-2xl flex items-center justify-center">
                                 <BarChart3 size={20} />
                             </div>
                             <h4 className="text-sm font-black uppercase italic text-white">Compounding Logic</h4>
