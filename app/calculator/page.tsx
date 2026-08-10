@@ -7,7 +7,8 @@ import {
     ChevronRight,
     TrendingUp,
     Layers,
-    Sparkles
+    Sparkles,
+    Calendar
 } from 'lucide-react'
 import Link from 'next/link'
 import Navbar from '../Components/Navbar'
@@ -42,7 +43,16 @@ const tools = [
         badge: "DIY & Pro",
         category: "Construction",
         color: "bg-stone-100 text-stone-700 border-stone-200"
-    }
+    },
+    {
+        title: "Age Calculator",
+        desc: "Calculate exact age in years, months, and days for any date of birth.",
+        path: "/calculator/age-calculator",
+        icon: <Calendar className="text-purple-600" size={20} fill="currentColor" />,
+        badge: "Life",
+        category: "Personal",
+        color: "bg-purple-50 text-purple-700 border-purple-200"
+    },
 ];
 
 export const metadata: Metadata = {
@@ -52,17 +62,7 @@ export const metadata: Metadata = {
         canonical: "https://standardconvert.com/calculator"
     },
     keywords: [
-        "YouTube earnings calculator",
-        "YouTube revenue estimator",
-        "YouTube shorts earnings calculator",
-        "YouTube long video earnings calculator",
-        "YouTube RPM calculator",
-        "how much does YouTube pay",
-        "concrete calculator",
-        "concrete volume estimator",
-        "bag counts for slabs",
-        "construction calculators",
-        "utility tools",
+        "calculators"
     ],
     openGraph: {
         title: "Free Utility & Growth Calculators – Standard Convert",

@@ -76,10 +76,10 @@ export default function Navbar() {
                 {/* DESKTOP NAV */}
                 <div className="hidden md:flex items-center gap-1 lg:gap-2">
                     <Link
-                        href="/unit-converter"
+                        href="/calculator/age-calculator"
                         className="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition-colors"
                     >
-                        All-in-One
+                        Age Calculator
                     </Link>
 
                     <Link
@@ -105,8 +105,8 @@ export default function Navbar() {
                         <button
                             type="button"
                             className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-colors outline-none cursor-pointer ${dropdownOpen
-                                    ? "text-blue-600 bg-slate-50"
-                                    : "text-slate-600 hover:text-blue-600 hover:bg-slate-50"
+                                ? "text-blue-600 bg-slate-50"
+                                : "text-slate-600 hover:text-blue-600 hover:bg-slate-50"
                                 }`}
                         >
                             <span>Bulk Conversion</span>
