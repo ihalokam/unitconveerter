@@ -61,8 +61,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const year = parsedDate.getFullYear();
     const dateStr = `${monthName} ${day}, ${year}`;
     return {
-        title: `Age Calculator for ${dateStr} — Exact Age & Life Stats`,
-        description: `How old are you if you were born on ${dateStr}? Find your exact age, zodiac sign, birthstone, milestones, and life progress.`,
+        title: `Age Calculator for ${dateStr} — Zodiac Sign, celebrity match, Life Stats`,
+        description: `How old are you if you were born on ${dateStr}? Age, zodiac sign, birthstone, celebrity match and more.`,
         alternates: { canonical: `/calculator/age-calculator/${slug}` },
     };
 }

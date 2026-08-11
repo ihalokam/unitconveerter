@@ -7,18 +7,18 @@ import Faq from "@/app/Components/Calculator/birthday/Faq";
 import JsonLd from "@/app/Components/Calculator/birthday/JsonLd";
 
 export const metadata: Metadata = {
-    title: "Age Calculator — Find Your Exact Age, Zodiac Sign & Life Stats",
+    title: "Age Calculator — Zodiac Sign, celebrity match, Life Stats",
     description:
         "Calculate your exact age, zodiac sign, Chinese zodiac, birthstone, lifespan progress, and famous people who share your birthday.",
     openGraph: {
-        title: "Age Calculator — Find Your Exact Age, Zodiac Sign & Life Stats",
+        title: "Age Calculator — Zodiac Sign, celebrity match, Life Stats",
         description:
             "Calculate your exact age, zodiac sign, Chinese zodiac, birthstone, lifespan progress, and famous people who share your birthday.",
         images: [],
     },
     twitter: {
         card: "summary",
-        title: "Age Calculator — Find Your Exact Age, Zodiac Sign & Life Stats",
+        title: "Age Calculator — Zodiac Sign, celebrity match, Life Stats",
         description:
             "Calculate your exact age, zodiac sign, Chinese zodiac, birthstone, lifespan progress, and famous people who share your birthday.",
         images: [],
