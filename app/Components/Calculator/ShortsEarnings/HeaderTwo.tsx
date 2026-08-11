@@ -15,9 +15,9 @@ function HeaderTwo() {
                 </div>
 
                 {/* Main Heading */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
                     Do you know your <span className="text-red-600">average views</span> and RPM?
-                </h1>
+                </h2>
 
                 {/* Supporting Copy */}
                 <p className="mt-3 text-sm md:text-base text-slate-600 font-normal leading-relaxed max-w-lg mx-auto">

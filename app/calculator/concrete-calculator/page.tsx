@@ -8,12 +8,12 @@ import Faq from "../../Components/Calculator/Cement/Faq";
 
 // 1. Define Concrete Calculator SEO Metadata
 export const metadata = {
-    title: "Concrete Calculator | Estimates, Bags & Mix Logistics",
-    description: "Calculate concrete volume in cubic yards or meters. Includes on-site sand moisture adjustments, rebar estimations, and concrete truck delivery schedules.",
-    keywords: ["concrete calculator", "cubic yard calculator", "cement mix ratio", "ready mix concrete scheduler", "construction estimators"],
+    title: "Concrete Calculator | volume, number of cement bags, slab, footing, wall (US/UK/EU)",
+    description: "concrete calculator: volume, number of cement bags, slab, footing, wall (US/UK/EU)",
+    keywords: ["concrete calculator", "concrete calculator yards", "cement calculator", "concrete calculator bags", "concrete slab calculator"],
     openGraph: {
-        title: "Concrete Calculator | Professional Job-Site Estimator",
-        description: "Accurate material breakdown recipes for structural slabs, footings, round piers, and stairs.",
+        title: "Concrete Calculator | volume, number of cement bags, slab, footing, wall (US/UK/EU)",
+        description: "concrete calculator: volume, number of cement bags, slab, footing, wall (US/UK/EU)",
         url: "https://standardconvert.com/calculator/concrete-calculator",
         type: "website",
     },

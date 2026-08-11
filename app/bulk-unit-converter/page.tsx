@@ -25,8 +25,8 @@ function page() {
     return (
         <div>
             <Navbar />
-            <Upload />
             <Glimpse />
+            <Upload />
             <Trust />
             <Pressure />
             <Length />

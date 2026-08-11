@@ -1,5 +1,5 @@
-import React from 'react'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
+
 import Navbar from '@/app/Components/Navbar'
 import Footer from '@/app/Components/Footer'
 import Hero from '@/app/Components/PDFtools/md-pdf/Hero'
@@ -8,71 +8,81 @@ import FeatureGaps from '@/app/Components/PDFtools/md-pdf/Featuregaps'
 import Faq from '@/app/Components/PDFtools/md-pdf/Faq'
 import Trust from '@/app/Components/PDFtools/md-pdf/Trust'
 
-// 1. Define Static SEO Metadata
+const pageUrl =
+    'https://standardconvert.com/pdf-tools/markdown-to-pdf'
+
 export const metadata: Metadata = {
-    title: 'Markdown to PDF Converter | md to pdf |Render Mermaid & LaTeX Natively',
-    description: 'Convert Markdown (.md) files to high-quality PDFs entirely in your browser. Seamlessly renders Mermaid diagrams, KaTeX math equations, and preserves clean page breaks.',
+    title: 'Markdown to PDF Converter | MD to PDF',
+    description:
+        'Convert Markdown to PDF online with our free MD to PDF converter. Convert .md files to PDF quickly and easily.',
+
     keywords: [
+        'md to pdf',
         'markdown to pdf',
-        'convert md to pdf',
-        'markdown mermaid to pdf',
-        'latex markdown converter',
-        'browser markdown pdf',
-        'standard convert'
+        'markdown转pdf',
+        'md转pdf',
+        'md to pdf converter',
+        'md file to pdf',
+        'md文件转pdf',
     ],
+
     alternates: {
-        canonical: 'https://standardconvert.com/pdf-tools/markdown-to-pdf',
+        canonical: pageUrl,
     },
+
     robots: {
         index: true,
         follow: true,
     },
+
     openGraph: {
-        title: 'Markdown to PDF Converter | md to pdf |Render Mermaid & LaTeX Natively',
-        description: 'Convert Markdown (.md) files to high-quality PDFs entirely in your browser. Seamlessly renders Mermaid diagrams, KaTeX math equations, and preserves clean page breaks.',
-        url: 'https://standardconvert.com/pdf-tools/markdown-to-pdf',
+        title: 'Markdown to PDF Converter | MD to PDF',
+        description:
+            'Convert Markdown files to PDF online quickly and easily with Standard Convert.',
+        url: pageUrl,
         siteName: 'Standard Convert',
         type: 'website',
-        images: [{ url: 'https://standardconvert.com/og.webp', width: 1200, height: 630, alt: 'Markdown to PDF Converter – Standard Convert' }],
-    },
-    twitter: {
-        card: 'summary_large_image',
-        title: 'Markdown to PDF Converter | md to pdf |Render Mermaid & LaTeX Natively',
-        description: 'Convert .md files to PDF in your browser. Renders Mermaid diagrams, KaTeX math, and clean page breaks. No uploads.',
-        images: ['https://standardconvert.com/og.webp'],
     },
 
+    twitter: {
+        card: 'summary_large_image',
+        title: 'Markdown to PDF Converter | MD to PDF',
+        description:
+            'Convert Markdown files to PDF online quickly and easily with Standard Convert.',
+    },
+}
+
+const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: 'Markdown to PDF Converter',
+    url: pageUrl,
+    description:
+        'Free online Markdown to PDF converter. Convert Markdown and MD files to PDF quickly and easily.',
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Any',
+    browserRequirements: 'Requires JavaScript',
+    offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD',
+    },
 }
 
 export default function Page() {
-    // 2. Structured Data (Schema.org) for WebApplication
-    const jsonLd = {
-        '@context': 'https://schema.org',
-        '@type': 'WebApplication',
-        'name': 'Markdown to PDF Converter',
-        'description': 'A free client-side tool to convert Markdown documentation into PDF files while preserving Mermaid diagrams, code fences, and LaTeX formatting.',
-        'url': 'https://standardconvert.com/pdf-tools/markdown-to-pdf',
-        'applicationCategory': 'UtilityApplication',
-        'operatingSystem': 'All',
-        'browserRequirements': 'Requires HTML5 support',
-        'offers': {
-            '@type': 'Offer',
-            'price': '0',
-            'priceCurrency': 'USD'
-        }
-    }
-
     return (
         <>
-            {/* Injecting Structured Data directly for search engine spiders */}
+            {/* Structured data for search engines */}
             <script
                 type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify(jsonLd),
+                }}
             />
 
-            {/* Semantic main wrapper around the interactive workspace */}
-            <div className="flex flex-col min-h-screen">
+            <div className="flex min-h-screen flex-col">
                 <Navbar />
+
                 <main className="flex-grow">
                     <Hero />
                     <ConverterWorkspace />
@@ -80,6 +90,7 @@ export default function Page() {
                     <FeatureGaps />
                     <Faq />
                 </main>
+
                 <Footer />
             </div>
         </>

@@ -60,8 +60,6 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-
-      <h1 className="sr-only">Free Online Unit Converter &amp; PDF Tools</h1>
       <UnitConv />
       <AboutUs />
       <UnitConverters />

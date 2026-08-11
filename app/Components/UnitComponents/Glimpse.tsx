@@ -25,9 +25,9 @@ const Glimpse = () => {
         <div className="min-h-screen bg-slate-50 p-8 font-sans text-slate-800 relative">
             {/* Header */}
             <div className="mb-12 text-center">
-                <h2 className="text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">
+                <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 md:text-5xl">
                     High-Precision Industrial Bulk Unit Conversion
-                </h2>
+                </h1>
             </div>
 
             <div className="mx-auto max-w-7xl relative">
