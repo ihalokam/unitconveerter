@@ -1,39 +1,23 @@
-import Navbar from "./Components/Navbar";
-import Footer from "./Components/Footer";
-import AboutUs from "./Components/HomeComponents/AboutUs";
-import UnitConverters from "./Components/HomeComponents/UnitConverters";
-import PdfComponent from "./Components/HomeComponents/PdfComponent";
-import Calculator from "./Components/Calculator/Calculator";
-import SeoContent from "./Components/HomeComponents/SeoContent";
-import UnitConv from "./Components/HomeComponents/UnitConv";
-
+import ToolIndex from "./Components/HomeComponents/ToolIndex";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Standard Convert – Free Unit Converter & PDF Tools",
+  title: "Standard Convert – fully client side running tools",
   description:
-    "Free online unit converter and PDF tools. Convert mass, length, temperature, volume and more. Privacy-first, 100% client-side processing with bulk CSV support.",
+    "Unit convters, PDF ttols, calculators and more... everyhting run on your computer. Privacy first",
   keywords: [
     "unit converter",
     "bulk unit converter",
     "PDF tools",
-    "image to PDF",
-    "PDF metadata remover",
-    "mass converter",
-    "length converter",
-    "temperature converter",
-    "volume converter",
-    "energy converter",
-    "free online tools",
-    "privacy-first tools",
+    "calculators"
   ],
   alternates: {
     canonical: "https://standardconvert.com",
   },
   openGraph: {
-    title: "Standard Convert – Free Unit Converter & PDF Tools",
+    title: "Standard Convert – fully client side running tools",
     description:
-      "Free online unit converter and PDF tools. Convert mass, length, temperature, volume and more. Privacy-first, 100% client-side processing with bulk CSV support.",
+      "Unit convters, PDF ttols, calculators and more... everyhting run on your computer. Privacy first",
     url: "https://standardconvert.com",
     siteName: "Standard Convert",
     type: "website",
@@ -43,31 +27,20 @@ export const metadata: Metadata = {
         url: "https://standardconvert.com/og.webp",
         width: 1200,
         height: 630,
-        alt: "Standard Convert – Free Unit Converter & PDF Tools",
+        alt: "Standard Convert – Free Online Tools",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Standard Convert – Free Unit Converter & PDF Tools",
+    title: "Standard Convert – fully client side running tools",
     description:
-      "Free online unit converter and PDF tools with privacy-first, client-side processing. Bulk CSV support included.",
-    images: ["https://standardconvert.com/og.webp"],
+      "Unit convters, PDF ttols, calculators and more... everyhting run on your computer. Privacy first",
+
   },
 };
 
 export default function Home() {
-  return (
-    <div>
-      <Navbar />
-      <UnitConv />
-      <AboutUs />
-      <UnitConverters />
-      <PdfComponent />
-      <Calculator />
-
-      <SeoContent />
-      <Footer />
-    </div>
-  );
+  return <ToolIndex />;
 }
+

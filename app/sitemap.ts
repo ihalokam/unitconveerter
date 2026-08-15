@@ -1,143 +1,53 @@
-import { MetadataRoute } from "next";
+import type { MetadataRoute } from "next";
+import { PRIORITY_PAIRS } from "./lib/unit-convert/units-data";
+
+const BASE_URL = "https://standardconvert.com";
+
+type SitemapEntry = Omit<MetadataRoute.Sitemap[number], "url"> & {
+  path: string;
+};
+
+const STATIC_PAGES: SitemapEntry[] = [
+  { path: "/", changeFrequency: "weekly", priority: 1 },
+  { path: "/unit-converter", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/bulk-unit-converter", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/calculator", changeFrequency: "weekly", priority: 0.9 },
+  { path: "/pdf-tools", changeFrequency: "weekly", priority: 0.9 },
+
+  { path: "/bulk-unit-converter/length-unit-converter-in-bulk-csv-excel-files", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/bulk-unit-converter/mass-unit-converter-in-bulk-csv-excel-files", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/bulk-unit-converter/temperature-unit-converter-in-bulk-csv-excel-files", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/bulk-unit-converter/volume-unit-converter-in-bulk-csv-excel-files", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/bulk-unit-converter/energy-unit-converter-in-bulk-csv-excel-files", changeFrequency: "monthly", priority: 0.8 },
+  { path: "/bulk-unit-converter/pressure-unit-converter-in-bulk-csv-excel-files", changeFrequency: "monthly", priority: 0.8 },
+
+  { path: "/calculator/age-calculator", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/calculator/long-youtube-video-earnings-calculator", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/calculator/youtube-shorts-earnings-calculator", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/calculator/concrete-calculator", changeFrequency: "monthly", priority: 0.85 },
+
+  { path: "/pdf-tools/image-to-pdf-converter", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/pdf-tools/markdown-to-pdf", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/pdf-tools/merge-pdfs", changeFrequency: "monthly", priority: 0.85 },
+  { path: "/pdf-tools/pdf-metadata-remover", changeFrequency: "monthly", priority: 0.85 },
+
+  { path: "/about-us", changeFrequency: "yearly", priority: 0.4 },
+  { path: "/contact-us", changeFrequency: "yearly", priority: 0.4 },
+  { path: "/privacy-policy", changeFrequency: "yearly", priority: 0.2 },
+  { path: "/terms-of-service", changeFrequency: "yearly", priority: 0.2 },
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // IMPORTANT: baseUrl must exactly match the canonical URLs declared in each page's metadata.
-  const baseUrl = "https://standardconvert.com";
-  const now = new Date();
+  const staticPages = STATIC_PAGES.map(({ path, ...metadata }) => ({
+    url: `${BASE_URL}${path}`,
+    ...metadata,
+  }));
 
-  return [
-    {
-      url: baseUrl,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/unit-converter`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/bulk-unit-converter`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
+  const conversionPages = PRIORITY_PAIRS.map(({ slug }) => ({
+    url: `${BASE_URL}/convert/${slug}`,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
+  }));
 
-    {
-      url: `${baseUrl}/bulk-unit-converter/length-unit-converter-in-bulk-csv-excel-files`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/bulk-unit-converter/mass-unit-converter-in-bulk-csv-excel-files`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/bulk-unit-converter/temperature-unit-converter-in-bulk-csv-excel-files`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/bulk-unit-converter/volume-unit-converter-in-bulk-csv-excel-files`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/bulk-unit-converter/energy-unit-converter-in-bulk-csv-excel-files`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/bulk-unit-converter/pressure-unit-converter-in-bulk-csv-excel-files`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/calculator`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/calculator/long-youtube-video-earnings-calculator`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/calculator/youtube-shorts-earnings-calculator`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/calculator/concrete-calculator`,
-      lastModified: now,
-      changeFrequency: "weekly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/about-us`,
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/contact-us`,
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.5,
-    },
-    {
-      url: `${baseUrl}/pdf-tools`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/pdf-tools/image-to-pdf-converter`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/pdf-tools/pdf-metadata-remover`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/pdf-tools/merge-pdfs`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/pdf-tools/markdown-to-pdf`,
-      lastModified: now,
-      changeFrequency: "monthly",
-      priority: 0.85,
-    },
-    {
-      url: `${baseUrl}/privacy-policy`,
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-    {
-      url: `${baseUrl}/terms-of-service`,
-      lastModified: now,
-      changeFrequency: "yearly",
-      priority: 0.3,
-    },
-  ];
+  return [...staticPages, ...conversionPages];
 }

@@ -1,253 +1,18 @@
 'use client';
 
-import { useEffect, useState, useCallback, useMemo, Suspense } from 'react';
+import { useEffect, useState, useCallback, useMemo, useRef, Suspense } from 'react';
 import { useSearchParams, usePathname } from 'next/navigation';
 import {
-    Ruler, Weight, Thermometer, Zap, Clock, Globe2,
-    Gauge, Wind, Database, Droplets, ChevronRight,
-    ArrowLeftRight, RefreshCw, TrendingUp, Square,
-    Crosshair, Battery, Waves, Cpu
+    ChevronRight, ArrowLeftRight, RefreshCw, TrendingUp,
 } from 'lucide-react';
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
-type SimpleUnit = { label: string; value: string; toBase: number };
-
-type Category = {
-    key: string;
-    label: string;
-    icon: React.ReactNode;
-    color: string;
-    aliases: string[]; // extra slugs/keywords that should route to this category
-    units: SimpleUnit[];
-    convert?: (value: number, from: string, to: string) => number;
-};
-
-// ─── Unit Data ────────────────────────────────────────────────────────────────
-
-const FALLBACK_RATES: Record<string, number> = {
-    USD: 1, EUR: 0.92, GBP: 0.79, INR: 83.1, JPY: 156.4,
-    CNY: 7.24, AUD: 1.53, CAD: 1.37, CHF: 0.91,
-    SGD: 1.35, AED: 3.67, SAR: 3.75,
-};
-
-const CATEGORIES: Category[] = [
-    {
-        key: 'length', label: 'Length', icon: <Ruler size={18} />, color: '#3b82f6',
-        aliases: ['distance', 'meters', 'feet'],
-        units: [
-            { label: 'Millimeter (mm)', value: 'mm', toBase: 0.001 },
-            { label: 'Centimeter (cm)', value: 'cm', toBase: 0.01 },
-            { label: 'Meter (m)', value: 'm', toBase: 1 },
-            { label: 'Kilometer (km)', value: 'km', toBase: 1000 },
-            { label: 'Inch (in)', value: 'in', toBase: 0.0254 },
-            { label: 'Foot (ft)', value: 'ft', toBase: 0.3048 },
-            { label: 'Yard (yd)', value: 'yd', toBase: 0.9144 },
-            { label: 'Mile (mi)', value: 'mi', toBase: 1609.344 },
-            { label: 'Nautical Mile', value: 'nmi', toBase: 1852 },
-        ],
-    },
-    {
-        key: 'mass', label: 'Mass', icon: <Weight size={18} />, color: '#8b5cf6',
-        aliases: ['weight', 'kg', 'kilogram'],
-        units: [
-            { label: 'Milligram (mg)', value: 'mg', toBase: 0.000001 },
-            { label: 'Gram (g)', value: 'g', toBase: 0.001 },
-            { label: 'Kilogram (kg)', value: 'kg', toBase: 1 },
-            { label: 'Tonne (t)', value: 'tonne', toBase: 1000 },
-            { label: 'Ounce (oz)', value: 'oz', toBase: 0.028349523125 },
-            { label: 'Pound (lb)', value: 'lb', toBase: 0.45359237 },
-            { label: 'Stone', value: 'stone', toBase: 6.35029318 },
-        ],
-    },
-    {
-        key: 'temperature', label: 'Temperature', icon: <Thermometer size={18} />, color: '#ef4444',
-        aliases: ['temp', 'celsius', 'fahrenheit'],
-        units: [
-            { label: 'Celsius (°C)', value: 'c', toBase: 1 },
-            { label: 'Fahrenheit (°F)', value: 'f', toBase: 1 },
-            { label: 'Kelvin (K)', value: 'k', toBase: 1 },
-        ],
-        convert: (v, from, to) => {
-            let c = from === 'f' ? (v - 32) * 5 / 9 : from === 'k' ? v - 273.15 : v;
-            if (to === 'f') return c * 9 / 5 + 32;
-            if (to === 'k') return c + 273.15;
-            return c;
-        },
-    },
-    {
-        key: 'area', label: 'Area', icon: <Square size={18} />, color: '#10b981',
-        aliases: ['acreage', 'square-feet', 'sqft'],
-        units: [
-            { label: 'Square Millimeter (mm²)', value: 'mm2', toBase: 0.000001 },
-            { label: 'Square Centimeter (cm²)', value: 'cm2', toBase: 0.0001 },
-            { label: 'Square Meter (m²)', value: 'm2', toBase: 1 },
-            { label: 'Square Kilometer (km²)', value: 'km2', toBase: 1000000 },
-            { label: 'Square Inch (in²)', value: 'in2', toBase: 0.00064516 },
-            { label: 'Square Foot (ft²)', value: 'ft2', toBase: 0.09290304 },
-            { label: 'Square Yard (yd²)', value: 'yd2', toBase: 0.83612736 },
-            { label: 'Square Mile (mi²)', value: 'mi2', toBase: 2589988.110336 },
-            { label: 'Acre', value: 'acre', toBase: 4046.8564224 },
-            { label: 'Hectare (ha)', value: 'hectare', toBase: 10000 },
-        ],
-    },
-    {
-        key: 'volume', label: 'Volume', icon: <Waves size={18} />, color: '#06b6d4',
-        aliases: ['liters', 'gallons'],
-        units: [
-            { label: 'Milliliter (ml)', value: 'ml', toBase: 0.001 },
-            { label: 'Liter (L)', value: 'l', toBase: 1 },
-            { label: 'Cubic Meter (m³)', value: 'm3', toBase: 1000 },
-            { label: 'Cubic Inch (in³)', value: 'in3', toBase: 0.016387064 },
-            { label: 'Cubic Foot (ft³)', value: 'ft3', toBase: 28.316846592 },
-            { label: 'Gallon (US)', value: 'gal-us', toBase: 3.785411784 },
-            { label: 'Gallon (UK)', value: 'gal-uk', toBase: 4.54609 },
-            { label: 'Fluid Ounce (US)', value: 'fl-oz', toBase: 0.0295735296 },
-        ],
-    },
-    {
-        key: 'speed', label: 'Speed', icon: <Wind size={18} />, color: '#f59e0b',
-        aliases: ['velocity', 'mph', 'kmh'],
-        units: [
-            { label: 'Meters/second (m/s)', value: 'mps', toBase: 1 },
-            { label: 'Kilometers/hour (km/h)', value: 'kmh', toBase: 0.27778 },
-            { label: 'Miles/hour (mph)', value: 'mph', toBase: 0.44704 },
-            { label: 'Knots (kn)', value: 'knot', toBase: 0.514444 },
-            { label: 'Feet/second (ft/s)', value: 'fps', toBase: 0.3048 },
-        ],
-    },
-    {
-        key: 'time', label: 'Time', icon: <Clock size={18} />, color: '#6366f1',
-        aliases: ['duration'],
-        units: [
-            { label: 'Millisecond (ms)', value: 'ms', toBase: 0.001 },
-            { label: 'Second (s)', value: 's', toBase: 1 },
-            { label: 'Minute (min)', value: 'min', toBase: 60 },
-            { label: 'Hour (hr)', value: 'hr', toBase: 3600 },
-            { label: 'Day', value: 'day', toBase: 86400 },
-            { label: 'Week', value: 'week', toBase: 604800 },
-            { label: 'Month (avg)', value: 'month', toBase: 2629800 },
-            { label: 'Year', value: 'year', toBase: 31557600 },
-        ],
-    },
-    {
-        key: 'energy', label: 'Energy', icon: <Zap size={18} />, color: '#eab308',
-        aliases: ['calories', 'joules', 'kwh-energy'],
-        units: [
-            { label: 'Joule (J)', value: 'j', toBase: 1 },
-            { label: 'Kilojoule (kJ)', value: 'kj', toBase: 1000 },
-            { label: 'Calorie (cal)', value: 'cal', toBase: 4.184 },
-            { label: 'Kilocalorie (kcal)', value: 'kcal', toBase: 4184 },
-            { label: 'Watt-hour (Wh)', value: 'wh', toBase: 3600 },
-            { label: 'Kilowatt-hour (kWh)', value: 'kwh', toBase: 3600000 },
-            { label: 'BTU', value: 'btu', toBase: 1055.06 },
-        ],
-    },
-    {
-        key: 'power', label: 'Power', icon: <Battery size={18} />, color: '#f97316',
-        aliases: ['watts', 'horsepower'],
-        units: [
-            { label: 'Watt (W)', value: 'w', toBase: 1 },
-            { label: 'Kilowatt (kW)', value: 'kw', toBase: 1000 },
-            { label: 'Megawatt (MW)', value: 'mw', toBase: 1000000 },
-            { label: 'Horsepower (hp)', value: 'hp', toBase: 745.69987 },
-            { label: 'BTU/hour', value: 'btuh', toBase: 0.29307107 },
-        ],
-    },
-    {
-        key: 'pressure', label: 'Pressure', icon: <Gauge size={18} />, color: '#84cc16',
-        aliases: ['psi', 'bar', 'atm'],
-        units: [
-            { label: 'Pascal (Pa)', value: 'pa', toBase: 1 },
-            { label: 'Kilopascal (kPa)', value: 'kpa', toBase: 1000 },
-            { label: 'Bar', value: 'bar', toBase: 100000 },
-            { label: 'PSI', value: 'psi', toBase: 6894.75729 },
-            { label: 'Atmosphere (atm)', value: 'atm', toBase: 101325 },
-            { label: 'mmHg (Torr)', value: 'mmhg', toBase: 133.322 },
-        ],
-    },
-    {
-        key: 'data', label: 'Data', icon: <Database size={18} />, color: '#ec4899',
-        aliases: ['storage', 'bytes', 'digital'],
-        units: [
-            { label: 'Bit (b)', value: 'bit', toBase: 0.125 },
-            { label: 'Byte (B)', value: 'byte', toBase: 1 },
-            { label: 'Kilobyte (KB)', value: 'kb', toBase: 1024 },
-            { label: 'Megabyte (MB)', value: 'mb', toBase: 1048576 },
-            { label: 'Gigabyte (GB)', value: 'gb', toBase: 1073741824 },
-            { label: 'Terabyte (TB)', value: 'tb', toBase: 1099511627776 },
-            { label: 'Petabyte (PB)', value: 'pb', toBase: 1125899906842624 },
-        ],
-    },
-    {
-        key: 'angle', label: 'Angle', icon: <Crosshair size={18} />, color: '#14b8a6',
-        aliases: ['degrees', 'radians'],
-        units: [
-            { label: 'Degree (°)', value: 'deg', toBase: Math.PI / 180 },
-            { label: 'Radian (rad)', value: 'rad', toBase: 1 },
-            { label: 'Gradian (grad)', value: 'grad', toBase: Math.PI / 200 },
-            { label: 'Arcminute (′)', value: 'arcmin', toBase: Math.PI / 10800 },
-            { label: 'Arcsecond (″)', value: 'arcsec', toBase: Math.PI / 648000 },
-        ],
-    },
-    {
-        key: 'fuel', label: 'Fuel', icon: <Droplets size={18} />, color: '#0ea5e9',
-        aliases: ['mpg', 'fuel-economy', 'mileage'],
-        units: [
-            { label: 'km/L', value: 'kml', toBase: 1 },
-            { label: 'mpg (US)', value: 'mpg-us', toBase: 0.425143707 },
-            { label: 'mpg (UK)', value: 'mpg-uk', toBase: 0.354006189 },
-            { label: 'L/100km', value: 'l100km', toBase: 1 },
-        ],
-        convert: (v, from, to) => {
-            const fuelCat = CATEGORIES.find(c => c.key === 'fuel')!;
-            const toKpl = (val: number, u: string) => u === 'l100km' ? (val === 0 ? Infinity : 100 / val) : val * (fuelCat.units.find(u2 => u2.value === u)?.toBase ?? 1);
-            const fromKpl = (val: number, u: string) => u === 'l100km' ? (val === 0 ? Infinity : 100 / val) : val / (fuelCat.units.find(u2 => u2.value === u)?.toBase ?? 1);
-            return fromKpl(toKpl(v, from), to);
-        },
-    },
-    {
-        key: 'currency', label: 'Currency', icon: <Globe2 size={18} />, color: '#22c55e',
-        aliases: ['money', 'exchange-rate', 'forex', 'usd', 'eur'],
-        units: Object.keys(FALLBACK_RATES).map(code => ({ label: code, value: code, toBase: 1 })),
-    },
-    {
-        key: 'cpu', label: 'Frequency', icon: <Cpu size={18} />, color: '#a855f7',
-        aliases: ['hertz', 'clock-speed'],
-        units: [
-            { label: 'Hertz (Hz)', value: 'hz', toBase: 1 },
-            { label: 'Kilohertz (kHz)', value: 'khz', toBase: 1000 },
-            { label: 'Megahertz (MHz)', value: 'mhz', toBase: 1000000 },
-            { label: 'Gigahertz (GHz)', value: 'ghz', toBase: 1000000000 },
-        ],
-    },
-];
-
-// ─── URL → Category resolution ────────────────────────────────────────────────
-// Lets a person land directly on the right converter, e.g. /?unit=pressure,
-// /?unit=pressure-converter, /pressure-converter, or /convert/psi-to-bar
-
-function slugify(s: string): string {
-    return s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-}
-
-function resolveCategoryFromSlug(raw: string | null): string | null {
-    if (!raw) return null;
-    const slug = slugify(raw.replace(/-?converter$/i, ''));
-    if (!slug) return null;
-
-    for (const cat of CATEGORIES) {
-        const candidates = [cat.key, slugify(cat.label), ...cat.aliases.map(slugify)];
-        if (candidates.includes(slug)) return cat.key;
-        // also match "psi-to-bar" style slugs by checking unit values
-        const unitValues = cat.units.map(u => slugify(u.value));
-        if (slug.includes('-to-') && slug.split('-to-').some(part => unitValues.includes(part))) {
-            return cat.key;
-        }
-    }
-    return null;
-}
-
+import {
+    CATEGORIES,
+    FALLBACK_RATES,
+    convertUnits,
+    resolveCategoryFromSlug,
+    type SimpleUnit,
+    type Category,
+} from '@/app/lib/unit-convert/units-data';
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 function formatResult(value: number): string {
@@ -259,18 +24,7 @@ function formatResult(value: number): string {
     return new Intl.NumberFormat('en-US', { maximumFractionDigits: 10 }).format(value);
 }
 
-function convertUnits(value: number, from: SimpleUnit, to: SimpleUnit, category: Category, rates: Record<string, number>, fromKey: string, toKey: string): number | null {
-    if (!Number.isFinite(value)) return null;
-    if (category.key === 'currency') {
-        const fRate = rates[fromKey], tRate = rates[toKey];
-        if (!fRate || !tRate) return null;
-        return (value / fRate) * tRate;
-    }
-    if (category.convert) return category.convert(value, fromKey, toKey);
-    return (value * from.toBase) / to.toBase;
-}
-
-// ─── Sub-components ───────────────────────────────────────────────────────────
+// ─── Sub-components (unchanged) ────────────────────────────────────────────────
 
 interface CategoryTabProps {
     category: Category;
@@ -284,7 +38,7 @@ function CategoryTab({ category, active, onClick }: CategoryTabProps) {
             onClick={onClick}
             style={active ? { borderColor: category.color, background: `${category.color}15`, color: category.color } : undefined}
             className={`flex items-center gap-2 rounded-xl border-[1.5px] px-3 py-2.5 text-[0.85rem] font-medium transition-all duration-150 whitespace-nowrap
-                ${active ? 'border-transparent font-bold' : 'border-transparent text-slate-500 hover:bg-slate-50'}`}
+                ${active ? 'border-transparent font-bold' : 'border-transparent text-stone-500 hover:bg-stone-50'}`}
         >
             <span style={{ color: active ? category.color : '#94a3b8' }} className="shrink-0">
                 {category.icon}
@@ -357,8 +111,6 @@ function ResultDisplay({ result, toUnit, fromValue, fromUnit, accentColor }: Res
     );
 }
 
-// ─── All Units Table ──────────────────────────────────────────────────────────
-
 interface AllUnitsTableProps {
     category: Category;
     inputValue: number;
@@ -381,7 +133,7 @@ function AllUnitsTable({ category, inputValue, fromUnit, rates, fromKey }: AllUn
                     const result = convertUnits(inputValue, fromUnit, unit, category, rates, fromKey, unit.value);
                     if (result === null) return null;
                     return (
-                        <div key={unit.value} className="flex items-center justify-between gap-2 rounded-xl border border-slate-100 bg-slate-50 px-4 py-3">
+                        <div key={unit.value} className="flex items-center justify-between gap-2 rounded-xl border border-stone-100 bg-stone-50 px-4 py-3">
                             <span className="text-[0.82rem] font-medium text-slate-500">{unit.label}</span>
                             <span className="font-mono text-sm font-bold text-slate-800">
                                 {formatResult(result)}
@@ -396,20 +148,45 @@ function AllUnitsTable({ category, inputValue, fromUnit, rates, fromKey }: AllUn
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
-function TotalConvInner() {
+interface TotalConvProps {
+    // Optional server-resolved starting point (e.g. from /convert/lbs-to-kg).
+    // When provided, these win over URL-param guessing and skip the default
+    // length/m/ft state entirely, so the SSR'd HTML already matches intent.
+    initialCategoryKey?: string;
+    initialFromKey?: string;
+    initialToKey?: string;
+}
+
+function TotalConvInner({ initialCategoryKey, initialFromKey, initialToKey }: TotalConvProps) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
 
-    const initialCatKey = useMemo(() => {
+    const resolvedInitialCatKey = useMemo(() => {
+        if (initialCategoryKey && CATEGORIES.some(c => c.key === initialCategoryKey)) return initialCategoryKey;
         const fromQuery = searchParams.get('unit') ?? searchParams.get('category') ?? searchParams.get('type');
         const fromPath = pathname?.split('/').filter(Boolean).pop() ?? null;
         return resolveCategoryFromSlug(fromQuery) ?? resolveCategoryFromSlug(fromPath) ?? 'length';
-    }, [searchParams, pathname]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // only ever computed once — later category changes go through the tab click handler
 
-    const [activeCatKey, setActiveCatKey] = useState(initialCatKey);
+    const [activeCatKey, setActiveCatKey] = useState(resolvedInitialCatKey);
     const [inputValue, setInputValue] = useState('1');
-    const [fromKey, setFromKey] = useState('m');
-    const [toKey, setToKey] = useState('ft');
+
+    const initialCategory = useMemo(
+        () => CATEGORIES.find(c => c.key === resolvedInitialCatKey) ?? CATEGORIES[0],
+        [resolvedInitialCatKey]
+    );
+    const [fromKey, setFromKey] = useState(
+        () => (initialFromKey && initialCategory.units.some(u => u.value === initialFromKey))
+            ? initialFromKey
+            : initialCategory.units[0].value
+    );
+    const [toKey, setToKey] = useState(
+        () => (initialToKey && initialCategory.units.some(u => u.value === initialToKey))
+            ? initialToKey
+            : (initialCategory.units[1] ?? initialCategory.units[0]).value
+    );
+
     const [rates, setRates] = useState(FALLBACK_RATES);
     const [rateStatus, setRateStatus] = useState<'idle' | 'loading' | 'live' | 'error'>('idle');
     const [rateDate, setRateDate] = useState('');
@@ -447,10 +224,16 @@ function TotalConvInner() {
 
     useEffect(() => { void fetchRates(); }, [fetchRates]);
 
-    // Re-sync if the URL changes (e.g. person clicks a different "X converter" link)
-    useEffect(() => { setActiveCatKey(initialCatKey); }, [initialCatKey]);
-
+    // Only reset from/to units when the person actively switches a category
+    // tab — not on first mount, so a server-provided initial pair (or a
+    // deep-linked category) survives instead of being clobbered back to
+    // the category's first two units.
+    const didMount = useRef(false);
     useEffect(() => {
+        if (!didMount.current) {
+            didMount.current = true;
+            return;
+        }
         setFromKey(category.units[0].value);
         setToKey((category.units[1] ?? category.units[0]).value);
         setShowAllUnits(false);
@@ -459,7 +242,7 @@ function TotalConvInner() {
     const handleSwap = () => { setFromKey(toKey); setToKey(fromKey); };
 
     return (
-        <div className="min-h-screen font-sans text-slate-800" style={{ background: 'linear-gradient(160deg, #f0f9ff 0%, #fafafa 40%, #fff7ed 100%)' }}>
+        <div className="min-h-screen font-sans text-stone-800 bg-[#faf9f7]">
             <div className="mx-auto max-w-[1100px] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 lg:py-12">
 
                 {/* ── Header ── */}
@@ -505,7 +288,7 @@ function TotalConvInner() {
                     </div>
                 </header>
 
-                {/* ── Category Grid (wraps — no horizontal scroll, every category visible) ── */}
+                {/* ── Category Grid ── */}
                 <div className="mb-7 grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7">
                     {CATEGORIES.map(cat => (
                         <CategoryTab
@@ -522,7 +305,6 @@ function TotalConvInner() {
                     <div className="h-[3px]" style={{ background: `linear-gradient(90deg, ${category.color}, ${category.color}60)` }} />
 
                     <div className="p-5 sm:p-7 lg:p-9">
-                        {/* ── Input Row ── */}
                         <div className="mb-6">
                             <label className="mb-2 block text-xs font-bold uppercase tracking-wider text-slate-400">
                                 Value
@@ -540,7 +322,6 @@ function TotalConvInner() {
                             />
                         </div>
 
-                        {/* ── From / Swap / To ── */}
                         <div className="mb-6 flex flex-wrap items-end gap-3">
                             <SelectField label="From" value={fromKey} units={category.units} onChange={setFromKey} accentColor={category.color} />
 
@@ -556,7 +337,6 @@ function TotalConvInner() {
                             <SelectField label="To" value={toKey} units={category.units} onChange={setToKey} accentColor={category.color} />
                         </div>
 
-                        {/* ── Result ── */}
                         <ResultDisplay
                             result={result}
                             toUnit={toUnit}
@@ -565,7 +345,6 @@ function TotalConvInner() {
                             accentColor={category.color}
                         />
 
-                        {/* ── All units toggle ── */}
                         {numericValue !== null && numericValue !== 0 && category.units.length > 2 && (
                             <div className="mt-5">
                                 <button
@@ -600,9 +379,9 @@ function TotalConvInner() {
                         { label: 'Units in this category', value: `${category.units.length}` },
                         { label: 'Total unit types', value: `${CATEGORIES.reduce((s, c) => s + c.units.length, 0)}+` },
                     ].map(item => (
-                        <div key={item.label} className="flex items-center justify-between rounded-2xl border border-slate-100 bg-white px-5 py-4">
-                            <span className="text-[0.82rem] font-semibold text-slate-400">{item.label}</span>
-                            <span className="text-lg font-extrabold text-slate-900">{item.value}</span>
+                        <div key={item.label} className="flex items-center justify-between rounded-2xl border border-stone-200 bg-white px-5 py-4">
+                            <span className="text-[0.82rem] font-semibold text-stone-400">{item.label}</span>
+                            <span className="text-lg font-extrabold text-stone-900">{item.value}</span>
                         </div>
                     ))}
                 </div>
@@ -612,10 +391,10 @@ function TotalConvInner() {
     );
 }
 
-export default function TotalConv() {
+export default function TotalConv(props: TotalConvProps) {
     return (
         <Suspense fallback={null}>
-            <TotalConvInner />
+            <TotalConvInner {...props} />
         </Suspense>
     );
 }

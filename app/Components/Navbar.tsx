@@ -1,213 +1,172 @@
 "use client";
 
-import React, { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import {
-    ChevronDown,
-    Menu,
-    X,
-    Zap,
-    Ruler,
-    Weight,
-    Thermometer,
-    Droplets,
-    Gauge,
-    FileText,
-} from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
+import { TOOL_REGISTRY } from "./HomeComponents/toolsData";
+
+// Top-level nav items (non-dropdown)
+const TOP_LINKS = [
+    { label: "Unit Converter", href: "/unit-converter" },
+];
 
 export default function Navbar() {
-    const [menuOpen, setMenuOpen] = useState(false);
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
+    const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+    const navRef = useRef<HTMLDivElement>(null);
 
-    const bulkLinks = [
-        {
-            name: "Pressure",
-            href: "/bulk-unit-converter/pressure-unit-converter-in-bulk-csv-excel-files",
-            icon: <Gauge className="w-4 h-4" />,
-        },
-        {
-            name: "Length & Distance",
-            href: "/bulk-unit-converter/length-unit-converter-in-bulk-csv-excel-files",
-            icon: <Ruler className="w-4 h-4" />,
-        },
-        {
-            name: "Mass & Weight",
-            href: "/bulk-unit-converter/mass-unit-converter-in-bulk-csv-excel-files",
-            icon: <Weight className="w-4 h-4" />,
-        },
-        {
-            name: "Temperature",
-            href: "/bulk-unit-converter/temperature-unit-converter-in-bulk-csv-excel-files",
-            icon: <Thermometer className="w-4 h-4" />,
-        },
-        {
-            name: "Volume",
-            href: "/bulk-unit-converter/volume-unit-converter-in-bulk-csv-excel-files",
-            icon: <Droplets className="w-4 h-4" />,
-        },
-        {
-            name: "Energy & Power",
-            href: "/bulk-unit-converter/energy-unit-converter-in-bulk-csv-excel-files",
-            icon: <Zap className="w-4 h-4" />,
-        },
-    ];
+    // Close dropdown on outside click
+    useEffect(() => {
+        function handle(e: MouseEvent) {
+            if (navRef.current && !navRef.current.contains(e.target as Node)) {
+                setActiveDropdown(null);
+            }
+        }
+        document.addEventListener("mousedown", handle);
+        return () => document.removeEventListener("mousedown", handle);
+    }, []);
 
     return (
-        <nav className="sticky top-0 z-50 w-full border-b border-slate-200/80 bg-white/90 backdrop-blur-md transition-all">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-                {/* LOGO SECTION */}
-                <Link href="/" className="flex items-center gap-2.5 group focus:outline-none">
-                    <div className="relative w-9 h-9 overflow-hidden rounded-xl border border-slate-200 bg-slate-50 group-hover:border-blue-500 group-hover:shadow-sm transition-all duration-200">
-                        <Image
-                            src="/logo.webp"
-                            alt="Standard Convert Logo"
-                            fill
-                            sizes="36px"
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            priority={true}
-                        />
+        <nav
+            ref={navRef}
+            className="sticky top-0 z-50 w-full bg-white/95 backdrop-blur-sm border-b border-stone-200"
+        >
+            <div className="max-w-6xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
+                {/* Logo */}
+                <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
+                    <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-stone-200 bg-stone-50 group-hover:border-amber-400 transition-colors">
+                        <Image src="/logo.webp" alt="Standard Convert" fill sizes="32px" className="object-cover" priority />
                     </div>
-                    <span className="text-lg font-bold tracking-tight text-slate-900 font-mono">
-                        STANDARD<span className="text-blue-600 font-extrabold">CONVERT</span>
+                    <span className="text-sm font-bold tracking-tight text-stone-900 font-mono hidden sm:block">
+                        STANDARD<span className="text-amber-500">CONVERT</span>
                     </span>
                 </Link>
 
-                {/* DESKTOP NAV */}
-                <div className="hidden md:flex items-center gap-1 lg:gap-2">
-                    <Link
-                        href="/calculator/age-calculator"
-                        className="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition-colors"
-                    >
-                        Age Calculator
-                    </Link>
-
-                    <Link
-                        href="/pdf-tools"
-                        className="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition-colors"
-                    >
-                        PDF Tools
-                    </Link>
-
-                    <Link
-                        href="/calculator"
-                        className="px-3 py-2 rounded-lg text-sm font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 transition-colors"
-                    >
-                        Calculators
-                    </Link>
-
-                    {/* DROPDOWN CONTAINER */}
-                    <div
-                        className="relative"
-                        onMouseEnter={() => setDropdownOpen(true)}
-                        onMouseLeave={() => setDropdownOpen(false)}
-                    >
-                        <button
-                            type="button"
-                            className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-semibold transition-colors outline-none cursor-pointer ${dropdownOpen
-                                ? "text-blue-600 bg-slate-50"
-                                : "text-slate-600 hover:text-blue-600 hover:bg-slate-50"
-                                }`}
+                {/* Desktop nav */}
+                <div className="hidden md:flex items-center gap-0.5 flex-1 justify-center">
+                    {/* Static links */}
+                    {TOP_LINKS.map((l) => (
+                        <Link
+                            key={l.href}
+                            href={l.href}
+                            className="px-3.5 py-1.5 rounded-lg text-sm font-medium text-stone-600 hover:text-amber-700 hover:bg-amber-50 transition-colors"
                         >
-                            <span>Bulk Conversion</span>
-                            <ChevronDown
-                                size={14}
-                                className={`transition-transform duration-200 ${dropdownOpen ? "rotate-180 text-blue-600" : "text-slate-400"
-                                    }`}
-                            />
-                        </button>
+                            {l.label}
+                        </Link>
+                    ))}
 
-                        {/* DROPDOWN MENU */}
-                        {dropdownOpen && (
-                            <div className="absolute right-0 top-full pt-1.5 w-72 z-50">
-                                <div className="bg-white border border-slate-200/90 rounded-2xl shadow-xl shadow-slate-200/50 p-2 animate-in fade-in zoom-in-95 duration-150">
-                                    <div className="px-3 py-1.5 mb-1">
-                                        <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
-                                            Bulk Conversion Tools
+                    {/* Dynamic dropdowns from TOOL_REGISTRY */}
+                    {TOOL_REGISTRY.map((cat) => (
+                        <div key={cat.id} className="relative">
+                            <button
+                                type="button"
+                                onMouseEnter={() => setActiveDropdown(cat.id)}
+                                onMouseLeave={() => setActiveDropdown(null)}
+                                onClick={() => setActiveDropdown(activeDropdown === cat.id ? null : cat.id)}
+                                className={`flex items-center gap-1 px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${activeDropdown === cat.id
+                                        ? "text-amber-700 bg-amber-50"
+                                        : "text-stone-600 hover:text-amber-700 hover:bg-amber-50"
+                                    }`}
+                            >
+                                <span className="text-sm" aria-hidden>{cat.icon}</span>
+                                {cat.label}
+                                <ChevronDown
+                                    size={13}
+                                    className={`transition-transform duration-200 ${activeDropdown === cat.id ? "rotate-180 text-amber-500" : "text-stone-400"}`}
+                                />
+                            </button>
+
+                            {/* Dropdown panel */}
+                            {activeDropdown === cat.id && (
+                                <div
+                                    className="absolute top-full left-0 pt-2 w-64 z-50"
+                                    onMouseEnter={() => setActiveDropdown(cat.id)}
+                                    onMouseLeave={() => setActiveDropdown(null)}
+                                >
+                                    <div className="bg-white border border-stone-200 rounded-2xl shadow-xl shadow-stone-100 py-2 overflow-hidden">
+                                        <p className="px-4 pt-1 pb-2 text-[10px] font-bold uppercase tracking-widest text-stone-400">
+                                            {cat.label}
                                         </p>
+                                        {cat.tools.map((tool) => (
+                                            <Link
+                                                key={tool.href}
+                                                href={tool.href}
+                                                onClick={() => setActiveDropdown(null)}
+                                                className="flex items-center justify-between px-4 py-2 hover:bg-amber-50 group transition-colors"
+                                            >
+                                                <span className="text-sm text-stone-700 group-hover:text-amber-700 font-medium">
+                                                    {tool.name}
+                                                </span>
+                                                {tool.badge && (
+                                                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-amber-50 text-amber-600 border border-amber-200 group-hover:bg-white">
+                                                        {tool.badge}
+                                                    </span>
+                                                )}
+                                            </Link>
+                                        ))}
                                     </div>
-                                    {bulkLinks.map((link) => (
-                                        <Link
-                                            key={link.href}
-                                            href={link.href}
-                                            prefetch={false}
-                                            onClick={() => setDropdownOpen(false)}
-                                            className="flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 rounded-xl transition-all duration-150 group"
-                                        >
-                                            <div className="p-2 rounded-lg bg-slate-100 text-slate-500 group-hover:bg-blue-50 group-hover:text-blue-600 transition-colors">
-                                                {link.icon}
-                                            </div>
-                                            <span className="text-sm font-medium text-slate-700 group-hover:text-blue-600">
-                                                {link.name}
-                                            </span>
-                                        </Link>
-                                    ))}
                                 </div>
-                            </div>
-                        )}
-                    </div>
+                            )}
+                        </div>
+                    ))}
                 </div>
 
-                {/* MOBILE BUTTON */}
+                {/* CTA */}
+                <Link
+                    href="/unit-converter"
+                    className="hidden md:inline-flex items-center gap-1.5 shrink-0 text-xs font-bold px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-white transition-colors shadow-sm shadow-amber-300/40"
+                >
+                    Try Now
+                </Link>
+
+                {/* Mobile toggle */}
                 <button
-                    className="md:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100/80 rounded-xl transition"
-                    onClick={() => setMenuOpen((prev) => !prev)}
+                    className="md:hidden p-2 text-stone-600 hover:text-stone-900 hover:bg-stone-100 rounded-lg transition"
+                    onClick={() => setMobileOpen((p) => !p)}
                     aria-label="Toggle menu"
                 >
-                    {menuOpen ? <X size={22} /> : <Menu size={22} />}
+                    {mobileOpen ? <X size={20} /> : <Menu size={20} />}
                 </button>
             </div>
 
-            {/* MOBILE MENU */}
-            {menuOpen && (
-                <div className="md:hidden bg-white border-t border-slate-100 px-4 py-5 space-y-4 shadow-lg animate-in slide-in-from-top-2 duration-200">
-                    <div className="space-y-1">
-                        <Link
-                            href="/unit-converter"
-                            className="block px-3 py-2.5 rounded-xl font-semibold text-slate-800 hover:bg-slate-50 hover:text-blue-600 transition"
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            All in One Converter
-                        </Link>
-
-                        <Link
-                            href="/pdf-tools"
-                            className="block px-3 py-2.5 rounded-xl font-semibold text-slate-800 hover:bg-slate-50 hover:text-blue-600 transition"
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            PDF Tools
-                        </Link>
-
-                        <Link
-                            href="/calculator"
-                            className="block px-3 py-2.5 rounded-xl font-semibold text-slate-800 hover:bg-slate-50 hover:text-blue-600 transition"
-                            onClick={() => setMenuOpen(false)}
-                        >
-                            Creator Calculators
-                        </Link>
+            {/* Mobile menu */}
+            {mobileOpen && (
+                <div className="md:hidden border-t border-stone-100 bg-white divide-y divide-stone-100">
+                    {/* Static links */}
+                    <div className="px-4 py-3 space-y-1">
+                        {TOP_LINKS.map((l) => (
+                            <Link
+                                key={l.href}
+                                href={l.href}
+                                onClick={() => setMobileOpen(false)}
+                                className="block px-3 py-2 rounded-lg text-sm font-semibold text-stone-700 hover:bg-amber-50 hover:text-amber-700 transition-colors"
+                            >
+                                {l.label}
+                            </Link>
+                        ))}
                     </div>
 
-                    <div className="pt-3 border-t border-slate-100 space-y-2">
-                        <p className="px-3 text-xs font-bold text-slate-400 uppercase tracking-wider">
-                            Bulk Tools
-                        </p>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 pt-1">
-                            {bulkLinks.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    onClick={() => setMenuOpen(false)}
-                                    className="flex items-center gap-3 p-2.5 bg-slate-50/80 hover:bg-blue-50/80 rounded-xl text-slate-700 hover:text-blue-600 transition group"
-                                >
-                                    <div className="p-1.5 rounded-lg bg-white text-slate-500 shadow-sm group-hover:text-blue-600">
-                                        {link.icon}
-                                    </div>
-                                    <span className="text-sm font-semibold">{link.name}</span>
-                                </Link>
-                            ))}
+                    {/* Tool categories */}
+                    {TOOL_REGISTRY.map((cat) => (
+                        <div key={cat.id} className="px-4 py-3">
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-2 px-3">
+                                {cat.icon} {cat.label}
+                            </p>
+                            <div className="grid grid-cols-2 gap-1">
+                                {cat.tools.map((tool) => (
+                                    <Link
+                                        key={tool.href}
+                                        href={tool.href}
+                                        onClick={() => setMobileOpen(false)}
+                                        className="block px-3 py-2 rounded-lg text-xs font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-colors truncate"
+                                    >
+                                        {tool.name}
+                                    </Link>
+                                ))}
+                            </div>
                         </div>
-                    </div>
+                    ))}
                 </div>
             )}
         </nav>
