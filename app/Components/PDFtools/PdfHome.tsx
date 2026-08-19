@@ -101,8 +101,8 @@ function PdfHome() {
 
                                             {/* Badge */}
                                             <div className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold border ${isActiveBadge
-                                                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80'
-                                                    : 'bg-blue-50 text-blue-700 border-blue-200/80'
+                                                ? 'bg-emerald-50 text-emerald-700 border-emerald-200/80'
+                                                : 'bg-blue-50 text-blue-700 border-blue-200/80'
                                                 }`}>
                                                 {isActiveBadge ? <Zap size={11} className="fill-current" /> : <Cpu size={11} className="fill-current" />}
                                                 {tool.badge.text}
