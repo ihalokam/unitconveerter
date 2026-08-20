@@ -5,6 +5,7 @@ import Calculator from "@/app/Components/Calculator/birthday/Calculator";
 import HowWeCalculate from "@/app/Components/Calculator/birthday/HowWeCalculate";
 import Faq from "@/app/Components/Calculator/birthday/Faq";
 import JsonLd from "@/app/Components/Calculator/birthday/JsonLd";
+import Link from "@/app/Components/Calculator/birthday/Link";
 
 export const metadata: Metadata = {
     title: "Age Calculator — Zodiac Sign, celebrity match, Life Stats",
@@ -34,7 +35,9 @@ export default function AgeCalculatorPage() {
                     <Calculator />
                     <div className="border-t border-stone-100">
                         <HowWeCalculate />
+                        <Link />
                         <Faq />
+
                     </div>
                 </AgeProvider>
             </Suspense>

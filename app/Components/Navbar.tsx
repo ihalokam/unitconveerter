@@ -65,8 +65,8 @@ export default function Navbar() {
                                 onMouseLeave={() => setActiveDropdown(null)}
                                 onClick={() => setActiveDropdown(activeDropdown === cat.id ? null : cat.id)}
                                 className={`flex items-center gap-1 px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors cursor-pointer ${activeDropdown === cat.id
-                                        ? "text-amber-700 bg-amber-50"
-                                        : "text-stone-600 hover:text-amber-700 hover:bg-amber-50"
+                                    ? "text-amber-700 bg-amber-50"
+                                    : "text-stone-600 hover:text-amber-700 hover:bg-amber-50"
                                     }`}
                             >
                                 <span className="text-sm" aria-hidden>{cat.icon}</span>
@@ -117,7 +117,7 @@ export default function Navbar() {
                     href="/unit-converter"
                     className="hidden md:inline-flex items-center gap-1.5 shrink-0 text-xs font-bold px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-white transition-colors shadow-sm shadow-amber-300/40"
                 >
-                    Try Now
+                    Convert any Unit
                 </Link>
 
                 {/* Mobile toggle */}
